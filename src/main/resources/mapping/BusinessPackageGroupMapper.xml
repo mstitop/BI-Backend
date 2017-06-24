@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.dbsi.dao.BusinessPackageGroupMapper" >
+  <resultMap id="detailResultMap" type="cn.edu.dbsi.model.BusinessPackageGroup" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="CHAR" />
+    <collection property="packages" ofType="cn.edu.dbsi.model.BusinessPackage">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+    </collection>
+  </resultMap>
+    <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.BusinessPackageGroup" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="isdelete" property="isdelete" jdbcType="CHAR" />
+    </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, isdelete
+  </sql>
+  <select id="selectAllBusinessGroup" resultMap="detailResultMap" parameterType="java.util.List">
+    select 
+      bg.id,
+      bg.name,
+      bp.id,
+      bp.name
+    from
+      businesspackage_group bg
+      LEFT JOIN businesspackage bp ON bg.id = bp.groupid
+    WHERE bg.id = 1
+  </select>
+    <select id="selectPrimaryKeys" resultMap="BaseResultMap">
+        SELECT
+          id
+        FROM
+          businesspackage_group
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from businesspackage_group
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.dbsi.model.BusinessPackageGroup" >
+    insert into businesspackage_group (id, name, isdelete
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{isdelete,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.BusinessPackageGroup" >
+    insert into businesspackage_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.BusinessPackageGroup" >
+    update businesspackage_group
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.BusinessPackageGroup" >
+    update businesspackage_group
+    set name = #{name,jdbcType=VARCHAR},
+      isdelete = #{isdelete,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

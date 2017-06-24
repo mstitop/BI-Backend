@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.dbsi.dao.DbconnInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.DbconnInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="jdbcname" property="jdbcname" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, url, category, username, password, jdbcname, isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dbconninfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from dbconninfo
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dbconninfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.dbsi.model.DbconnInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into dbconninfo (id, name, url, 
+      category, username, password, 
+      jdbcname, isdelete)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{jdbcname,jdbcType=VARCHAR}, #{isdelete,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSeveral" parameterType="cn.edu.dbsi.model.DbconnInfo" >
+      <foreach collection="record" item="item" index="index" separator=";">
+        insert into dbconninfo (id, name, url,
+        category, username, password,
+        jdbcname, isdelete)
+        values (#{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR},
+        #{item.category,jdbcType=VARCHAR}, #{item.username,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR},
+        #{item.jdbcname,jdbcType=VARCHAR}, #{item.isdelete,jdbcType=CHAR})
+      </foreach>
+    </insert>
+  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.DbconnInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into dbconninfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="jdbcname != null" >
+        jdbcname,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcname != null" >
+        #{jdbcname,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.DbconnInfo" >
+    update dbconninfo
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcname != null" >
+        jdbcname = #{jdbcname,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.DbconnInfo" >
+    update dbconninfo
+    set name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      jdbcname = #{jdbcname,jdbcType=VARCHAR},
+      isdelete = #{isdelete,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateIsDeleteByPrimaryKey" parameterType="cn.edu.dbsi.model.DbconnInfo" >
+        update dbconninfo
+        set isdelete = "1"
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
