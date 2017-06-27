@@ -53,6 +53,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- 用于生成和解析xml文件 -->
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+      <version>2.0.6</version>
+    </dependency>
+
+
     <!-- spring核心包 -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -135,6 +143,12 @@
       <version>5.1.30</version>
     </dependency>
 
+    <!-- oracle数据库连接-->
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.2.0.3</version>
+    </dependency>
 
     <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
     <dependency>
@@ -161,11 +175,18 @@
     </dependency>
 
     <!-- 格式化对象，方便输出日志 -->
-    <dependency>
+    <!--<dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>1.1.41</version>
+    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
     </dependency>
+
 
     <dependency>
       <groupId>org.slf4j</groupId>

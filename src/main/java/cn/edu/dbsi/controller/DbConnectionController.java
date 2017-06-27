@@ -2,6 +2,7 @@ package cn.edu.dbsi.controller;
 
 import cn.edu.dbsi.model.DbconnInfo;
 import cn.edu.dbsi.service.DbConnectionServiceI;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,85 +21,112 @@ public class DbConnectionController {
     @Autowired
     private DbConnectionServiceI dbConnectionServiceI;
 
+
     /**
      * 获取数据库连接信息
+     *
      * @param token 用于验证是否为可靠用户
      * @return
      */
-    @RequestMapping(value = "/dsConns",method = RequestMethod.GET)
+    @RequestMapping(value = "/dsConns", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> getDbConnInfo(@PathVariable("token") Integer token){
-        Map<String,Object> map = new HashMap<String, Object>();
-        if(token!=null&&token==1){
-            map.put("result",1);
+    public Map<String, Object> getDbConnInfo(@PathVariable("token") Integer token) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (token != null && token == 000) {
+            map.put("result", 1);
             List<DbconnInfo> list = dbConnectionServiceI.getDbConnInfo();
-            map.put("conns",list);
-        }else{
-            map.put("result",0);
-            map.put("error","获取失败");
+            map.put("conns", list);
+        } else {
+            map.put("result", 0);
+            map.put("error", "获取失败");
         }
         return map;
     }
 
-    @RequestMapping(value = "/dsConns",method = RequestMethod.POST)
+    /**
+     * 增加数据库连接信息
+     *
+     * @param token
+     * @param dbconnInfo
+     * @return
+     */
+    @RequestMapping(value = "/dsConns", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> addDbConnInfo(@PathVariable("token") Integer token, @RequestBody DbconnInfo dbconnInfo) {
+    public Map<String, Object> addDbConnInfo(@PathVariable("token") Integer token, @RequestBody DbconnInfo dbconnInfo) {
         Map<String, Object> map = new HashMap<String, Object>();
-        if(token!=null&&token==1){
-            if(dbconnInfo!=null&&"Oracle".equals(dbconnInfo.getCategory()))
+        if (token != null && token == 000) {
+            if (dbconnInfo != null && "Oracle".equals(dbconnInfo.getCategory()))
                 dbconnInfo.setJdbcname("oracle.jdbc.driver.OracleDriver");
-            else if(dbconnInfo!=null&&"Mysql".equals(dbconnInfo.getCategory()))
+            else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
                 dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
+            dbconnInfo.setIsdelete("0");
             int tag = dbConnectionServiceI.addDbConnInfo(dbconnInfo);
-            if(tag==1){
-                map.put("result",1);
-            }else{
-                map.put("result",0);
-                map.put("error","保存失败");
+            if (tag == 1) {
+                map.put("result", 1);
+            } else {
+                map.put("result", 0);
+                map.put("error", "保存失败");
             }
-        }else{
-            map.put("result",0);
-            map.put("error","保存失败");
+        } else {
+            map.put("result", 0);
+            map.put("error", "保存失败");
         }
         return map;
     }
 
-    @RequestMapping(value = "/dsConns",method = RequestMethod.PUT)
+    /**
+     * 更新信息
+     *
+     * @param token
+     * @param dbconnInfo
+     * @return
+     */
+    @RequestMapping(value = "/dsConns", method = RequestMethod.PUT)
     @ResponseBody
-    public Map<String,Object> updateDbConnInfo(@PathVariable("token") Integer token, @RequestBody DbconnInfo dbconnInfo) {
+    public Map<String, Object> updateDbConnInfo(@PathVariable("token") Integer token, @RequestBody DbconnInfo dbconnInfo) {
         Map<String, Object> map = new HashMap<String, Object>();
-        if(token!=null&&token==1){
+        if (token != null && token == 000) {
             int tag = dbConnectionServiceI.updateDbConnInfo(dbconnInfo);
-            if(tag==1){
-                map.put("result",1);
-            }else{
-                map.put("error","修改失败");
+            if (tag == 1) {
+                map.put("result", 1);
+            } else {
+                map.put("result", 0);
+                map.put("error", "修改失败");
             }
 
-        }else{
-            map.put("result",0);
-            map.put("error","修改失败");
+        } else {
+            map.put("result", 0);
+            map.put("error", "用户验证信息不正确");
         }
         return map;
     }
 
-    @RequestMapping(value = "/dsConns/{id}",method = RequestMethod.DELETE)
+    /**
+     * 删除一条连接信息
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/dsConns/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Map<String,Object> deleteDbConnInfo(@PathVariable("token") Integer token,@PathVariable("id") Integer id) {
+    public Map<String, Object> deleteDbConnInfo(@PathVariable("token") Integer token, @PathVariable("id") Integer id) {
         Map<String, Object> map = new HashMap<String, Object>();
-        if(token!=null&&token==1){
+        if (token != null && token == 000) {
             int tag = dbConnectionServiceI.deleteDbConnInfo(id);
-            if(tag==1){
-                map.put("result",1);
-            }else{
-                map.put("result",0);
-                map.put("error","修改失败");
+            if (tag == 1) {
+                map.put("result", 1);
+            } else {
+                map.put("result", 0);
+                map.put("error", "修改失败");
             }
-        }else{
-            map.put("result",0);
-            map.put("error","修改失败");
+        } else {
+            map.put("result", 0);
+            map.put("error", "修改失败");
         }
         return map;
     }
+
+
 
 }

@@ -1,5 +1,7 @@
 package cn.edu.dbsi.model;
 
+import java.util.List;
+
 public class BusinessPackage {
     private Integer id;
 
@@ -8,6 +10,8 @@ public class BusinessPackage {
     private Integer groupid;
 
     private String isdelete;
+
+    private List<DbconnInfo> dbconnInfos;
 
     public Integer getId() {
         return id;
@@ -39,5 +43,13 @@ public class BusinessPackage {
 
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
+    }
+
+    public List<DbconnInfo> getDbconnInfos() {
+        return dbconnInfos;
+    }
+
+    public void setDbconnInfos(List<DbconnInfo> dbconnInfos) {
+        this.dbconnInfos = dbconnInfos;
     }
 }

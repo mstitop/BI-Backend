@@ -28,6 +28,10 @@ public class DbConnectionServiceImpl implements DbConnectionServiceI {
         return dbconnInfoMapper.insert(dbconnInfo);
     }
 
+    public DbconnInfo getDbconnInfoById(Integer id) {
+        return dbconnInfoMapper.selectByPrimaryKey(id);
+    }
+
     public List<DbconnInfo> getDbConnInfo() {
         return dbconnInfoMapper.selectAll();
     }

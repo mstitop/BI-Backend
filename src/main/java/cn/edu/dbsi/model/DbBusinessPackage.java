@@ -1,5 +1,7 @@
 package cn.edu.dbsi.model;
 
+import java.util.List;
+
 public class DbBusinessPackage {
     private Integer id;
 

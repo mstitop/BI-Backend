@@ -95,6 +95,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
             <tx:method name="*" propagation="SUPPORTS" />
         </tx:attributes>
     </tx:advice>
+
     <!--<aop:config>
         <aop:pointcut id="transactionPointcut" expression="execution(* com.test.service..*Impl.*(..))" />
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />

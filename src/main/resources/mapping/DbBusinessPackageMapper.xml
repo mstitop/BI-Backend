@@ -1,78 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.dbsi.dao.DbBusinessPackageMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.DbBusinessPackage" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="dbid" property="dbid" jdbcType="INTEGER" />
-    <result column="bpid" property="bpid" jdbcType="INTEGER" />
-    <result column="tablename" property="tablename" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="cn.edu.dbsi.dao.DbBusinessPackageMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.DbBusinessPackage">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="dbid" property="dbid" jdbcType="INTEGER"/>
+        <result column="bpid" property="bpid" jdbcType="INTEGER"/>
+        <result column="tablename" property="tablename" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, dbid, bpid, tablename
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from db_businesspackage
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectDbBusinessPackagePrimaryKey" resultType="java.lang.Integer"
+            parameterType="cn.edu.dbsi.model.DbBusinessPackage">
+    select
+    id
     from db_businesspackage
-    where id = #{id,jdbcType=INTEGER}
+    where bpid = #{bpid,jdbcType=INTEGER} AND dbid = #{dbid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByBpid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from db_businesspackage
+        where bpid = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from db_businesspackage
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.dbsi.model.DbBusinessPackage" >
+    <insert id="insert" parameterType="cn.edu.dbsi.model.DbBusinessPackage">
     insert into db_businesspackage (id, dbid, bpid, 
       tablename)
     values (#{id,jdbcType=INTEGER}, #{dbid,jdbcType=INTEGER}, #{bpid,jdbcType=INTEGER}, 
       #{tablename,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.DbBusinessPackage" >
-    insert into db_businesspackage
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="dbid != null" >
-        dbid,
-      </if>
-      <if test="bpid != null" >
-        bpid,
-      </if>
-      <if test="tablename != null" >
-        tablename,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="dbid != null" >
-        #{dbid,jdbcType=INTEGER},
-      </if>
-      <if test="bpid != null" >
-        #{bpid,jdbcType=INTEGER},
-      </if>
-      <if test="tablename != null" >
-        #{tablename,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.DbBusinessPackage" >
-    update db_businesspackage
-    <set >
-      <if test="dbid != null" >
-        dbid = #{dbid,jdbcType=INTEGER},
-      </if>
-      <if test="bpid != null" >
-        bpid = #{bpid,jdbcType=INTEGER},
-      </if>
-      <if test="tablename != null" >
-        tablename = #{tablename,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.DbBusinessPackage" >
+    <insert id="insertSelective" parameterType="cn.edu.dbsi.model.DbBusinessPackage">
+        insert into db_businesspackage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="dbid != null">
+                dbid,
+            </if>
+            <if test="bpid != null">
+                bpid,
+            </if>
+            <if test="tablename != null">
+                tablename,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="dbid != null">
+                #{dbid,jdbcType=INTEGER},
+            </if>
+            <if test="bpid != null">
+                #{bpid,jdbcType=INTEGER},
+            </if>
+            <if test="tablename != null">
+                #{tablename,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.DbBusinessPackage">
+        update db_businesspackage
+        <set>
+            <if test="dbid != null">
+                dbid = #{dbid,jdbcType=INTEGER},
+            </if>
+            <if test="bpid != null">
+                bpid = #{bpid,jdbcType=INTEGER},
+            </if>
+            <if test="tablename != null">
+                tablename = #{tablename,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.DbBusinessPackage">
     update db_businesspackage
     set dbid = #{dbid,jdbcType=INTEGER},
       bpid = #{bpid,jdbcType=INTEGER},

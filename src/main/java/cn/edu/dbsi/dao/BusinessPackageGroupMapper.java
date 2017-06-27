@@ -20,4 +20,6 @@ public interface BusinessPackageGroupMapper {
     int updateByPrimaryKey(BusinessPackageGroup record);
 
     List<Integer> selectPrimaryKeys();
+
+    BusinessPackageGroup selectByPrimaryKey(Integer id);
 }

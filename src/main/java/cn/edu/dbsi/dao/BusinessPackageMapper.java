@@ -16,4 +16,8 @@ public interface BusinessPackageMapper {
     int updateByPrimaryKeySelective(BusinessPackage record);
 
     int updateByPrimaryKey(BusinessPackage record);
+
+    int selectLastPrimaryKey();
+
+    int updateIsDeleteByPrimaryKey(BusinessPackage businessPackage);
 }

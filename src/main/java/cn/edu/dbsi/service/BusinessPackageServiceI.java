@@ -1,5 +1,6 @@
 package cn.edu.dbsi.service;
 
+import cn.edu.dbsi.model.BusinessPackage;
 import cn.edu.dbsi.model.BusinessPackageGroup;
 
 import java.util.List;
@@ -9,4 +10,15 @@ import java.util.List;
  */
 public interface BusinessPackageServiceI {
     List<BusinessPackageGroup> getBusinessPackageGroup();
+
+    int saveBusinessPackage(BusinessPackage businessPackage);
+
+    int getLastBusinessPackageId();
+
+    int updateBusinessPackage(BusinessPackage businessPackage);
+
+    int deleteBusinessPackage(BusinessPackage businessPackage);
+
+    BusinessPackage getBusinessPackageById(Integer id);
+
 }

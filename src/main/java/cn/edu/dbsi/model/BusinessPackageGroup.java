@@ -1,5 +1,6 @@
 package cn.edu.dbsi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BusinessPackageGroup {

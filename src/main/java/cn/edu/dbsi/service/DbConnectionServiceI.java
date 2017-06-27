@@ -17,4 +17,7 @@ public interface DbConnectionServiceI {
 
     int deleteDbConnInfo(Integer id);
 
+    DbconnInfo getDbconnInfoById(Integer id);
+
+
 }
