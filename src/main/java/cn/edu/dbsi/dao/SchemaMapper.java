@@ -1,7 +1,9 @@
 package cn.edu.dbsi.dao;
 
 import cn.edu.dbsi.model.Schema;
+import org.springframework.stereotype.Repository;
 
+@Repository("schemaMapper")
 public interface SchemaMapper {
     int deleteByPrimaryKey(Integer id);
 

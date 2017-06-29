@@ -1,7 +1,9 @@
 package cn.edu.dbsi.dao;
 
 import cn.edu.dbsi.model.SchemaMeasureGroup;
+import org.springframework.stereotype.Repository;
 
+@Repository("schemaMeasureGroupMapper")
 public interface SchemaMeasureGroupMapper {
     int deleteByPrimaryKey(Integer id);
 

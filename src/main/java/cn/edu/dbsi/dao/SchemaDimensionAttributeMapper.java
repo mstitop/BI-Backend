@@ -1,7 +1,9 @@
 package cn.edu.dbsi.dao;
 
 import cn.edu.dbsi.model.SchemaDimensionAttribute;
+import org.springframework.stereotype.Repository;
 
+@Repository("schemaDimensionAttributeMapper")
 public interface SchemaDimensionAttributeMapper {
     int deleteByPrimaryKey(Integer id);
 
