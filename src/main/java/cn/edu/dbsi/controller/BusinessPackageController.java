@@ -42,13 +42,13 @@ public class BusinessPackageController {
     @ResponseBody
     public Map<String, Object> getBusinessPackageGroupById(@PathVariable("token") Integer token) {
         Map<String, Object> map = new HashMap<String, Object>();
-        if (token != null && token == 1) {
+        if (token != null && token == 000) {
             List<BusinessPackageGroup> list = businessPackageServiceI.getBusinessPackageGroup();
             map.put("result", 1);
             map.put("businessPackageGroups", list);
         } else {
             map.put("result", 0);
-            map.put("error", "获取失败");
+            map.put("error", "用户信息验证失败");
         }
         return map;
     }
@@ -69,7 +69,7 @@ public class BusinessPackageController {
         //System.out.println(json.toString());
         JSONObject obj = new JSONObject(json);
         String name = obj.getString("name");
-        String groupid = obj.getString("groupid");
+        String groupid = String.valueOf(obj.getInt("groupid"));
         businessPackage.setName(name);
         businessPackage.setGroupid(Integer.parseInt(groupid));
         businessPackage.setIsdelete("0");
@@ -81,7 +81,7 @@ public class BusinessPackageController {
             StringBuilder sb = new StringBuilder();
             //获取数组中的每个对象
             JSONObject temp = dbs.getJSONObject(i);
-            String dbid = temp.getString("id");
+            String dbid =  String.valueOf(temp.getInt("id"));
             JSONArray tables = temp.getJSONArray("tables");
             for (int j = 0; j < tables.length(); j++) {
                 //获取数组中的每个对象
@@ -117,7 +117,7 @@ public class BusinessPackageController {
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
         JSONObject obj = new JSONObject(json);
-        String bpid = obj.getString("id");
+        String bpid = String.valueOf(obj.getInt("id"));
         String name = obj.getString("name");
         businessPackage.setId(Integer.parseInt(bpid));
         businessPackage.setName(name);
@@ -128,7 +128,7 @@ public class BusinessPackageController {
             StringBuilder sb = new StringBuilder();
             //获取数组中的每个对象
             JSONObject temp = dbs.getJSONObject(i);
-            String dbid = temp.getString("id");
+            String dbid = String.valueOf(temp.getInt("id"));
             JSONArray tables = temp.getJSONArray("tables");
             for (int j = 0; j < tables.length(); j++) {
                 //获取数组中的每个对象
@@ -153,16 +153,15 @@ public class BusinessPackageController {
     }
 
     /**
-     * 假删除业务包
+     * 删除业务包
      *
      * @param token
-     * @param json
      * @param id
      * @return
      */
     @RequestMapping(value = "/businessPackage/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Map<String, Object> deleteBusinessPackageById(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, @PathVariable("id") Integer id) {
+    public Map<String, Object> deleteBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("id") Integer id) {
         Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         businessPackage.setId(id);
@@ -179,6 +178,7 @@ public class BusinessPackageController {
 
     /**
      * 指定业务包信息查询
+     *
      * @param token
      * @param packageid
      * @return
@@ -190,26 +190,26 @@ public class BusinessPackageController {
         Map<String, Object> map = new HashMap<String, Object>();
         Map<String, Object> bpmap = new HashMap<String, Object>();
         Map<String, Object> groupmap = new HashMap<String, Object>();
-        List<Map<String,Object>> dbs = new ArrayList<Map<String, Object>>();
-        List<Map<String,Object>> tables = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> dbs = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> tables = new ArrayList<Map<String, Object>>();
         BusinessPackage businessPackage = businessPackageServiceI.getBusinessPackageById(packageid);
-        if(businessPackage!= null) {
+        if (businessPackage != null) {
             BusinessPackageGroup businessPackageGroup = businessPackageGroupServiceI.getBusinessPackageGroupById(businessPackage.getGroupid());
-            if(businessPackageGroup!=null) {
+            if (businessPackageGroup != null) {
                 groupmap.put("id", businessPackageGroup.getId());
                 groupmap.put("name", businessPackageGroup.getName());
                 bpmap.put("id", businessPackage.getId());
                 bpmap.put("name", businessPackage.getName());
                 bpmap.put("group", groupmap);
                 List<DbBusinessPackage> dbBusinessPackage = dbBusinessPackageServiceI.getDbBusinessPackagesByBpid(businessPackage.getId());
-                if(dbBusinessPackage!=null) {
+                if (dbBusinessPackage != null) {
                     for (DbBusinessPackage item : dbBusinessPackage) {
                         int dbid = item.getDbid();
                         dbconnInfo = dbConnectionServiceI.getDbconnInfoById(dbid);
                         Map<String, Object> temp = new HashMap<String, Object>();
                         temp.put("id", dbconnInfo.getId());
                         temp.put("name", dbconnInfo.getName());
-                        if(item.getTablename()!=null&&!"".equals(item.getTablename())) {
+                        if (item.getTablename() != null && !"".equals(item.getTablename())) {
                             String[] tableNames = item.getTablename().split(",");
                             for (int i = 0; i < tableNames.length; i++) {
                                 Map<String, Object> temp2 = new HashMap<String, Object>();
@@ -219,19 +219,19 @@ public class BusinessPackageController {
                             }
                             temp.put("tables", tables);
                             dbs.add(temp);
-                        }else{
+                        } else {
                             temp.put("tables", "");
                             dbs.add(temp);
                         }
                     }
                     bpmap.put("dbs", dbs);
-                    map.put("result",1);
-                    map.put("businessPackage",bpmap);
+                    map.put("result", 1);
+                    map.put("businessPackage", bpmap);
                 }
             }
-        }else{
-            map.put("result",0);
-            map.put("businessPackage","");
+        } else {
+            map.put("result", 0);
+            map.put("businessPackage", "");
         }
         return map;
     }

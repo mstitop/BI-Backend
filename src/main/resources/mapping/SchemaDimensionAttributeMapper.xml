@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.dbsi.dao.SchemaDimensionAttributeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.SchemaDimensionAttribute" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="field_name" property="fieldName" jdbcType="VARCHAR" />
+    <result column="dimension_id" property="dimensionId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, field_name, dimension_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schema_dimension_attribute
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schema_dimension_attribute
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.dbsi.model.SchemaDimensionAttribute" >
+    insert into schema_dimension_attribute (id, name, field_name,
+      dimension_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR},
+      #{dimensionId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.SchemaDimensionAttribute" >
+    insert into schema_dimension_attribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="fieldNames != null" >
+        field_name,
+      </if>
+      <if test="dimensionId != null" >
+        dimension_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldNames != null" >
+        #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensionId != null" >
+        #{dimensionId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.SchemaDimensionAttribute" >
+    update schema_dimension_attribute
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldNames != null" >
+        field_name = #{fieldNames,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensionId != null" >
+        dimension_id = #{dimensionId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.SchemaDimensionAttribute" >
+    update schema_dimension_attribute
+    set name = #{name,jdbcType=VARCHAR},
+      field_name = #{fieldNames,jdbcType=VARCHAR},
+      dimension_id = #{dimensionId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

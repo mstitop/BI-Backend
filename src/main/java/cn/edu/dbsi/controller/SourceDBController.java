@@ -25,6 +25,11 @@ public class SourceDBController {
     @Autowired
     private DbConnectionServiceI dbConnectionServiceI;
 
+    /**
+     * 查询源数据库
+     * @param token
+     * @return
+     */
     @RequestMapping(value = "/sourcedbs",method = RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> getSoureDbInfo(@PathVariable("token") Integer token){
@@ -55,12 +60,12 @@ public class SourceDBController {
         return result;
     }
 
-    @RequestMapping(value = "/sourcedb_table/{dbid}/{tableName}",method = RequestMethod.GET)
+    @RequestMapping(value = "/tableOfSourceDB/{dbid}/{tableName}",method = RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> getSoureDbInfo(@PathVariable("token") Integer token,@PathVariable("dbid") Integer dbid,@PathVariable("tableName") String tableName) {
         Map<String, Object> result = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder();
-        sql.append("select COLUMN_NAME name,DATA_TYPE type from information_schema.COLUMNS where table_name = ").append(tableName);
+        sql.append("select COLUMN_NAME name,DATA_TYPE type from information_schema.COLUMNS where table_name = ").append("'").append(tableName).append("'");
         System.out.println(sql.toString());
         DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(dbid);
         if(dbconnInfo!=null){

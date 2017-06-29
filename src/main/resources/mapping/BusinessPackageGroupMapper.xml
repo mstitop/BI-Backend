@@ -37,8 +37,8 @@
         bp.name bpname
         from
         businesspackage_group bg
-        LEFT OUTER JOIN businesspackage bp ON bg.id = bp.groupid
-        WHERE bg.id IN
+        LEFT OUTER JOIN businesspackage bp ON bg.id = bp.groupid AND bp.isdelete = 0
+        WHERE bg.isdelete = 0  AND bg.id IN
         <foreach collection="list" index="index" open="(" separator="," close=")" item="item">
             <!-- 这里从参数获取值的时候需要特别注意，因为mybatis将list映射成键值为list的一个列表了！-->
             #{item.id,jdbcType=INTEGER}
@@ -49,6 +49,7 @@
           id
         FROM
           businesspackage_group
+        WHERE isdelete = 0
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
