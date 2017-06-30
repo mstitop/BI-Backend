@@ -3,13 +3,13 @@
 <mapper namespace="cn.edu.dbsi.dao.SchemaDimensionMeasureMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.SchemaDimensionMeasure" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="schema_id" property="schemaId" jdbcType="INTEGER" />
-    <result column="measure_ group _id" property="measureGroupId" jdbcType="INTEGER" />
+    <result column="dimension_id" property="dimensionId" jdbcType="INTEGER" />
+    <result column="measure_group_id" property="measureGroupId" jdbcType="INTEGER" />
     <result column="foreign_key" property="foreignKey" jdbcType="VARCHAR" />
     <result column="is_foreign" property="isForeign" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, schema_id, "measure_ group _id", foreign_key, is_foreign
+    id, dimension_id, measure_group_id, foreign_key, is_foreign
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,9 +22,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.SchemaDimensionMeasure" >
-    insert into schema_dimension_measure (id, schema_id, "measure_ group _id", 
+    insert into schema_dimension_measure (id, dimension_id, measure_group_id,
       foreign_key, is_foreign)
-    values (#{id,jdbcType=INTEGER}, #{schemaId,jdbcType=INTEGER}, #{measureGroupId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{dimensionId,jdbcType=INTEGER}, #{measureGroupId,jdbcType=INTEGER},
       #{foreignKey,jdbcType=VARCHAR}, #{isForeign,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.SchemaDimensionMeasure" >
@@ -33,11 +33,11 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="schemaId != null" >
-        schema_id,
+      <if test="dimensionId != null" >
+        dimension_id,
       </if>
       <if test="measureGroupId != null" >
-        "measure_ group _id",
+        measure_group_id,
       </if>
       <if test="foreignKey != null" >
         foreign_key,
@@ -50,8 +50,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="schemaId != null" >
-        #{schemaId,jdbcType=INTEGER},
+      <if test="dimensionId != null" >
+        #{dimensionId,jdbcType=INTEGER},
       </if>
       <if test="measureGroupId != null" >
         #{measureGroupId,jdbcType=INTEGER},
@@ -67,11 +67,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.SchemaDimensionMeasure" >
     update schema_dimension_measure
     <set >
-      <if test="schemaId != null" >
-        schema_id = #{schemaId,jdbcType=INTEGER},
+      <if test="dimensionId != null" >
+        dimension_id = #{dimensionId,jdbcType=INTEGER},
       </if>
       <if test="measureGroupId != null" >
-        "measure_ group _id" = #{measureGroupId,jdbcType=INTEGER},
+        measure_group_id = #{measureGroupId,jdbcType=INTEGER},
       </if>
       <if test="foreignKey != null" >
         foreign_key = #{foreignKey,jdbcType=VARCHAR},
@@ -84,8 +84,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.SchemaDimensionMeasure" >
     update schema_dimension_measure
-    set schema_id = #{schemaId,jdbcType=INTEGER},
-      "measure_ group _id" = #{measureGroupId,jdbcType=INTEGER},
+    set dimension_id = #{dimensionId,jdbcType=INTEGER},
+      measure_group_id = #{measureGroupId,jdbcType=INTEGER},
       foreign_key = #{foreignKey,jdbcType=VARCHAR},
       is_foreign = #{isForeign,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}

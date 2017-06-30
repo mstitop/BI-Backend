@@ -9,7 +9,7 @@
     <result column="schema_id" property="schemaId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, table_name, key, schema_id
+    id, name, schema_dimension.table_name, schema_dimension.key, schema_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -17,13 +17,16 @@
     from schema_dimension
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectSchemaDimensionLastPrimaryKey" resultType="java.lang.Integer">
+    select id from schema_dimension order by id DESC limit 1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from schema_dimension
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.SchemaDimension" >
-    insert into schema_dimension (id, name, table_name, 
-      key, schema_id)
+    insert into schema_dimension (id, name, schema_dimension.table_name,
+      schema_dimension.key, schema_id)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
       #{key,jdbcType=VARCHAR}, #{schemaId,jdbcType=INTEGER})
   </insert>
@@ -37,10 +40,10 @@
         name,
       </if>
       <if test="tableName != null" >
-        table_name,
+        schema_dimension.table_name,
       </if>
       <if test="key != null" >
-        key,
+        schema_dimension.key,
       </if>
       <if test="schemaId != null" >
         schema_id,
@@ -71,10 +74,10 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="tableName != null" >
-        table_name = #{tableName,jdbcType=VARCHAR},
+        schema_dimension.table_name = #{tableName,jdbcType=VARCHAR},
       </if>
       <if test="key != null" >
-        key = #{key,jdbcType=VARCHAR},
+        schema_dimension.key = #{key,jdbcType=VARCHAR},
       </if>
       <if test="schemaId != null" >
         schema_id = #{schemaId,jdbcType=INTEGER},
@@ -85,8 +88,8 @@
   <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.SchemaDimension" >
     update schema_dimension
     set name = #{name,jdbcType=VARCHAR},
-      table_name = #{tableName,jdbcType=VARCHAR},
-      key = #{key,jdbcType=VARCHAR},
+      schema_dimension.table_name = #{tableName,jdbcType=VARCHAR},
+      schema_dimension.key = #{key,jdbcType=VARCHAR},
       schema_id = #{schemaId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -30,6 +30,7 @@ public class SchemaUtils {
 
     /**
      * 生成PhysicalSchema
+     *
      * @param sb
      * @param schema
      * @return
@@ -46,6 +47,7 @@ public class SchemaUtils {
 
     /**
      * 生成cube
+     *
      * @param sb
      * @param schema
      * @param measureDescList
@@ -57,15 +59,18 @@ public class SchemaUtils {
         sb = appendDimension(sb, dimensionDescList);
         sb.append("<MeasureGroups>").append(newLine);
         for (SchemaMeasureGroup measure : measureDescList) {
-            sb.append("<MeasureGroup table='" + measure.getTableName() + "' name='"+measure.getName()+"'>").append(newLine);
+            sb.append("<MeasureGroup table='" + measure.getTableName() + "' name='" + measure.getName() + "'>").append(newLine);
             sb.append("<Measures>").append(newLine);
             for (SchemaMeasure measureDesc : measure.getSchemaMeasures()) {
-                sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' visible='true'/>")
-                        .append(newLine);
+                if (measure.getId() == measureDesc.getMeasureGroupId()) {
+                    sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' visible='true'/>")
+                            .append(newLine);
+                }
             }
+            sb.append("</Measures>").append(newLine);
+            sb = addDimensionLink(sb, measure.getSchemaDimensionMeasures());
+            sb.append("</MeasureGroup>").append(newLine);
         }
-        sb.append("</Measures>").append(newLine);
-        sb.append("</MeasureGroup>").append(newLine);
         sb.append("</MeasureGroups>").append(newLine);
         sb.append("</Cube>").append(newLine);
         return sb;
@@ -73,6 +78,7 @@ public class SchemaUtils {
 
     /**
      * 生成Dimensions
+     *
      * @param sb
      * @param dimensionDescList
      * @return
@@ -81,13 +87,15 @@ public class SchemaUtils {
         sb.append("<Dimensions>").append(newLine);
         for (SchemaDimension dimensionDesc : dimensionDescList) {
             sb.append("<Dimension name='" + dimensionDesc.getName() + "' key='" + dimensionDesc.getKey() + "' table='" + dimensionDesc.getTableName() + "'>").append(newLine);
-            sb.append("<Attributes>").append(newLine);
             for (SchemaDimensionAttribute column : dimensionDesc.getSchemaDimensionAttributes()) {
-                // add Attributes to stringbuffer
-                sb = addAttribute(sb, column.getName(), column.getFieldName());
-                sb.append("</Attributes>").append(newLine);
-                sb.append("</Dimension>").append(newLine);
+                if (column.getDimensionId() == dimensionDesc.getId()) {
+                    // add Attributes to stringbuffer
+                    sb.append("<Attributes>").append(newLine);
+                    sb = addAttribute(sb, column.getName(), column.getFieldName());
+                    sb.append("</Attributes>").append(newLine);
+                }
             }
+            sb.append("</Dimension>").append(newLine);
         }
         sb.append("</Dimensions>").append(newLine);
         return sb;
@@ -95,6 +103,7 @@ public class SchemaUtils {
 
     /**
      * 加入维度的属性
+     *
      * @param sb
      * @param name
      * @param attr
@@ -109,23 +118,17 @@ public class SchemaUtils {
         return sb;
     }
 
-    /*public static StringBuffer addDimensionLink(StringBuffer sb, List<di> dimensionDescs, DataModelDesc modelDesc) {
+    public static StringBuffer addDimensionLink(StringBuffer sb, List<SchemaDimensionMeasure> schemaDimensionMeasures) {
         sb.append("<DimensionLinks>").append(newLine);
-        for (DimensionDesc dimensionDesc : dimensionDescs) {
-            if (dimensionDesc.getTable().contains(modelDesc.getFactTable())) {
-                sb.append("<FactLink dimension='" + dimensionDesc.getName() + "'/>").append(newLine);
+        for (SchemaDimensionMeasure dimensionDesc : schemaDimensionMeasures) {
+            if ("0".equals(dimensionDesc.getIsForeign())) {
+                sb.append("<FactLink dimension='" + dimensionDesc.getDimensionName() + "'/>").append(newLine);
             } else {
-                LookupDesc[] lookupDescs = modelDesc.getLookups();
-                for (LookupDesc lookupDesc : lookupDescs) {
-                    if (dimensionDesc.getTable().contains(lookupDesc.getTable())) {
-                        for (String primaryKey : lookupDesc.getJoin().getPrimaryKey())
-                            sb.append("<ForeignKeyLink dimension='" + dimensionDesc.getName() + "' foreignKeyColumn='" + primaryKey + "'/>").append(newLine);
-                    }
-                }
+                sb.append("<ForeignKeyLink dimension='" + dimensionDesc.getDimensionName() + "' foreignKeyColumn='" + dimensionDesc.getForeignKey() + "'/>").append(newLine);
             }
         }
         sb.append(" </DimensionLinks>").append(newLine);
         return sb;
-    }*/
+    }
 
 }

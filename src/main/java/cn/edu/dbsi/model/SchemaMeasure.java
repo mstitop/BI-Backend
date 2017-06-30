@@ -1,5 +1,7 @@
 package cn.edu.dbsi.model;
 
+import java.util.List;
+
 public class SchemaMeasure {
     private Integer id;
 
@@ -60,4 +62,5 @@ public class SchemaMeasure {
     public void setMeasureGroupId(Integer measureGroupId) {
         this.measureGroupId = measureGroupId;
     }
+
 }

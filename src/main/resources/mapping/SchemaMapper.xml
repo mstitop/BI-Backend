@@ -1,121 +1,124 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.dbsi.dao.SchemaMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.Schema">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="table_names" jdbcType="VARCHAR" property="tableNames" />
-    <result column="cube_name" jdbcType="VARCHAR" property="cubeName" />
-    <result column="default_measure_name" jdbcType="VARCHAR" property="defaultMeasureName" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="isdelete" jdbcType="CHAR" property="isdelete" />
-    <result column="business_package_id" jdbcType="INTEGER" property="businessPackageId" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.dbsi.dao.SchemaMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.Schema" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="table_names" property="tableNames" jdbcType="VARCHAR" />
+    <result column="cube_name" property="cubeName" jdbcType="VARCHAR" />
+    <result column="default_measure_name" property="defaultMeasureName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="CHAR" />
+    <result column="business_package_id" property="businessPackageId" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, name, table_names, cube_name, default_measure_name, address, isdelete, business_package_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from schema
+    from saikuschema
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from schema
+  <select id="selectSchemaLastPrimaryKey" resultType="java.lang.Integer">
+    select id from saikuschema order by id DESC limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from saikuschema
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.dbsi.model.Schema">
-    insert into schema (id, name, table_names, 
+  <insert id="insert" parameterType="cn.edu.dbsi.model.Schema" >
+    insert into saikuschema (id, name, table_names,
       cube_name, default_measure_name, address, 
       isdelete, business_package_id)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{tableNames,jdbcType=VARCHAR}, 
       #{cubeName,jdbcType=VARCHAR}, #{defaultMeasureName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{isdelete,jdbcType=CHAR}, #{businessPackageId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.Schema">
-    insert into schema
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.Schema" >
+    insert into saikuschema
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name,
       </if>
-      <if test="tableNames != null">
+      <if test="tableNames != null" >
         table_names,
       </if>
-      <if test="cubeName != null">
+      <if test="cubeName != null" >
         cube_name,
       </if>
-      <if test="defaultMeasureName != null">
+      <if test="defaultMeasureName != null" >
         default_measure_name,
       </if>
-      <if test="address != null">
+      <if test="address != null" >
         address,
       </if>
-      <if test="isdelete != null">
+      <if test="isdelete != null" >
         isdelete,
       </if>
-      <if test="businessPackageId != null">
+      <if test="businessPackageId != null" >
         business_package_id,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="tableNames != null">
+      <if test="tableNames != null" >
         #{tableNames,jdbcType=VARCHAR},
       </if>
-      <if test="cubeName != null">
+      <if test="cubeName != null" >
         #{cubeName,jdbcType=VARCHAR},
       </if>
-      <if test="defaultMeasureName != null">
+      <if test="defaultMeasureName != null" >
         #{defaultMeasureName,jdbcType=VARCHAR},
       </if>
-      <if test="address != null">
+      <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="isdelete != null">
+      <if test="isdelete != null" >
         #{isdelete,jdbcType=CHAR},
       </if>
-      <if test="businessPackageId != null">
+      <if test="businessPackageId != null" >
         #{businessPackageId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.Schema">
-    update schema
-    <set>
-      <if test="name != null">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.Schema" >
+    update saikuschema
+    <set >
+      <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="tableNames != null">
+      <if test="tableNames != null" >
         table_names = #{tableNames,jdbcType=VARCHAR},
       </if>
-      <if test="cubeName != null">
+      <if test="cubeName != null" >
         cube_name = #{cubeName,jdbcType=VARCHAR},
       </if>
-      <if test="defaultMeasureName != null">
+      <if test="defaultMeasureName != null" >
         default_measure_name = #{defaultMeasureName,jdbcType=VARCHAR},
       </if>
-      <if test="address != null">
+      <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="isdelete != null">
+      <if test="isdelete != null" >
         isdelete = #{isdelete,jdbcType=CHAR},
       </if>
-      <if test="businessPackageId != null">
+      <if test="businessPackageId != null" >
         business_package_id = #{businessPackageId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.Schema">
-    update schema
+  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.Schema" >
+    update saikuschema
     set name = #{name,jdbcType=VARCHAR},
       table_names = #{tableNames,jdbcType=VARCHAR},
       cube_name = #{cubeName,jdbcType=VARCHAR},

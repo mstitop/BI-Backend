@@ -3,7 +3,9 @@ package cn.edu.dbsi.model;
 public class SchemaDimensionMeasure {
     private Integer id;
 
-    private Integer schemaId;
+    private Integer dimensionId;
+
+    private String dimensionName;
 
     private Integer measureGroupId;
 
@@ -19,12 +21,12 @@ public class SchemaDimensionMeasure {
         this.id = id;
     }
 
-    public Integer getSchemaId() {
-        return schemaId;
+    public Integer getDimensionId() {
+        return dimensionId;
     }
 
-    public void setSchemaId(Integer schemaId) {
-        this.schemaId = schemaId;
+    public void setDimensionId(Integer dimensionId) {
+        this.dimensionId = dimensionId;
     }
 
     public Integer getMeasureGroupId() {
@@ -49,5 +51,13 @@ public class SchemaDimensionMeasure {
 
     public void setIsForeign(String isForeign) {
         this.isForeign = isForeign == null ? null : isForeign.trim();
+    }
+
+    public String getDimensionName() {
+        return dimensionName;
+    }
+
+    public void setDimensionName(String dimensionName) {
+        this.dimensionName = dimensionName;
     }
 }

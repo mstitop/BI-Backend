@@ -16,4 +16,6 @@ public interface SchemaMeasureGroupMapper {
     int updateByPrimaryKeySelective(SchemaMeasureGroup record);
 
     int updateByPrimaryKey(SchemaMeasureGroup record);
+
+    int selectSchemaMeasureGroupLastPrimaryKey();
 }

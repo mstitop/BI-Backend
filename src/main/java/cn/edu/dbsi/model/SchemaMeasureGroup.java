@@ -13,6 +13,8 @@ public class SchemaMeasureGroup {
 
     private List<SchemaMeasure> schemaMeasures;
 
+    private List<SchemaDimensionMeasure> schemaDimensionMeasures;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class SchemaMeasureGroup {
 
     public void setSchemaMeasures(List<SchemaMeasure> schemaMeasures) {
         this.schemaMeasures = schemaMeasures;
+    }
+
+    public List<SchemaDimensionMeasure> getSchemaDimensionMeasures() {
+        return schemaDimensionMeasures;
+    }
+
+    public void setSchemaDimensionMeasures(List<SchemaDimensionMeasure> schemaDimensionMeasures) {
+        this.schemaDimensionMeasures = schemaDimensionMeasures;
     }
 }

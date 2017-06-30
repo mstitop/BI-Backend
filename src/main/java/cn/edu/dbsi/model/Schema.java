@@ -1,5 +1,7 @@
 package cn.edu.dbsi.model;
 
+import java.util.List;
+
 public class Schema {
     private Integer id;
 
@@ -16,6 +18,10 @@ public class Schema {
     private String isdelete;
 
     private Integer businessPackageId;
+
+    private List<SchemaMeasureGroup> schemaMeasureGroups;
+
+    private List<SchemaDimension> schemaDimensions;
 
     public Integer getId() {
         return id;
@@ -79,5 +85,21 @@ public class Schema {
 
     public void setBusinessPackageId(Integer businessPackageId) {
         this.businessPackageId = businessPackageId;
+    }
+
+    public List<SchemaMeasureGroup> getSchemaMeasureGroups() {
+        return schemaMeasureGroups;
+    }
+
+    public void setSchemaMeasureGroups(List<SchemaMeasureGroup> schemaMeasureGroups) {
+        this.schemaMeasureGroups = schemaMeasureGroups;
+    }
+
+    public List<SchemaDimension> getSchemaDimensions() {
+        return schemaDimensions;
+    }
+
+    public void setSchemaDimensions(List<SchemaDimension> schemaDimensions) {
+        this.schemaDimensions = schemaDimensions;
     }
 }

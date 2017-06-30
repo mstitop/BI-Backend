@@ -16,6 +16,11 @@
     from schema_measure_group
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectSchemaMeasureGroupLastPrimaryKey" resultType="java.lang.Integer">
+    select id from schema_measure_group order by id DESC limit 1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from schema_measure_group
     where id = #{id,jdbcType=INTEGER}

@@ -16,4 +16,6 @@ public interface SchemaMapper {
     int updateByPrimaryKeySelective(Schema record);
 
     int updateByPrimaryKey(Schema record);
+
+    int selectSchemaLastPrimaryKey();
 }

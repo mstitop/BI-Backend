@@ -16,4 +16,6 @@ public interface SchemaDimensionMapper {
     int updateByPrimaryKeySelective(SchemaDimension record);
 
     int updateByPrimaryKey(SchemaDimension record);
+
+    int selectSchemaDimensionLastPrimaryKey();
 }

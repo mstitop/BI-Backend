@@ -26,11 +26,11 @@
     insert into schema_measure (id, name, field_name, 
       measure_group_id, aggregator, format_style)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR}, 
-      #{measureGroupId,jdbcType=INTEGER}, #{aggregator,jdbcType=VARCHAR}, #{formatStyle,jdbcType=VARCHAR}
+      #{measureGroupId,jdbcType=INTEGER}, #{aggregator,jdbcType=VARCHAR}, #{formatStyle,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.SchemaMeasure" >
     insert into schema_measure
-    <trim prefix="(" suffix=")" suffixOverrides="," >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null" >
         id,
       </if>
