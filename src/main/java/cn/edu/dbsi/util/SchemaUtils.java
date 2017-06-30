@@ -68,7 +68,17 @@ public class SchemaUtils {
                 }
             }
             sb.append("</Measures>").append(newLine);
-            sb = addDimensionLink(sb, measure.getSchemaDimensionMeasures());
+            sb.append("<DimensionLinks>").append(newLine);
+            for(SchemaDimensionMeasure dimensionDesc:measure.getSchemaDimensionMeasures()) {
+                if (measure.getId() == dimensionDesc.getMeasureGroupId()) {
+                    if ("0".equals(dimensionDesc.getIsForeign())) {
+                        sb.append("<FactLink dimension='" + dimensionDesc.getDimensionName() + "'/>").append(newLine);
+                    } else {
+                        sb.append("<ForeignKeyLink dimension='" + dimensionDesc.getDimensionName() + "' foreignKeyColumn='" + dimensionDesc.getForeignKey() + "'/>").append(newLine);
+                    }
+                }
+            }
+            sb.append(" </DimensionLinks>").append(newLine);
             sb.append("</MeasureGroup>").append(newLine);
         }
         sb.append("</MeasureGroups>").append(newLine);
