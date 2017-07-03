@@ -78,7 +78,8 @@ public class SourceDBController {
             String[] database = dbconnInfo.getUrl().split("/");
             sql.append(" AND table_schema = ").append("'").append(database[3]).append("'");
         }else {
-            sql.append("select distinct column_name from dba_tab_columns where table_name = ").append("'").append(tableName).append("'");
+            //本身带有双引号的String，使用转义字符
+            sql.append("select distinct column_name \"name\",data_type \"type\" from dba_tab_columns where table_name = ").append("'").append(tableName).append("'");
         }
         System.out.println(sql.toString());
         if (dbconnInfo != null) {
