@@ -22,4 +22,8 @@ public class SchemaServiceImpl implements SchemaServiceI {
     public int getLastSchemaId() {
         return schemaMapper.selectSchemaLastPrimaryKey();
     }
+
+    public int updateSchema(Schema schema) {
+        return schemaMapper.updateByPrimaryKeySelective(schema);
+    }
 }

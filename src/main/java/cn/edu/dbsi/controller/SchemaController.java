@@ -2,6 +2,7 @@ package cn.edu.dbsi.controller;
 
 import cn.edu.dbsi.model.*;
 import cn.edu.dbsi.service.*;
+import cn.edu.dbsi.util.HttpConnectDeal;
 import cn.edu.dbsi.util.SchemaUtils;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
@@ -15,10 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.InputSource;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
-import java.rmi.server.ExportException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -49,8 +48,9 @@ public class SchemaController {
 
     @RequestMapping(value = "/saikuSchema", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
+    public Map<String, Object> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
+        Map<String,Object> fileIn = new HashMap<String, Object>();
         List<SchemaDimension> schemaDimensions = new ArrayList<SchemaDimension>();
         List<SchemaMeasureGroup> schemaMeasureGroups = new ArrayList<SchemaMeasureGroup>();
         List<SchemaDimensionAttribute> schemaDimensionAttributes = new ArrayList<SchemaDimensionAttribute>();
@@ -76,19 +76,20 @@ public class SchemaController {
         }
         schema.setTableNames(sb.toString());
         //将第一个维度名作为default_ measure _name
-        schema.setDefaultMeasureName(dimensions.getJSONObject(0).getString("name"));
+        schema.setDefaultMeasureName(measureGroups.getJSONObject(0).getJSONArray("measures").getJSONObject(0).getString("name"));
         schema.setIsdelete("0");
         tag = schemaServiceI.addSchema(schema);
         int schemaLastId = schemaServiceI.getLastSchemaId();
         //设定ID 是为了在生成schema文件时，用来匹配各个节点
         schema.setId(schemaLastId);
+
         //取出维度和维度属性值
         for (int i = 0; i < dimensions.length(); i++) {
             SchemaDimension schemaDimension = new SchemaDimension();
             JSONObject dimension = dimensions.getJSONObject(i);
             String dimensionName = dimension.getString("name");
             String dimensionTableName = dimension.getString("tableName");
-            String key_attribute = dimension.getString("key_attribute");
+            String key_attribute = dimension.getString("keyAttribute");
             JSONArray attributes = dimension.getJSONArray("attributes");
             schemaDimension.setSchemaId(schemaLastId);
             schemaDimension.setName(dimensionName);
@@ -113,14 +114,14 @@ public class SchemaController {
             schemaDimensions.add(schemaDimension);
         }
 
-        //取出指标
+        //取出指标，因为是嵌套数组所以需要循环遍历
         for (int i = 0; i < measureGroups.length(); i++) {
             SchemaMeasureGroup schemaMeasureGroup = new SchemaMeasureGroup();
             JSONObject measureGroup = measureGroups.getJSONObject(i);
             String measureGroupName = measureGroup.getString("name");
             String measureTableName = measureGroup.getString("tableName");
             JSONArray measures = measureGroup.getJSONArray("measures");
-            JSONArray dimensionLinks = measureGroup.getJSONArray("dimensionLink");
+            JSONArray dimensionLinks = measureGroup.getJSONArray("dimensionLinks");
             schemaMeasureGroup.setName(measureGroupName);
             schemaMeasureGroup.setTableName(measureTableName);
             schemaMeasureGroup.setSchemaId(schemaLastId);
@@ -150,7 +151,7 @@ public class SchemaController {
                 JSONObject dimensionLink = dimensionLinks.getJSONObject(k);
                 String dimensionName = dimensionLink.getString("dimensionName");
                 String foreignKey = dimensionLink.getString("foreignKey");
-                String isForeign = dimensionLink.getString("isForeign");
+                String isForeign = new Boolean(dimensionLink.getBoolean("isForeign")).toString();
                 schemaDimensionMeasure.setForeignKey(foreignKey);
                 schemaDimensionMeasure.setIsForeign(isForeign);
                 schemaDimensionMeasure.setDimensionName(dimensionName);
@@ -162,6 +163,7 @@ public class SchemaController {
             schemaMeasureGroup.setSchemaDimensionMeasures(schemaDimensionMeasures);
             schemaMeasureGroups.add(schemaMeasureGroup);
         }
+
         if (tag == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1 && tag6 == 1) {
             map.put("result", 1);
             schema.setSchemaDimensions(schemaDimensions);
@@ -169,13 +171,18 @@ public class SchemaController {
             StringReader sr = new StringReader(SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups()).toString());
             InputSource is = new InputSource(sr);
             try {
+                String path = request.getSession().getServletContext().getRealPath("/saiku") + File.separator;
                 Document doc = (new SAXBuilder()).build(is);
                 XMLOutputter XMLOut = new XMLOutputter();
                 Format format = Format.getPrettyFormat();
                 format.setEncoding("UTF-8");
-//                format.setIndent("    ");
                 XMLOut.setFormat(format);
-                XMLOut.output(doc, new FileOutputStream("A:/TEST2.xml"));
+                XMLOut.output(doc, new FileOutputStream(path + schema.getName() + ".xml"));
+                schema.setAddress(path + schema.getName());
+                schemaServiceI.updateSchema(schema);
+                fileIn.put("file",readFiles(path+schema.getName()+".xml"));
+                fileIn.put("name",schema.getName());
+                HttpConnectDeal.postJson("http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'"+schema.getId()+"'",new JSONObject(fileIn));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -184,5 +191,16 @@ public class SchemaController {
             map.put("error", "新增失败");
         }
         return map;
+    }
+
+    private InputStream readFiles(String fileName) {
+        File file = new File(fileName);
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return in;
     }
 }

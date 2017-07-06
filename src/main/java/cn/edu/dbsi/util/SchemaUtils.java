@@ -55,7 +55,7 @@ public class SchemaUtils {
      * @return
      */
     public static StringBuffer appendCube(StringBuffer sb, Schema schema, List<SchemaMeasureGroup> measureDescList, List<SchemaDimension> dimensionDescList) {
-        sb.append("<Cube name='" + schema.getCubeName() + "'>").append(newLine);
+        sb.append("<Cube name='" + schema.getCubeName() + "' defaultMeasure ='" + schema.getDefaultMeasureName() + "'>").append(newLine);
         sb = appendDimension(sb, dimensionDescList);
         sb.append("<MeasureGroups>").append(newLine);
         for (SchemaMeasureGroup measure : measureDescList) {
@@ -63,15 +63,15 @@ public class SchemaUtils {
             sb.append("<Measures>").append(newLine);
             for (SchemaMeasure measureDesc : measure.getSchemaMeasures()) {
                 if (measure.getId() == measureDesc.getMeasureGroupId()) {
-                    sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' visible='true'/>")
+                    sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' formatString='" + measureDesc.getFormatStyle() + "'/>")
                             .append(newLine);
                 }
             }
             sb.append("</Measures>").append(newLine);
             sb.append("<DimensionLinks>").append(newLine);
-            for(SchemaDimensionMeasure dimensionDesc:measure.getSchemaDimensionMeasures()) {
+            for (SchemaDimensionMeasure dimensionDesc : measure.getSchemaDimensionMeasures()) {
                 if (measure.getId() == dimensionDesc.getMeasureGroupId()) {
-                    if ("0".equals(dimensionDesc.getIsForeign())) {
+                    if ("false".equals(dimensionDesc.getIsForeign())) {
                         sb.append("<FactLink dimension='" + dimensionDesc.getDimensionName() + "'/>").append(newLine);
                     } else {
                         sb.append("<ForeignKeyLink dimension='" + dimensionDesc.getDimensionName() + "' foreignKeyColumn='" + dimensionDesc.getForeignKey() + "'/>").append(newLine);
@@ -97,14 +97,18 @@ public class SchemaUtils {
         sb.append("<Dimensions>").append(newLine);
         for (SchemaDimension dimensionDesc : dimensionDescList) {
             sb.append("<Dimension name='" + dimensionDesc.getName() + "' key='" + dimensionDesc.getKey() + "' table='" + dimensionDesc.getTableName() + "'>").append(newLine);
+            sb.append("<Attributes>").append(newLine);
             for (SchemaDimensionAttribute column : dimensionDesc.getSchemaDimensionAttributes()) {
                 if (column.getDimensionId() == dimensionDesc.getId()) {
-                    // add Attributes to stringbuffer
-                    sb.append("<Attributes>").append(newLine);
-                    sb = addAttribute(sb, column.getName(), column.getFieldName());
-                    sb.append("</Attributes>").append(newLine);
+                    if (!column.getName().equals((dimensionDesc.getKey()))) {
+                        // add Attributes to stringbuffer
+                        sb = addAttribute(sb, column.getName(), column.getFieldName());
+                    } else {
+                        sb = addAttribute2(sb, column.getName(), column.getFieldName());
+                    }
                 }
             }
+            sb.append("</Attributes>").append(newLine);
             sb.append("</Dimension>").append(newLine);
         }
         sb.append("</Dimensions>").append(newLine);
@@ -120,11 +124,21 @@ public class SchemaUtils {
      * @return
      */
     public static StringBuffer addAttribute(StringBuffer sb, String name, String attr) {
-        sb.append("<Attribute hasHierarchy='true' levelType='Regular' name='" + name + "'>").append(newLine)
-                .append("<Key>").append(newLine)
-                .append("<Column name='" + attr + "'/>").append(newLine)
-                .append("</Key>").append(newLine)
-                .append("</Attribute>").append(newLine);
+        sb.append("<Attribute hasHierarchy='true' levelType='Regular' name='" + name + "' keyColumn='" + attr + "'/>").append(newLine);
+        System.out.println(sb.toString());
+//                .append("<Key>").append(newLine)
+//                .append("<Column name='" + attr + "'/>").append(newLine)
+//                .append("</Key>").append(newLine)
+//                .append("</Attribute>").append(newLine);
+        return sb;
+    }
+
+    public static StringBuffer addAttribute2(StringBuffer sb, String name, String attr) {
+        sb.append("<Attribute hasHierarchy='false' levelType='Regular' name='" + name + "' keyColumn='" + attr + "'/>").append(newLine);
+//                .append("<Key>").append(newLine)
+//                .append("<Column name='" + attr + "'/>").append(newLine)
+//                .append("</Key>").append(newLine)
+//                .append("</Attribute>").append(newLine);
         return sb;
     }
 

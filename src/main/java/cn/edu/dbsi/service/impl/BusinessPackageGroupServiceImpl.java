@@ -22,4 +22,8 @@ public class BusinessPackageGroupServiceImpl implements BusinessPackageGroupServ
     public BusinessPackageGroup getBusinessPackageGroupById(Integer id) {
         return businessPackageGroupMapper.selectByPrimaryKey(id);
     }
+
+    public int upadateBusinessPackageGroupName(BusinessPackageGroup businessPackageGroup) {
+        return businessPackageGroupMapper.updateByPrimaryKeySelective(businessPackageGroup);
+    }
 }

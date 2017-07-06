@@ -9,4 +9,6 @@ public interface BusinessPackageGroupServiceI {
     int saveBusinessPackageGroup(BusinessPackageGroup businessPackageGroup);
 
     BusinessPackageGroup getBusinessPackageGroupById(Integer id);
+
+    int upadateBusinessPackageGroupName(BusinessPackageGroup businessPackageGroup);
 }
