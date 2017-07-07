@@ -5,7 +5,6 @@ import cn.edu.dbsi.service.*;
 import cn.edu.dbsi.util.HttpConnectDeal;
 import cn.edu.dbsi.util.SchemaUtils;
 import org.jdom2.Document;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -46,18 +45,24 @@ public class SchemaController {
     @Autowired
     private DimensionLinkServiceI dimensionLinkServiceI;
 
+    /**
+     * 这个controller是用于生成saiku的schema文件
+     * @param token
+     * @param json
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/saikuSchema", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
-        Map<String,Object> fileIn = new HashMap<String, Object>();
         List<SchemaDimension> schemaDimensions = new ArrayList<SchemaDimension>();
         List<SchemaMeasureGroup> schemaMeasureGroups = new ArrayList<SchemaMeasureGroup>();
         List<SchemaDimensionAttribute> schemaDimensionAttributes = new ArrayList<SchemaDimensionAttribute>();
         List<SchemaMeasure> schemaMeasures = new ArrayList<SchemaMeasure>();
         List<SchemaDimensionMeasure> schemaDimensionMeasures = new ArrayList<SchemaDimensionMeasure>();
         StringBuilder sb = new StringBuilder();
-        StringBuffer saiku = new StringBuffer();
+        StringBuilder saiku = new StringBuilder();
         int tag = 0, tag2 = 0, tag3 = 0, tag4 = 0, tag5 = 0, tag6 = 0;
         Schema schema = new Schema();
         JSONObject obj = new JSONObject(json);
@@ -69,7 +74,7 @@ public class SchemaController {
         JSONArray tableName = obj.getJSONArray("tableName");
         JSONArray dimensions = obj.getJSONArray("dimensions");
         JSONArray measureGroups = obj.getJSONArray("measureGroups");
-        //取出所有table
+        //取出所有table的名字，存入到schema表中
         for (int i = 0; i < tableName.length(); i++) {
             JSONObject table = tableName.getJSONObject(i);
             sb.append(table.getString("name") + ",");
@@ -83,7 +88,7 @@ public class SchemaController {
         //设定ID 是为了在生成schema文件时，用来匹配各个节点
         schema.setId(schemaLastId);
 
-        //取出维度和维度属性值
+        //解析json数据中的维度和维度属性值
         for (int i = 0; i < dimensions.length(); i++) {
             SchemaDimension schemaDimension = new SchemaDimension();
             JSONObject dimension = dimensions.getJSONObject(i);
@@ -114,7 +119,7 @@ public class SchemaController {
             schemaDimensions.add(schemaDimension);
         }
 
-        //取出指标，因为是嵌套数组所以需要循环遍历
+        //解析json数据中有关指标的值
         for (int i = 0; i < measureGroups.length(); i++) {
             SchemaMeasureGroup schemaMeasureGroup = new SchemaMeasureGroup();
             JSONObject measureGroup = measureGroups.getJSONObject(i);
@@ -164,14 +169,17 @@ public class SchemaController {
             schemaMeasureGroups.add(schemaMeasureGroup);
         }
 
+        //当所有存入操作都成功的时候，就开始生成schema文件
         if (tag == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1 && tag6 == 1) {
             map.put("result", 1);
             schema.setSchemaDimensions(schemaDimensions);
             schema.setSchemaMeasureGroups(schemaMeasureGroups);
-            StringReader sr = new StringReader(SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups()).toString());
+//            System.out.println((SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups())).toString());
+            StringReader sr = new StringReader((SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups())).toString());
             InputSource is = new InputSource(sr);
             try {
                 String path = request.getSession().getServletContext().getRealPath("/saiku") + File.separator;
+                //生成saiku的schema文件
                 Document doc = (new SAXBuilder()).build(is);
                 XMLOutputter XMLOut = new XMLOutputter();
                 Format format = Format.getPrettyFormat();
@@ -180,9 +188,8 @@ public class SchemaController {
                 XMLOut.output(doc, new FileOutputStream(path + schema.getName() + ".xml"));
                 schema.setAddress(path + schema.getName());
                 schemaServiceI.updateSchema(schema);
-                fileIn.put("file",readFiles(path+schema.getName()+".xml"));
-                fileIn.put("name",schema.getName());
-                HttpConnectDeal.postJson("http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'"+schema.getId()+"'",new JSONObject(fileIn));
+                //主动向saiku发起POST请求，参数类型为multipart/form-data
+               HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml","http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'"+schema.getId()+"'",schema);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -193,14 +200,5 @@ public class SchemaController {
         return map;
     }
 
-    private InputStream readFiles(String fileName) {
-        File file = new File(fileName);
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return in;
-    }
+
 }
