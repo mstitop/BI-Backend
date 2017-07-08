@@ -45,6 +45,9 @@ public class SchemaController {
     @Autowired
     private DimensionLinkServiceI dimensionLinkServiceI;
 
+    @Autowired
+    private DbConnectionServiceI dbConnectionServiceI;
+
     /**
      * 这个controller是用于生成saiku的schema文件
      * @param token
@@ -68,6 +71,7 @@ public class SchemaController {
         JSONObject obj = new JSONObject(json);
         String schemaName = obj.getString("name");
         int bpid = obj.getInt("bpid");
+        int bdid = obj.getInt("bdid");
         schema.setName(schemaName);
         schema.setCubeName(schemaName);
         schema.setBusinessPackageId(bpid);
@@ -174,7 +178,6 @@ public class SchemaController {
             map.put("result", 1);
             schema.setSchemaDimensions(schemaDimensions);
             schema.setSchemaMeasureGroups(schemaMeasureGroups);
-//            System.out.println((SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups())).toString());
             StringReader sr = new StringReader((SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups())).toString());
             InputSource is = new InputSource(sr);
             try {
@@ -188,8 +191,11 @@ public class SchemaController {
                 XMLOut.output(doc, new FileOutputStream(path + schema.getName() + ".xml"));
                 schema.setAddress(path + schema.getName());
                 schemaServiceI.updateSchema(schema);
-                //主动向saiku发起POST请求，参数类型为multipart/form-data
-               HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml","http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'"+schema.getId()+"'",schema);
+                //主动向saiku发起POST请求，参数类型为multipart/form-data，实现加入数据模型
+                HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml","http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'"+schema.getId()+"'",schema);
+                DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(bdid);
+                JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo,schema);
+                HttpConnectDeal.postJson("http://10.65.1.92:8080/saiku/rest/saiku/admin/datasources",dbconnInfoObj);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -200,5 +206,21 @@ public class SchemaController {
         return map;
     }
 
+
+    private JSONObject dbconnInfoToObj(DbconnInfo dbconnInfo,Schema schema){
+        //根据saiku源码的内容，id，path，advanced三个键的值当不存在时，一定要传NULL，不要传""
+        JSONObject dbconnInfoObj = new JSONObject();
+        dbconnInfoObj.put("id",JSONObject.NULL);
+        dbconnInfoObj.put("password",dbconnInfo.getPassword());
+        dbconnInfoObj.put("username",dbconnInfo.getUsername());
+        dbconnInfoObj.put("path",JSONObject.NULL);
+        dbconnInfoObj.put("schema","/datasources/"+schema.getName()+".xml");
+        dbconnInfoObj.put("driver",dbconnInfo.getJdbcname());
+        dbconnInfoObj.put("connectionname",schema.getName());
+        dbconnInfoObj.put("jdbcurl",dbconnInfo.getUrl());
+        dbconnInfoObj.put("connectiontype","MONDRIAN");
+        dbconnInfoObj.put("advanced",JSONObject.NULL);
+        return dbconnInfoObj;
+    }
 
 }

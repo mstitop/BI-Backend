@@ -62,6 +62,7 @@ public class SchemaUtils {
             sb.append("<MeasureGroup table='" + measure.getTableName() + "' name='" + measure.getName() + "'>").append(newLine);
             sb.append("<Measures>").append(newLine);
             for (SchemaMeasure measureDesc : measure.getSchemaMeasures()) {
+                //对包装类使用==运算符时需要特别注意
                 if (measure.getId().intValue() == measureDesc.getMeasureGroupId().intValue()) {
                     sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' formatString='" + measureDesc.getFormatStyle() + "'/>")
                             .append(newLine);

@@ -42,7 +42,6 @@ import org.springframework.stereotype.Service;
  * @Description
  * @update 2017年7月7日 上午10:46:33
  */
-@Service
 public class HttpConnectDeal {
     /**
      * 处理get请求.
@@ -121,16 +120,31 @@ public class HttpConnectDeal {
     /**
      * 发送带有json参数的请求
      *
-     * @param url
+     * @param uri
      * @param json
      * @return
      */
-    public static String postJson(String url, JSONObject json) {
+    public static String postJson(String uri, JSONObject json) {
         // 实例化httpClient
         CloseableHttpClient httpclient = HttpClients.createDefault();
+        //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
+        HttpHost targetHost = new HttpHost("10.65.1.92", 8080, "http");
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(
+                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+                new UsernamePasswordCredentials("admin", "admin"));
+        // 创建 AuthCache 实例
+        AuthCache authCache = new BasicAuthCache();
+        // 创建 BASIC scheme 对象 and 将它加入到本地的 auth cache
+        BasicScheme basicAuth = new BasicScheme();
+        authCache.put(targetHost, basicAuth);
+        // 将 AuthCache 加入到执行的上下文
+        HttpClientContext context = HttpClientContext.create();
+        context.setCredentialsProvider(credsProvider);
+        context.setAuthCache(authCache);
 
         // 实例化post方法
-        HttpPost httpPost = new HttpPost(url);
+        HttpPost httpPost = new HttpPost(uri);
 
         // 结果
         CloseableHttpResponse response = null;
@@ -143,10 +157,9 @@ public class HttpConnectDeal {
 
             // 将参数给post方法
             httpPost.setEntity(stringEntity);
-
             httpPost.setHeader("Content-type", "application/json");
-            // 执行post方法
-            response = httpclient.execute(httpPost);
+            // 执行post请求
+            response = httpclient.execute(targetHost,httpPost,context);
             if (response.getStatusLine().getStatusCode() == 200) {
                 content = EntityUtils.toString(response.getEntity(), "utf-8");
                 System.out.println(content);
@@ -187,7 +200,7 @@ public class HttpConnectDeal {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         final ContentType contentType = ContentType.create("text/plain", Charset.forName("UTF-8"));
         builder.addTextBody("name", schema.getName(), contentType);
-        builder.addTextBody("file", schema.getName(), contentType);
+        //builder.addTextBody("file", schema.getName(), contentType);
         // 将文件加入到POST请求:
         File f = new File(path);
         try {
@@ -219,7 +232,7 @@ public class HttpConnectDeal {
 
     }
 
-    public String postStream(String urlStr) {
+    public static String postStream(String urlStr) {
         try {
             URL url = new URL(urlStr);
             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
