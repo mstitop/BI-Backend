@@ -1,0 +1,41 @@
+{
+    "job": {
+        "content": [
+            {
+                "reader": {
+                    "name": "mysqlreader",
+                    "parameter": {
+                        "column": [{source.db.table.columns}],
+                        "connection": [
+                            {
+                                "jdbcUrl": ["{source.db.url}"],
+                                "table": ["{source.db.table.name}"]
+                            }
+                        ],
+                        "password": "{source.db.password}",
+                        "username": "{source.db.username}",
+                        "where": "{source.db.table.where}"
+                    }
+                },
+                "writer": {
+                    "name": "hdfswriter",
+                    "parameter": {
+                        "column": [{target.hdfs.columns}],
+                        "compress": "{target.hdfs.compress}",
+                        "defaultFS": "{target.hdfs.defaultFS}",
+                        "fieldDelimiter": "{target.hdfs.fieldDelimiter}",
+                        "fileName": "{target.hdfs.fileName}",
+                        "fileType": "{target.hdfs.fileType}",
+                        "path": "{target.hdfs.path}",
+                        "writeMode": "{target.hdfs.writeMode}"
+                    }
+                }
+            }
+        ],
+        "setting": {
+            "speed": {
+                "channel": "{job.channel}"
+            }
+        }
+    }
+}
