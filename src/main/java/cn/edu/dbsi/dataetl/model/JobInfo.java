@@ -1,4 +1,4 @@
-package com.yxt.data.migration.json.model;
+package cn.edu.dbsi.dataetl.model;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -6,38 +6,33 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by Skye on 2017/6/27.
  */
 
+/**
+ * 解析 json 用的 model ，与 DataxJsonInfo 不同
+ */
+
 @Configuration
 @PropertySource("classpath:config.properties")
-@ComponentScan(basePackages = {"com.yxt",})
+@ComponentScan(basePackages = {"cn.edu.dbsi",})
 
-@Service
 public class JobInfo {
-    @Value("${source.db.name}")
-    private String sourceDbName;
 
+    private String sourceDbType;
 
-    @Value("${source.db.table.name}")
     private String sourceTbName;
 
-    @Value("${source.db.url}")
     private String sourceDbUrl;
 
-    @Value("${source.db.username}")
     private String sourceDbUsername;
 
-    @Value("${source.db.password}")
     private String sourceDbPassword;
 
-    @Value("${source.db.table.where}")
     private String where;
 
-    @Value("${target.hdfs.compress}")
     private String compress;
 
     @Value("${target.hdfs.defaultFS}")
@@ -46,42 +41,40 @@ public class JobInfo {
     @Value("${target.hdfs.fieldDelimiter}")
     private String fieldDelimiter;
 
-    @Value("${target.hdfs.fileName}")
-    private String fileName;
-
-    @Value("${target.hdfs.fileType}")
-    private String fileType;
-
-    @Value("${target.hdfs.path}")
+    @Value("${target.hdfs.hiveAddress}")
     private String path;
 
     @Value("${target.hdfs.writeMode}")
     private String writeMode;
 
-
-    @Value("${job.columns}")
-
-    private String columns;
-
-    @Value("${job.channel}")
-    private int channel;
-
     @Value("${migration.datax.tool.folder}")
     private String dataxFloder;
 
-    @Value("${migration.datax.tool.job.folder}")
+    private String fileName;
+
+    private String fileType;
+
+    private String columns;
+
+    private int channel;
+
     private String jobFileFloder;
 
     private boolean finished = false;
     private boolean hasException = false;
-    private String costTime="";
-    private String readWriteRateSpeed="";
-    private String readWriteRecordSpeed="";
+    private String costTime = "";
+    private String readWriteRateSpeed = "";
+    private String readWriteRecordSpeed = "";
     private long readWriteRecords = 0;
     private long readWriteFailRecords = 0;
 
-    private String sourceDbType;
 
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+
+    }
 
     public String getDataxFloder() {
         return dataxFloder;
@@ -98,6 +91,7 @@ public class JobInfo {
     public void setJobFileFloder(String jobFileFloder) {
         this.jobFileFloder = jobFileFloder;
     }
+
     public boolean isFinished() {
         return finished;
     }
@@ -138,7 +132,6 @@ public class JobInfo {
         this.readWriteRecordSpeed = readWriteRecordSpeed;
     }
 
-
     public long getReadWriteRecords() {
         return readWriteRecords;
     }
@@ -164,10 +157,6 @@ public class JobInfo {
     }
 
 
-    public String getSourceDbName() {
-        return sourceDbName;
-    }
-
     public String getSourceTbName() {
         return sourceTbName;
     }
@@ -175,20 +164,6 @@ public class JobInfo {
     public void setSourceTbName(String sourceTbName) {
         this.sourceTbName = sourceTbName;
     }
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-
-    }
-
-    public void setSourceDbName(String sourceDbName) {
-        this.sourceDbName = sourceDbName;
-    }
-
-
-
-
 
     public String getSourceDbUrl() {
         return sourceDbUrl;

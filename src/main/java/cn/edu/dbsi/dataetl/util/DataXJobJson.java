@@ -1,17 +1,16 @@
-package com.yxt.data.migration.json.service;
+package cn.edu.dbsi.dataetl.util;
 
-import com.yxt.data.migration.json.model.JobInfo;
-import com.yxt.data.migration.util.DataXJobFile;
+
+import cn.edu.dbsi.dataetl.model.JobInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Service;
 
 import java.io.*;
 
 /**
  * Created by Skye on 2017/6/27.
  */
-@Service
+
 public class DataXJobJson {
     protected static final Log log = LogFactory.getLog(DataXJobJson.class);
     private static String template = null;
@@ -52,14 +51,14 @@ public class DataXJobJson {
         //log.info(json);
 
         try {
-            log.info("Write job json for table:"+config.getSourceTbName());
-            writeToFile(config.getSourceTbName(), json,config.getJobFileFloder(),packageId);
+            log.info("Write job json for table:"+config.getFileName());
+            writeToFile(config.getFileName(), json,config.getJobFileFloder(),packageId);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
     }
     private void readToBuffer(StringBuffer buffer, String filePath) throws IOException {
-        InputStream is = DataXJobFile.class.getClassLoader().getResourceAsStream(filePath);
+        InputStream is = DataXJobJson.class.getClassLoader().getResourceAsStream(filePath);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
         line = reader.readLine();

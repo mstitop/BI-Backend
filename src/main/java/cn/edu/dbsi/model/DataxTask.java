@@ -9,7 +9,7 @@ public class DataxTask {
 
     private Integer businessPackageId;
 
-    private String hiveIp;
+    private String hiveAddress;
 
     private String taskStatus;
 
@@ -43,12 +43,12 @@ public class DataxTask {
         this.businessPackageId = businessPackageId;
     }
 
-    public String getHiveIp() {
-        return hiveIp;
+    public String getHiveAddress() {
+        return hiveAddress;
     }
 
-    public void setHiveIp(String hiveIp) {
-        this.hiveIp = hiveIp == null ? null : hiveIp.trim();
+    public void setHiveAddress(String hiveAddress) {
+        this.hiveAddress = hiveAddress == null ? null : hiveAddress.trim();
     }
 
     public String getTaskStatus() {

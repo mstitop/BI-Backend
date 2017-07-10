@@ -5,16 +5,22 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="business_ package _id" property="businessPackageId" jdbcType="INTEGER" />
-    <result column="hive_ip" property="hiveIp" jdbcType="VARCHAR" />
+    <result column="hive_address" property="hiveAddress" jdbcType="VARCHAR" />
     <result column="task_status" property="taskStatus" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, "business_ package _id", hive_ip, task_status, create_time, finish_time, 
+    id, name, "business_ package _id", hive_address, task_status, create_time, finish_time,
     is_delete
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from datax_task
+    WHERE is_delete = 0
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -27,10 +33,10 @@
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.DataxTask" >
     insert into datax_task (id, name, "business_ package _id", 
-      hive_ip, task_status, create_time, 
+      hive_address, task_status, create_time,
       finish_time, is_delete)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{businessPackageId,jdbcType=INTEGER}, 
-      #{hiveIp,jdbcType=VARCHAR}, #{taskStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{hiveAddress,jdbcType=VARCHAR}, #{taskStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{finishTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.DataxTask" >
@@ -45,8 +51,8 @@
       <if test="businessPackageId != null" >
         "business_ package _id",
       </if>
-      <if test="hiveIp != null" >
-        hive_ip,
+      <if test="hiveAddress != null" >
+        hive_address,
       </if>
       <if test="taskStatus != null" >
         task_status,
@@ -71,8 +77,8 @@
       <if test="businessPackageId != null" >
         #{businessPackageId,jdbcType=INTEGER},
       </if>
-      <if test="hiveIp != null" >
-        #{hiveIp,jdbcType=VARCHAR},
+      <if test="hiveAddress != null" >
+        #{hiveAddress,jdbcType=VARCHAR},
       </if>
       <if test="taskStatus != null" >
         #{taskStatus,jdbcType=CHAR},
@@ -98,7 +104,7 @@
         "business_ package _id" = #{businessPackageId,jdbcType=INTEGER},
       </if>
       <if test="hiveIp != null" >
-        hive_ip = #{hiveIp,jdbcType=VARCHAR},
+        hive_address = #{hiveAddress,jdbcType=VARCHAR},
       </if>
       <if test="taskStatus != null" >
         task_status = #{taskStatus,jdbcType=CHAR},
@@ -119,11 +125,19 @@
     update datax_task
     set name = #{name,jdbcType=VARCHAR},
       "business_ package _id" = #{businessPackageId,jdbcType=INTEGER},
-      hive_ip = #{hiveIp,jdbcType=VARCHAR},
+      hive_address = #{hiveAddress,jdbcType=VARCHAR},
       task_status = #{taskStatus,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateIsDeleteByPrimaryKey" parameterType="cn.edu.dbsi.model.DataxTask">
+    update datax_task
+    set is_delete = "1"
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectLastPrimaryKey" resultType="java.lang.Integer">
+    select id from datax_task order by id DESC limit 1
+  </select>
 </mapper>

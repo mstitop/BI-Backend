@@ -1,7 +1,9 @@
 package cn.edu.dbsi.dao;
 
 import cn.edu.dbsi.model.DataxJsonInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository("dataxJsonInfoMapper")
 public interface DataxJsonInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -3,11 +3,11 @@
 <mapper namespace="cn.edu.dbsi.dao.HiveTableInfoMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.HiveTableInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="hive_table_info.table_name" property="tableName" jdbcType="VARCHAR" />
     <result column="business_ package _id" property="businessPackageId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, table_name, "business_ package _id"
+    id, hive_table_info.table_name, "business_ package _id"
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,7 +20,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.HiveTableInfo" >
-    insert into hive_table_info (id, table_name, "business_ package _id"
+    insert into hive_table_info (id, hive_table_info.table_name, "business_ package _id"
       )
     values (#{id,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{businessPackageId,jdbcType=INTEGER}
       )
@@ -32,7 +32,7 @@
         id,
       </if>
       <if test="tableName != null" >
-        table_name,
+        hive_table_info.table_name,
       </if>
       <if test="businessPackageId != null" >
         "business_ package _id",
@@ -54,7 +54,7 @@
     update hive_table_info
     <set >
       <if test="tableName != null" >
-        table_name = #{tableName,jdbcType=VARCHAR},
+        hive_table_info.table_name = #{tableName,jdbcType=VARCHAR},
       </if>
       <if test="businessPackageId != null" >
         "business_ package _id" = #{businessPackageId,jdbcType=INTEGER},
@@ -64,7 +64,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.HiveTableInfo" >
     update hive_table_info
-    set table_name = #{tableName,jdbcType=VARCHAR},
+    set hive_table_info.table_name = #{tableName,jdbcType=VARCHAR},
       "business_ package _id" = #{businessPackageId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

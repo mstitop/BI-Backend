@@ -1,7 +1,9 @@
 package cn.edu.dbsi.dao;
 
 import cn.edu.dbsi.model.HiveTableInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository("hiveTableInfoMapper")
 public interface HiveTableInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
