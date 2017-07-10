@@ -9,4 +9,6 @@ public interface SchemaServiceI {
     int addSchema(Schema schema);
 
     int getLastSchemaId();
+
+    int updateSchema(Schema schema);
 }

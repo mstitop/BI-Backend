@@ -46,4 +46,24 @@ public class BusinessPackageGroupController {
         return map;
     }
 
+    @RequestMapping(value = "/businessPackageGroup",method = RequestMethod.PUT)
+    @ResponseBody
+    public Map<String,Object> updateBusinessPackageGroupName(@PathVariable("token") Integer token,@RequestBody Map<String,Object> json){
+        Map<String,Object> map = new HashMap<String, Object>();
+        BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
+        JSONObject obj = new JSONObject(json);
+        int id = obj.getInt("id");
+        String name = obj.getString("name");
+        businessPackageGroup.setId(id);
+        businessPackageGroup.setName(name);
+        int tag =businessPackageGroupServiceI.upadateBusinessPackageGroupName(businessPackageGroup);
+        if(tag == 1){
+            map.put("result",1);
+        }else{
+            map.put("result",0);
+            map.put("error","更新业务包分组名字失败");
+        }
+        return map;
+    }
+
 }

@@ -13,12 +13,12 @@ public class SchemaUtils {
     private static String newLine = "\r\n";
 
     public static String createSchema(Schema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb = appendSchema(sb, schema, dimensions, measures);
         return sb.toString();
     }
 
-    public static StringBuffer appendSchema(StringBuffer sb, Schema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
+    public static StringBuilder appendSchema(StringBuilder sb, Schema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
         sb.append("<?xml version='1.0'?>").append(newLine)
                 .append("<Schema name='" + schema.getName() + "' metamodelVersion='4.0'>")
                 .append(newLine);
@@ -35,7 +35,7 @@ public class SchemaUtils {
      * @param schema
      * @return
      */
-    public static StringBuffer appendTable(StringBuffer sb, Schema schema) {
+    public static StringBuilder appendTable(StringBuilder sb, Schema schema) {
         String[] tables = schema.getTableNames().split(",");
         sb.append("<PhysicalSchema>").append(newLine);
         for (int i = 0; i < tables.length; i++) {
@@ -54,24 +54,25 @@ public class SchemaUtils {
      * @param dimensionDescList
      * @return
      */
-    public static StringBuffer appendCube(StringBuffer sb, Schema schema, List<SchemaMeasureGroup> measureDescList, List<SchemaDimension> dimensionDescList) {
-        sb.append("<Cube name='" + schema.getCubeName() + "'>").append(newLine);
+    public static StringBuilder appendCube(StringBuilder sb, Schema schema, List<SchemaMeasureGroup> measureDescList, List<SchemaDimension> dimensionDescList) {
+        sb.append("<Cube name='" + schema.getCubeName() + "' defaultMeasure ='" + schema.getDefaultMeasureName() + "'>").append(newLine);
         sb = appendDimension(sb, dimensionDescList);
         sb.append("<MeasureGroups>").append(newLine);
         for (SchemaMeasureGroup measure : measureDescList) {
             sb.append("<MeasureGroup table='" + measure.getTableName() + "' name='" + measure.getName() + "'>").append(newLine);
             sb.append("<Measures>").append(newLine);
             for (SchemaMeasure measureDesc : measure.getSchemaMeasures()) {
-                if (measure.getId() == measureDesc.getMeasureGroupId()) {
-                    sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' visible='true'/>")
+                //对包装类使用==运算符时需要特别注意
+                if (measure.getId().intValue() == measureDesc.getMeasureGroupId().intValue()) {
+                    sb.append("<Measure aggregator='" + measureDesc.getAggregator() + "' column='" + measureDesc.getFieldName() + "' name='" + measureDesc.getName() + "' formatString='" + measureDesc.getFormatStyle() + "'/>")
                             .append(newLine);
                 }
             }
             sb.append("</Measures>").append(newLine);
             sb.append("<DimensionLinks>").append(newLine);
-            for(SchemaDimensionMeasure dimensionDesc:measure.getSchemaDimensionMeasures()) {
-                if (measure.getId() == dimensionDesc.getMeasureGroupId()) {
-                    if ("0".equals(dimensionDesc.getIsForeign())) {
+            for (SchemaDimensionMeasure dimensionDesc : measure.getSchemaDimensionMeasures()) {
+                if (measure.getId().intValue() == dimensionDesc.getMeasureGroupId().intValue()) {
+                    if ("false".equals(dimensionDesc.getIsForeign())) {
                         sb.append("<FactLink dimension='" + dimensionDesc.getDimensionName() + "'/>").append(newLine);
                     } else {
                         sb.append("<ForeignKeyLink dimension='" + dimensionDesc.getDimensionName() + "' foreignKeyColumn='" + dimensionDesc.getForeignKey() + "'/>").append(newLine);
@@ -93,18 +94,22 @@ public class SchemaUtils {
      * @param dimensionDescList
      * @return
      */
-    public static StringBuffer appendDimension(StringBuffer sb, List<SchemaDimension> dimensionDescList) {
+    public static StringBuilder appendDimension(StringBuilder sb, List<SchemaDimension> dimensionDescList) {
         sb.append("<Dimensions>").append(newLine);
         for (SchemaDimension dimensionDesc : dimensionDescList) {
             sb.append("<Dimension name='" + dimensionDesc.getName() + "' key='" + dimensionDesc.getKey() + "' table='" + dimensionDesc.getTableName() + "'>").append(newLine);
+            sb.append("<Attributes>").append(newLine);
             for (SchemaDimensionAttribute column : dimensionDesc.getSchemaDimensionAttributes()) {
-                if (column.getDimensionId() == dimensionDesc.getId()) {
-                    // add Attributes to stringbuffer
-                    sb.append("<Attributes>").append(newLine);
-                    sb = addAttribute(sb, column.getName(), column.getFieldName());
-                    sb.append("</Attributes>").append(newLine);
+                if (column.getDimensionId().intValue() == dimensionDesc.getId().intValue()) {
+                    if (!column.getName().equals((dimensionDesc.getKey()))) {
+                        // add Attributes to stringbuffer
+                        sb = addAttribute(sb, column.getName(), column.getFieldName());
+                    } else {
+                        sb = addAttribute2(sb, column.getName(), column.getFieldName());
+                    }
                 }
             }
+            sb.append("</Attributes>").append(newLine);
             sb.append("</Dimension>").append(newLine);
         }
         sb.append("</Dimensions>").append(newLine);
@@ -119,16 +124,26 @@ public class SchemaUtils {
      * @param attr
      * @return
      */
-    public static StringBuffer addAttribute(StringBuffer sb, String name, String attr) {
-        sb.append("<Attribute hasHierarchy='true' levelType='Regular' name='" + name + "'>").append(newLine)
-                .append("<Key>").append(newLine)
-                .append("<Column name='" + attr + "'/>").append(newLine)
-                .append("</Key>").append(newLine)
-                .append("</Attribute>").append(newLine);
+    public static StringBuilder addAttribute(StringBuilder sb, String name, String attr) {
+        sb.append("<Attribute hasHierarchy='true' levelType='Regular' name='" + name + "' keyColumn='" + attr + "'/>").append(newLine);
+        System.out.println(sb.toString());
+//                .append("<Key>").append(newLine)
+//                .append("<Column name='" + attr + "'/>").append(newLine)
+//                .append("</Key>").append(newLine)
+//                .append("</Attribute>").append(newLine);
         return sb;
     }
 
-    public static StringBuffer addDimensionLink(StringBuffer sb, List<SchemaDimensionMeasure> schemaDimensionMeasures) {
+    public static StringBuilder addAttribute2(StringBuilder sb, String name, String attr) {
+        sb.append("<Attribute hasHierarchy='false' levelType='Regular' name='" + name + "' keyColumn='" + attr + "'/>").append(newLine);
+//                .append("<Key>").append(newLine)
+//                .append("<Column name='" + attr + "'/>").append(newLine)
+//                .append("</Key>").append(newLine)
+//                .append("</Attribute>").append(newLine);
+        return sb;
+    }
+
+    public static StringBuilder addDimensionLink(StringBuilder sb, List<SchemaDimensionMeasure> schemaDimensionMeasures) {
         sb.append("<DimensionLinks>").append(newLine);
         for (SchemaDimensionMeasure dimensionDesc : schemaDimensionMeasures) {
             if ("0".equals(dimensionDesc.getIsForeign())) {
