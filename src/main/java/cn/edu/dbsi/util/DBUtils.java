@@ -1,5 +1,6 @@
 package cn.edu.dbsi.util;
 
+import cn.edu.dbsi.dataetl.model.HiveConnInfo;
 import cn.edu.dbsi.model.DbconnInfo;
 
 import java.sql.*;
@@ -163,6 +164,49 @@ public class DBUtils {
         return false;
     }
 
+    /**
+     * 执行建 HIVE 表语句
+     * @param dbconnInfo
+     * @param sql
+     * @param args
+     * @return
+     */
+    public static  int createHiveTable(HiveConnInfo hiveConnInfo, String tableName,Map<String,String> columns ) {
+        Connection conn = getConn(hiveConnInfo.getDriver(),hiveConnInfo.getUrl(),hiveConnInfo.getUsername(),hiveConnInfo.getPassword());// 获取数据连接
+        Statement stmt = null;
+
+        String dropSql = "drop table " + tableName;
+        StringBuffer createSql = new StringBuffer();
+        createSql.append("create table " + tableName + " (");
+        int i = 0;
+        int count = columns.size();
+        for(Map.Entry<String,String> entry: columns.entrySet()){
+            i ++;
+            createSql.append(entry.getKey());
+            createSql.append(" ");
+            createSql.append(entry.getValue());
+            if(i < count - 1){
+                createSql.append(",");
+            }
+
+        }
+        createSql.append(") row format delimited fields terminated by '\t'");
+        String createSqlFinal  = createSql.toString();
+
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(dropSql);
+            stmt.executeUpdate(createSqlFinal);
+
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
     /**
      * 关闭连接释放资源
      *

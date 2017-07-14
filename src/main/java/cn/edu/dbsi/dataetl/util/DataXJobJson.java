@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
+import java.util.Map;
 
 /**
  * Created by Skye on 2017/6/27.
@@ -17,12 +18,12 @@ public class DataXJobJson {
 
 
 
-    public void generateJsonJobFile(JobInfo config, int packageId) {
+    public void generateJsonJobFile(JobInfo config, int taskId) {
 
         String json = getTemplate(config.getSourceDbType());
 
-        CharSequence cols1 = getSourceDbColumnsString(config.getColumns());
-        CharSequence cols2 = getHdfsColumnsString(config.getColumns());
+        String cols1 = getSourceDbColumnsString(config.getColumns());
+        String cols2 = getHdfsColumnsString(config.getColumns());
 
         json = json.replace("{job.channel}", String.valueOf(config.getChannel()));
 
@@ -52,7 +53,7 @@ public class DataXJobJson {
 
         try {
             log.info("Write job json for table:"+config.getFileName());
-            writeToFile(config.getFileName(), json,config.getJobFileFloder(),packageId);
+            writeToFile(config.getFileName(), json,config.getJobFileFloder(), taskId);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -69,8 +70,8 @@ public class DataXJobJson {
         }
         reader.close();
     }
-    private void writeToFile(String fileName, String json,String folder, int packageId) throws IOException {
-        String dirStr = folder + "/" + packageId;
+    private void writeToFile(String fileName, String json,String folder, int taskId) throws IOException {
+        String dirStr = folder + "/" + taskId;
         String fileStr = dirStr + "/" + fileName + ".json";
         File dirFile = new File(dirStr);
 
@@ -103,33 +104,41 @@ public class DataXJobJson {
         return template;
     }
 
-    private CharSequence getSourceDbColumnsString(String columns) {
+    private String getSourceDbColumnsString(Map<String,String> columns) {
         StringBuffer stb = new StringBuffer();
-        String[] strs = columns.split(",");
-        for (String s : strs) {
+        int i = 0;
+        int count = columns.size();
+        for (Map.Entry<String,String> entry : columns.entrySet()) {
             stb.append("\"");
-            stb.append(s.split("-")[0]);
-            stb.append("\",");
+            stb.append(entry.getKey());
+            stb.append("\"");
+            if(i < count - 1){
+                stb.append(",");
+            }
         }
-        return stb.subSequence(0, stb.length() - 1);
+        return stb.toString();
     }
-    private CharSequence getHdfsColumnsString(String columns) {
+    private String getHdfsColumnsString(Map<String,String> columns) {
         StringBuffer stb = new StringBuffer();
-        String[] strs = columns.split(",");
-        for (String s : strs) {
+        int i = 0;
+        int count = columns.size();
+        for (Map.Entry<String,String> entry : columns.entrySet()) {
 
-            String[] colAndType = s.split("-");
+
             stb.append("{");
             stb.append("\"name\": ");
             stb.append("\"");
-            stb.append(colAndType[0]);
+            stb.append(entry.getKey());
             stb.append("\",");
             stb.append("\"type\": ");
             stb.append("\"");
-            stb.append(colAndType[1]);
+            stb.append(entry.getValue());
             stb.append("\"");
-            stb.append("},");
+            stb.append("}");
+            if(i < count - 1){
+                stb.append(",");
+            }
         }
-        return stb.subSequence(0, stb.length() - 1);
+        return stb.toString();
     }
 }

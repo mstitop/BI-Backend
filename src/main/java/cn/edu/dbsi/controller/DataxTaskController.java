@@ -1,14 +1,12 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.dataetl.model.HiveConnInfo;
 import cn.edu.dbsi.dataetl.model.JobInfo;
-import cn.edu.dbsi.model.DataxJsonInfo;
-import cn.edu.dbsi.model.DataxTask;
-import cn.edu.dbsi.model.DbconnInfo;
-import cn.edu.dbsi.model.HiveTableInfo;
-import cn.edu.dbsi.service.DataxJsonInfoService;
-import cn.edu.dbsi.service.DataxTaskService;
-import cn.edu.dbsi.service.DbConnectionServiceI;
-import cn.edu.dbsi.service.HiveTableInfoService;
+import cn.edu.dbsi.dataetl.util.DataXJobJson;
+import cn.edu.dbsi.dataetl.util.DataxExcuteRunnable;
+import cn.edu.dbsi.model.*;
+import cn.edu.dbsi.service.*;
+import cn.edu.dbsi.util.DBUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,9 @@ public class DataxTaskController {
     private DataxJsonInfoService dataxJsonInfoService;
     @Autowired
     private HiveTableInfoService hiveTableInfoService;
+    @Autowired
+    private BusinessPackageServiceI businessPackageServiceI;
+
     /**
      * 产生 datax json 文件，并执行相应导入任务
      *
@@ -44,26 +45,30 @@ public class DataxTaskController {
         Map<String, Object> map = new HashMap<String, Object>();
         List<JobInfo> jobList = new ArrayList<JobInfo>();
         DbconnInfo dbconnInfo;
-
+        JobInfo jobInfo = new JobInfo();
         DataxTask dataxTask = new DataxTask();
-        HiveTableInfo hiveTableInfo;
 
-        int tag1 = 0,tag2 = 0, tag3 = 0;
+        int tag1, tag2 = 0, tag3 = 0, tag4 = 0, tag5 = 0;
         JSONObject obj = new JSONObject(json);
         String taskName = obj.getString("name");
         int businessPackageId = Integer.parseInt(obj.getString("businessPackageId"));
+
+        tag1 = dataxTaskService.saveDataxTask(dataxTask);
+        int lastTaskId = dataxTaskService.getLastDataxTaskId();
+
         dataxTask.setName(taskName);
         dataxTask.setBusinessPackageId(businessPackageId);
         dataxTask.setIsDelete("0");
         dataxTask.setCreateTime(new Date());
         dataxTask.setTaskStatus("0");
+        dataxTask.setHiveAddress(jobInfo.getPath() + "/" + lastTaskId + ".db/");
 
-        tag1 = dataxTaskService.saveDataxTask(dataxTask);
-        int lastTaskId = dataxTaskService.getLastDataxTaskId();
+
 
         JSONArray tbs = obj.getJSONArray("sourceTableInfos");
 
         for (int i = 0; i < tbs.length(); i++) {
+            Map<String, String> columnsMap = new LinkedHashMap<String, String>();
             JSONObject table = tbs.getJSONObject(i);
             int dbId = table.getInt("dbid");
             // 获取数据库信息
@@ -89,29 +94,32 @@ public class DataxTaskController {
 
             JSONArray fields = table.getJSONArray("fields");
 
-            StringBuffer columns = new StringBuffer();
+            //StringBuffer columns = new StringBuffer();
             for (int k = 0; k < fields.length(); k++) {
                 JSONObject field = fields.getJSONObject(k);
-                columns.append(field.getString("name"));
-                columns.append("-");
-                columns.append(field.getString("targetType"));
-                columns.append(",");
+//                columns.append(field.getString("name"));
+//                columns.append("-");
+//                columns.append(field.getString("targetType"));
+//                columns.append(",");
+                columnsMap.put(field.getString("name"), field.getString("targetType"));
 
             }
 
             // 每个表产生一个任务
-            JobInfo jobInfo = new JobInfo();
+            jobInfo = new JobInfo();
             jobInfo.setSourceDbType(dbType);
+            jobInfo.setSourceDbUrl(dbUrl);
             jobInfo.setSourceDbUsername(dbUsername);
             jobInfo.setSourceDbPassword(dbPassword);
             jobInfo.setSourceTbName(tableName);
             jobInfo.setChannel(jobChannel);
-            jobInfo.setColumns(columns.toString());
+            jobInfo.setColumns(columnsMap);
             jobInfo.setCompress(compressType);
             jobInfo.setWhere(where);
             jobInfo.setFileType(fileType);
             jobInfo.setFileName(targetTbName);
-            jobInfo.setPath(jobInfo.getPath() + "/" + targetTbName);
+            jobInfo.setPath(jobInfo.getPath() + "/" + lastTaskId + ".db/" + targetTbName);
+            jobList.add(jobInfo);
 
             // 赋值并存储任务表
             DataxJsonInfo dataxJsonInfo = new DataxJsonInfo();
@@ -125,12 +133,97 @@ public class DataxTaskController {
 
             tag2 = dataxJsonInfoService.addJsonInfo(dataxJsonInfo);
 
-            // 根据 targetTbName 和 job 信息，创建 hive 表
+            // 根据 targetTbName 和 job 信息，创建 hive 表，并存储 hive 信息表
+            HiveTableInfo hiveTableInfo = new HiveTableInfo();
+            hiveTableInfo.setTableName(targetTbName);
+            hiveTableInfo.setTaskId(lastTaskId);
+
+            tag3 = hiveTableInfoService.addHiveTableInfo(hiveTableInfo);
+
+            HiveConnInfo hiveConnInfo = new HiveConnInfo();
+            tag4 = DBUtils.createHiveTable(hiveConnInfo, lastTaskId + "." + targetTbName, columnsMap);
+
+            // 生成任务 json 文件
+            DataXJobJson dataXJobJson = new DataXJobJson();
+            dataXJobJson.generateJsonJobFile(jobInfo, lastTaskId);
+        }
+
+        // 开启任务执行线程
+        Runnable excuteRunnable = new DataxExcuteRunnable(dataxTask,jobList);
+        Thread thread = new Thread(excuteRunnable);
+        thread.start();
 
 
-            //
+        if (tag1 == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1) {
+            map.put("result", 1);
+        } else {
+            map.put("result", 0);
+            map.put("error", "保存失败");
         }
         return map;
     }
 
+    /**
+     *  查询所有导入任务信息，并返回
+     * @param token
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/dataxTasks", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getDataxTasksInfo(@PathVariable("token") Integer token) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<DataxTask> dataxTasks = dataxTaskService.getDataxTasks();
+
+        List<Map<String, Object>> tasks = new ArrayList<Map<String, Object>>();
+        BusinessPackage businessPackage;
+        if (dataxTasks != null){
+            for(DataxTask dataxTask : dataxTasks){
+                Map<String, Object> temp = new HashMap<String, Object>();
+                temp.put("id",dataxTask.getId());
+                temp.put("name",dataxTask.getName());
+                businessPackage = businessPackageServiceI.getBusinessPackageById(dataxTask.getBusinessPackageId());
+                temp.put("bpName",businessPackage.getName());
+                temp.put("createTime",dataxTask.getCreateTime());
+                if (dataxTask.getFinishTime() != null && !"".equals(dataxTask.getFinishTime())) {
+                    temp.put("finishTime",dataxTask.getFinishTime());
+                }else {
+                    temp.put("finishTime","");
+                }
+
+                temp.put("taskStatus",dataxTask.getTaskStatus());
+                tasks.add(temp);
+            }
+
+            map.put("result", 1);
+            map.put("tasks", tasks);
+        }else {
+            map.put("result", 0);
+            map.put("error", "获取失败");
+        }
+        return  map;
+    }
+
+    /**
+     *  查询单条导入任务信息，并返回
+     * @param token
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/dataxTaskStatus/{taskid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getDataxTaskInfoById(@PathVariable("token") Integer token,@PathVariable("taskid") Integer taskid) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        DataxTask dataxTask = dataxTaskService.getDataxTaskById(taskid);
+        if(dataxTask != null ){
+            map.put("result", 1);
+            map.put("status", Integer.parseInt(dataxTask.getTaskStatus()));
+        }else {
+            map.put("result", 0);
+            map.put("error", "获取失败");
+        }
+
+
+        return  map;
+    }
 }

@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.HiveTableInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="hive_table_info.table_name" property="tableName" jdbcType="VARCHAR" />
-    <result column="business_ package _id" property="businessPackageId" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, hive_table_info.table_name, "business_ package _id"
+    id, hive_table_info.table_name, "task_id"
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,9 +20,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.HiveTableInfo" >
-    insert into hive_table_info (id, hive_table_info.table_name, "business_ package _id"
+    insert into hive_table_info (id, hive_table_info.table_name, "task_id"
       )
-    values (#{id,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{businessPackageId,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.HiveTableInfo" >
@@ -34,8 +34,8 @@
       <if test="tableName != null" >
         hive_table_info.table_name,
       </if>
-      <if test="businessPackageId != null" >
-        "business_ package _id",
+      <if test="taskId != null" >
+        "task_id",
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -56,8 +56,8 @@
       <if test="tableName != null" >
         hive_table_info.table_name = #{tableName,jdbcType=VARCHAR},
       </if>
-      <if test="businessPackageId != null" >
-        "business_ package _id" = #{businessPackageId,jdbcType=INTEGER},
+      <if test="taskId != null" >
+        "task_id" = #{taskId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -65,7 +65,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.HiveTableInfo" >
     update hive_table_info
     set hive_table_info.table_name = #{tableName,jdbcType=VARCHAR},
-      "business_ package _id" = #{businessPackageId,jdbcType=INTEGER}
+      "task_id" = #{taskId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
+import java.util.Map;
+
 /**
  * Created by Skye on 2017/6/27.
  */
@@ -54,7 +56,7 @@ public class JobInfo {
 
     private String fileType;
 
-    private String columns;
+    private Map<String,String> columns;
 
     private int channel;
 
@@ -253,11 +255,11 @@ public class JobInfo {
         this.writeMode = writeMode;
     }
 
-    public String getColumns() {
+    public Map<String, String> getColumns() {
         return columns;
     }
 
-    public void setColumns(String columns) {
+    public void setColumns(Map<String, String> columns) {
         this.columns = columns;
     }
 

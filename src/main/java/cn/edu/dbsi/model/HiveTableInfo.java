@@ -5,7 +5,7 @@ public class HiveTableInfo {
 
     private String tableName;
 
-    private Integer businessPackageId;
+    private Integer taskId;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class HiveTableInfo {
         this.tableName = tableName == null ? null : tableName.trim();
     }
 
-    public Integer getBusinessPackageId() {
-        return businessPackageId;
+    public Integer getTaskId() {
+        return taskId;
     }
 
-    public void setBusinessPackageId(Integer businessPackageId) {
-        this.businessPackageId = businessPackageId;
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 }
