@@ -10,7 +10,7 @@ public class BusinessPackageGroup {
 
     private String isdelete;
 
-    private List<BusinessPackage> packages;
+    private List<BusinessPackage> businessPackages;
 
     public Integer getId() {
         return id;
@@ -36,11 +36,11 @@ public class BusinessPackageGroup {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
 
-    public List<BusinessPackage> getPackages() {
-        return packages;
+    public List<BusinessPackage> getBusinessPackages() {
+        return businessPackages;
     }
 
-    public void setPackages(List<BusinessPackage> packages) {
-        this.packages = packages;
+    public void setBusinessPackages(List<BusinessPackage> businessPackages) {
+        this.businessPackages = businessPackages;
     }
 }

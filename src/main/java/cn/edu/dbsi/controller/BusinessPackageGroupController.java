@@ -2,8 +2,10 @@ package cn.edu.dbsi.controller;
 
 import cn.edu.dbsi.model.BusinessPackageGroup;
 import cn.edu.dbsi.service.BusinessPackageGroupServiceI;
+import cn.edu.dbsi.util.StatusUtil;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +29,9 @@ public class BusinessPackageGroupController {
      * @param json
      * @return
      */
-    @RequestMapping(value = "/businessPackageGroup", method = RequestMethod.POST)
+    @RequestMapping(value = "/business-package-group", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
+    public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
         Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
         JSONObject obj = new JSONObject(json);
@@ -38,17 +40,21 @@ public class BusinessPackageGroupController {
         businessPackageGroup.setIsdelete("0");
         int tag = businessPackageGroupServiceI.saveBusinessPackageGroup(businessPackageGroup);
         if (tag == 1) {
-            map.put("result", 1);
+           return StatusUtil.updateOk();
         } else {
-            map.put("result", 0);
-            map.put("error", "保存失败");
+            return StatusUtil.error("","增加分组失败");
         }
-        return map;
     }
 
-    @RequestMapping(value = "/businessPackageGroup",method = RequestMethod.PUT)
+    /**
+     * 重命名指定业务包分组
+     * @param token
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/business-package-group/{businessPackageGroupId}",method = RequestMethod.PUT)
     @ResponseBody
-    public Map<String,Object> updateBusinessPackageGroupName(@PathVariable("token") Integer token,@RequestBody Map<String,Object> json){
+    public ResponseEntity<?> updateBusinessPackageGroupName(@PathVariable("token") Integer token,@RequestBody Map<String,Object> json,@PathVariable("businessPackageGroupId") Integer businessPackageGroupId){
         Map<String,Object> map = new HashMap<String, Object>();
         BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
         JSONObject obj = new JSONObject(json);
@@ -58,12 +64,10 @@ public class BusinessPackageGroupController {
         businessPackageGroup.setName(name);
         int tag =businessPackageGroupServiceI.upadateBusinessPackageGroupName(businessPackageGroup);
         if(tag == 1){
-            map.put("result",1);
+            return StatusUtil.updateOk();
         }else{
-            map.put("result",0);
-            map.put("error","更新业务包分组名字失败");
+            return StatusUtil.error("","重命名业务包分组失败");
         }
-        return map;
     }
 
 }

@@ -33,7 +33,7 @@ public class DbConnectionServiceImpl implements DbConnectionServiceI {
     }
 
     public List<DbconnInfo> getDbConnInfo() {
-        return dbconnInfoMapper.selectAll();
+            return dbconnInfoMapper.selectAll();
     }
 
 }

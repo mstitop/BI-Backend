@@ -3,7 +3,10 @@ package cn.edu.dbsi.controller;
 import cn.edu.dbsi.model.DbconnInfo;
 import cn.edu.dbsi.service.DbConnectionServiceI;
 import cn.edu.dbsi.util.DBUtils;
+import cn.edu.dbsi.util.StatusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +34,11 @@ public class SourceDBController {
      * @param token
      * @return
      */
-    @RequestMapping(value = "/sourcedbs", method = RequestMethod.GET)
+    @RequestMapping(value = "/source-dbs", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getSoureDbInfo(@PathVariable("token") Integer token) {
-        Map<String, Object> result = new HashMap<String, Object>();
+    public ResponseEntity<?> getSoureDbInfo(@PathVariable("token") Integer token) {
         List<DbconnInfo> list = dbConnectionServiceI.getDbConnInfo();
         if (list != null && list.size() > 0) {
-            result.put("result", 1);
             List<Map<String, Object>> dbsList = new ArrayList<Map<String, Object>>();
             for (DbconnInfo dbconnInfo : list) {
                 Map<String, Object> dbs = new HashMap<String, Object>();
@@ -57,19 +58,15 @@ public class SourceDBController {
                     dbs.put("tables", "");
                 dbsList.add(dbs);
             }
-            result.put("dbs", dbsList);
+         return new ResponseEntity<Object>(dbsList, HttpStatus.OK);
         } else {
-            result.put("result", 0);
-            result.put("dbs", "");
-            result.put("error", "没有相关信息");
+        return StatusUtil.error("","");
         }
-        return result;
     }
 
-    @RequestMapping(value = "/tableOfSourceDB/{dbid}/{tableName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/source-dbs/{dbId}/table/{tableName}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getSoureDbInfo(@PathVariable("token") Integer token, @PathVariable("dbid") Integer dbid, @PathVariable("tableName") String tableName) {
-        Map<String, Object> result = new HashMap<String, Object>();
+    public ResponseEntity<?> getSoureDbInfo(@PathVariable("token") Integer token, @PathVariable("dbId") Integer dbid, @PathVariable("tableName") String tableName) {
         StringBuilder sql = new StringBuilder();
         DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(dbid);
         if ("Mysql".equals(dbconnInfo.getCategory())) {
@@ -81,17 +78,13 @@ public class SourceDBController {
             //本身带有双引号的String，使用转义字符
             sql.append("select distinct column_name \"name\",data_type \"type\" from dba_tab_columns where table_name = ").append("'").append(tableName).append("'");
         }
-        System.out.println(sql.toString());
+//        System.out.println(sql.toString());
         if (dbconnInfo != null) {
-            result.put("result", 1);
             List<Map<String, Object>> columnList = DBUtils.list(dbconnInfo, sql.toString(), null);
-            result.put("fields", columnList);
+            return StatusUtil.querySuccess(columnList);
         } else {
-            result.put("result", 0);
-            result.put("error", "查询失败");
-            result.put("fields", "");
+            return StatusUtil.error("","");
         }
-        return result;
     }
 
 }

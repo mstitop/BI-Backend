@@ -4,6 +4,7 @@ import cn.edu.dbsi.model.*;
 import cn.edu.dbsi.service.*;
 import cn.edu.dbsi.util.HttpConnectDeal;
 import cn.edu.dbsi.util.SchemaUtils;
+import cn.edu.dbsi.util.StatusUtil;
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
@@ -11,6 +12,7 @@ import org.jdom2.output.XMLOutputter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.InputSource;
@@ -50,14 +52,15 @@ public class SchemaController {
 
     /**
      * 这个controller是用于生成saiku的schema文件
+     *
      * @param token
      * @param json
      * @param request
      * @return
      */
-    @RequestMapping(value = "/saikuSchema", method = RequestMethod.POST)
+    @RequestMapping(value = "/olap-schema", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, HttpServletRequest request) {
+    public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         List<SchemaDimension> schemaDimensions = new ArrayList<SchemaDimension>();
         List<SchemaMeasureGroup> schemaMeasureGroups = new ArrayList<SchemaMeasureGroup>();
@@ -175,7 +178,6 @@ public class SchemaController {
 
         //当所有存入操作都成功的时候，就开始生成schema文件
         if (tag == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1 && tag6 == 1) {
-            map.put("result", 1);
             schema.setSchemaDimensions(schemaDimensions);
             schema.setSchemaMeasureGroups(schemaMeasureGroups);
             StringReader sr = new StringReader((SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups())).toString());
@@ -192,34 +194,34 @@ public class SchemaController {
                 schema.setAddress(path + schema.getName());
                 schemaServiceI.updateSchema(schema);
                 //主动向saiku发起POST请求，参数类型为multipart/form-data，实现加入数据模型
-                HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml","http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'"+schema.getId()+"'",schema);
+                HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml", "http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'" + schema.getId() + "'", schema);
                 DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(bdid);
-                JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo,schema);
-                HttpConnectDeal.postJson("http://10.65.1.92:8080/saiku/rest/saiku/admin/datasources",dbconnInfoObj);
+                JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo, schema);
+                HttpConnectDeal.postJson("http://10.65.1.92:8080/saiku/rest/saiku/admin/datasources", dbconnInfoObj);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            return StatusUtil.updateOk();
         } else {
-            map.put("result", 0);
-            map.put("error", "新增失败");
+            return StatusUtil.error("", "生成schema失败");
         }
-        return map;
     }
 
 
-    private JSONObject dbconnInfoToObj(DbconnInfo dbconnInfo,Schema schema){
+    private JSONObject dbconnInfoToObj(DbconnInfo dbconnInfo, Schema schema) {
         //根据saiku源码的内容，id，path，advanced三个键的值当不存在时，一定要传NULL，不要传""
         JSONObject dbconnInfoObj = new JSONObject();
-        dbconnInfoObj.put("id",JSONObject.NULL);
-        dbconnInfoObj.put("password",dbconnInfo.getPassword());
-        dbconnInfoObj.put("username",dbconnInfo.getUsername());
-        dbconnInfoObj.put("path",JSONObject.NULL);
-        dbconnInfoObj.put("schema","/datasources/"+schema.getName()+".xml");
-        dbconnInfoObj.put("driver",dbconnInfo.getJdbcname());
-        dbconnInfoObj.put("connectionname",schema.getName());
-        dbconnInfoObj.put("jdbcurl",dbconnInfo.getUrl());
-        dbconnInfoObj.put("connectiontype","MONDRIAN");
-        dbconnInfoObj.put("advanced",JSONObject.NULL);
+        dbconnInfoObj.put("id", JSONObject.NULL);
+        dbconnInfoObj.put("password", dbconnInfo.getPassword());
+        dbconnInfoObj.put("username", dbconnInfo.getUsername());
+        dbconnInfoObj.put("path", JSONObject.NULL);
+        dbconnInfoObj.put("schema", "/datasources/" + schema.getName() + ".xml");
+        dbconnInfoObj.put("driver", dbconnInfo.getJdbcname());
+        dbconnInfoObj.put("connectionname", schema.getName());
+        dbconnInfoObj.put("jdbcurl", dbconnInfo.getUrl());
+        dbconnInfoObj.put("connectiontype", "MONDRIAN");
+        dbconnInfoObj.put("advanced", JSONObject.NULL);
         return dbconnInfoObj;
     }
 

@@ -151,17 +151,17 @@ public class HttpConnectDeal {
         String content = "";
         try {
             // 提交的参数
-            StringEntity stringEntity = new StringEntity(json.toString());
-            stringEntity.setContentEncoding("UTF-8");
+            StringEntity stringEntity = new StringEntity(json.toString(), "UTF-8");
+//            stringEntity.setContentEncoding("UTF-8");
             stringEntity.setContentType("application/json");
 
             // 将参数给post方法
             httpPost.setEntity(stringEntity);
             httpPost.setHeader("Content-type", "application/json");
             // 执行post请求
-            response = httpclient.execute(targetHost,httpPost,context);
+            response = httpclient.execute(targetHost, httpPost, context);
             if (response.getStatusLine().getStatusCode() == 200) {
-                content = EntityUtils.toString(response.getEntity(), "utf-8");
+                content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 System.out.println(content);
             }
         } catch (ClientProtocolException e) {
@@ -218,7 +218,7 @@ public class HttpConnectDeal {
         CloseableHttpResponse response = null;
         try {
             //将认证、POST请求，上下文一并发送
-            response = httpclient.execute(targetHost,uploadFile,context);
+            response = httpclient.execute(targetHost, uploadFile, context);
         } catch (IOException e) {
             e.printStackTrace();
         }

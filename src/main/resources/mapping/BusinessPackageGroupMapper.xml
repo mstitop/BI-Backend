@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.edu.dbsi.dao.BusinessPackageGroupMapper">
-    <!--级联查询时，如果数据库的字段名相同，一定要用别名，否则将会以主表的数据来填充其他表-->
+    <!--级联查询时，如果数据库的字段名相同，column名字一定要用查询时的别名，否则将会以主表的数据来填充其他表-->
     <resultMap id="detailResultMap" type="cn.edu.dbsi.model.BusinessPackageGroup">
         <id column="bgid" property="id" jdbcType="INTEGER"/>
         <result column="bgname" property="name" jdbcType="VARCHAR"/>
-        <collection property="packages" ofType="cn.edu.dbsi.model.BusinessPackage">
+        <collection property="businessPackages" ofType="cn.edu.dbsi.model.BusinessPackage">
             <id property="id" column="bpid" jdbcType="INTEGER"/>
             <result property="name" column="bpname" jdbcType="VARCHAR"/>
         </collection>
@@ -17,7 +17,7 @@
     <resultMap id="moreDetailResultMap" type="cn.edu.dbsi.model.BusinessPackageGroup">
         <id column="bgid" property="id" jdbcType="INTEGER"/>
         <result column="bgname" property="name" jdbcType="VARCHAR"/>
-        <collection property="packages" ofType="cn.edu.dbsi.model.BusinessPackage">
+        <collection property="businessPackages" ofType="cn.edu.dbsi.model.BusinessPackage">
             <collection property="dbconnInfos" ofType="cn.edu.dbsi.model.DbconnInfo">
                 <id column="" property="" jdbcType="INTEGER"/>
                 <result column="" property="" jdbcType="VARCHAR"/>

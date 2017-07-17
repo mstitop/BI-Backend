@@ -8,9 +8,11 @@ import cn.edu.dbsi.service.BusinessPackageGroupServiceI;
 import cn.edu.dbsi.service.BusinessPackageServiceI;
 import cn.edu.dbsi.service.DbBusinessPackageServiceI;
 import cn.edu.dbsi.service.DbConnectionServiceI;
+import cn.edu.dbsi.util.StatusUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,19 +40,20 @@ public class BusinessPackageController {
     @Autowired
     private BusinessPackageGroupServiceI businessPackageGroupServiceI;
 
-    @RequestMapping(value = "/businessPackages", method = RequestMethod.GET)
+    /**
+     * 查询所有业务包信息
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/business-package-groups", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getBusinessPackageGroupById(@PathVariable("token") Integer token) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public ResponseEntity<?> getBusinessPackageGroupById(@PathVariable("token") Integer token) {
         if (token != null && token == 000) {
             List<BusinessPackageGroup> list = businessPackageServiceI.getBusinessPackageGroup();
-            map.put("result", 1);
-            map.put("businessPackageGroups", list);
+            return StatusUtil.querySuccess(list);
         } else {
-            map.put("result", 0);
-            map.put("error", "用户信息验证失败");
+            return  StatusUtil.error("","Unauthorized");
         }
-        return map;
     }
 
     /**
@@ -60,9 +63,9 @@ public class BusinessPackageController {
      * @param json
      * @return
      */
-    @RequestMapping(value = "/businessPackage", method = RequestMethod.POST)
+    @RequestMapping(value = "/business-package", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
+    public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
         Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
@@ -95,12 +98,10 @@ public class BusinessPackageController {
             tag_two = dbBusinessPackageServiceI.addDbBusinessPackage(dbBusinessPackage);
         }
         if (tag_one == 1 && tag_two == 1) {
-            map.put("result", 1);
+            return StatusUtil.updateOk();
         } else {
-            map.put("result", 0);
-            map.put("error", "保存失败");
+            return StatusUtil.error("","数据包保存失败");
         }
-        return map;
     }
 
     /**
@@ -110,9 +111,9 @@ public class BusinessPackageController {
      * @param json
      * @return
      */
-    @RequestMapping(value = "/businessPackage", method = RequestMethod.PUT)
+    @RequestMapping(value = "/business-package/{businessPackageId}", method = RequestMethod.PUT)
     @ResponseBody
-    public Map<String, Object> updateBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
+    public ResponseEntity<?> updateBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json,@PathVariable("businessPackageId") Integer businessPackageId) {
         Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
@@ -144,12 +145,10 @@ public class BusinessPackageController {
             tag_two = dbBusinessPackageServiceI.updateDbBusinessPackage(dbBusinessPackage);
         }
         if (tag_one == 1 && tag_two == 1) {
-            map.put("result", 1);
+            return StatusUtil.updateOk();
         } else {
-            map.put("result", 0);
-            map.put("error", "更新失败");
+            return StatusUtil.error("","数据包更新失败");
         }
-        return map;
     }
 
     /**
@@ -159,20 +158,18 @@ public class BusinessPackageController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/businessPackage/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/business-package/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Map<String, Object> deleteBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("id") Integer id) {
         Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         businessPackage.setId(id);
         int tag = businessPackageServiceI.deleteBusinessPackage(businessPackage);
         if (tag == 1) {
-            map.put("result", 1);
+            return StatusUtil.updateOk();
         } else {
-            map.put("result", 0);
-            map.put("error", "修改失败");
+            return StatusUtil.error("","数据包删除失败");
         }
-        return map;
     }
 
 
@@ -183,15 +180,13 @@ public class BusinessPackageController {
      * @param packageid
      * @return
      */
-    @RequestMapping(value = "/businessPackage/{packageid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/business-package/{packageid}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("packageid") Integer packageid) {
+    public ResponseEntity<?> getBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("packageid") Integer packageid) {
         DbconnInfo dbconnInfo;
-        Map<String, Object> map = new HashMap<String, Object>();
         Map<String, Object> bpmap = new HashMap<String, Object>();
         Map<String, Object> groupmap = new HashMap<String, Object>();
         List<Map<String, Object>> dbs = new ArrayList<Map<String, Object>>();
-        List<Map<String, Object>> tables = new ArrayList<Map<String, Object>>();
         BusinessPackage businessPackage = businessPackageServiceI.getBusinessPackageById(packageid);
         if (businessPackage != null) {
             BusinessPackageGroup businessPackageGroup = businessPackageGroupServiceI.getBusinessPackageGroupById(businessPackage.getGroupid());
@@ -209,8 +204,10 @@ public class BusinessPackageController {
                         Map<String, Object> temp = new HashMap<String, Object>();
                         temp.put("id", dbconnInfo.getId());
                         temp.put("name", dbconnInfo.getName());
+                        temp.put("category",dbconnInfo.getCategory());
                         if (item.getTablename() != null && !"".equals(item.getTablename())) {
                             String[] tableNames = item.getTablename().split(",");
+                            List<Map<String, Object>> tables = new ArrayList<Map<String, Object>>();
                             for (int i = 0; i < tableNames.length; i++) {
                                 Map<String, Object> temp2 = new HashMap<String, Object>();
                                 temp2.put("id", item.getId());
@@ -225,15 +222,17 @@ public class BusinessPackageController {
                         }
                     }
                     bpmap.put("dbs", dbs);
-                    map.put("result", 1);
-                    map.put("businessPackage", bpmap);
+                    return StatusUtil.querySuccess(bpmap);
+                }else{
+                    bpmap.put("dbs", "");
+                    return StatusUtil.querySuccess(bpmap);
                 }
+            }else{
+                return StatusUtil.error("","此业务包不属于任何分组");
             }
         } else {
-            map.put("result", 0);
-            map.put("businessPackage", "");
+            return StatusUtil.error("","不存在此业务包");
         }
-        return map;
     }
 
 }
