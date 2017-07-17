@@ -39,7 +39,7 @@ public class DataxTaskController {
      * @param json
      * @return
      */
-    @RequestMapping(value = "/dataxTask", method = RequestMethod.POST)
+    @RequestMapping(value = "/datax-task", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> excuteDataxTask(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json,HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -53,16 +53,17 @@ public class DataxTaskController {
         String taskName = obj.getString("name");
         int businessPackageId = Integer.parseInt(obj.getString("businessPackageId"));
 
-        tag1 = dataxTaskService.saveDataxTask(dataxTask);
-        int lastTaskId = dataxTaskService.getLastDataxTaskId();
-
         dataxTask.setName(taskName);
         dataxTask.setBusinessPackageId(businessPackageId);
         dataxTask.setIsDelete("0");
         dataxTask.setCreateTime(new Date());
         dataxTask.setTaskStatus("0");
-        dataxTask.setHiveAddress(jobInfo.getPath() + "/" + lastTaskId + ".db/");
 
+        tag1 = dataxTaskService.saveDataxTask(dataxTask);
+        int lastTaskId = dataxTaskService.getLastDataxTaskId();
+
+
+        dataxTask.setHiveAddress(jobInfo.getPath() + "/" + lastTaskId + ".db/");
 
 
         JSONArray tbs = obj.getJSONArray("sourceTableInfos");
@@ -153,12 +154,16 @@ public class DataxTaskController {
         Thread thread = new Thread(excuteRunnable);
         thread.start();
 
+        Map<String, Object> errorMap = new HashMap<String, Object>();
 
         if (tag1 == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1) {
-            map.put("result", 1);
+            map.put("success",true);
         } else {
-            map.put("result", 0);
-            map.put("error", "保存失败");
+
+            errorMap.put("code",40001);
+            errorMap.put("message","Unauthorized");
+            map.put("status", 456);
+            map.put("error", errorMap);
         }
         return map;
     }
@@ -166,10 +171,9 @@ public class DataxTaskController {
     /**
      *  查询所有导入任务信息，并返回
      * @param token
-     * @param json
      * @return
      */
-    @RequestMapping(value = "/dataxTasks", method = RequestMethod.GET)
+    @RequestMapping(value = "/datax-tasks", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getDataxTasksInfo(@PathVariable("token") Integer token) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -207,12 +211,11 @@ public class DataxTaskController {
     /**
      *  查询单条导入任务信息，并返回
      * @param token
-     * @param json
      * @return
      */
-    @RequestMapping(value = "/dataxTaskStatus/{taskid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/datax-task/{taskId}/status", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getDataxTaskInfoById(@PathVariable("token") Integer token,@PathVariable("taskid") Integer taskid) {
+    public Map<String, Object> getDataxTaskInfoById(@PathVariable("token") Integer token,@PathVariable("taskId") Integer taskid) {
         Map<String, Object> map = new HashMap<String, Object>();
         DataxTask dataxTask = dataxTaskService.getDataxTaskById(taskid);
         if(dataxTask != null ){
