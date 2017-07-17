@@ -7,7 +7,7 @@ public class DataxJsonInfo {
 
     private String name;
 
-    private String url;
+    private String jsonAddress;
 
     private Integer dbId;
 
@@ -39,12 +39,13 @@ public class DataxJsonInfo {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getUrl() {
-        return url;
+
+    public String getJsonAddress() {
+        return jsonAddress;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setJsonAddress(String jsonAddress) {
+        this.jsonAddress = jsonAddress;
     }
 
     public Integer getDbId() {
