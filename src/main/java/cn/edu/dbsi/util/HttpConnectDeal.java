@@ -128,7 +128,7 @@ public class HttpConnectDeal {
         // 实例化httpClient
         CloseableHttpClient httpclient = HttpClients.createDefault();
         //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
-        HttpHost targetHost = new HttpHost("10.65.1.92", 8080, "http");
+        HttpHost targetHost = new HttpHost("10.1.18.205", 8080, "http");
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(
                 new AuthScope(targetHost.getHostName(), targetHost.getPort()),
@@ -181,7 +181,7 @@ public class HttpConnectDeal {
     public static String postMutilpart(String path, String uri, Schema schema) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         //利用Preemptive authentication认证机制
-        HttpHost targetHost = new HttpHost("10.65.1.92", 8080, "http");
+        HttpHost targetHost = new HttpHost("10.1.18.205", 8080, "http");
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(
                 new AuthScope(targetHost.getHostName(), targetHost.getPort()),

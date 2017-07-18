@@ -194,10 +194,10 @@ public class SchemaController {
                 schema.setAddress(path + schema.getName());
                 schemaServiceI.updateSchema(schema);
                 //主动向saiku发起POST请求，参数类型为multipart/form-data，实现加入数据模型
-                HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml", "http://10.65.1.92:8080/saiku/rest/saiku/admin/schema/'" + schema.getId() + "'", schema);
+                HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml", "http://10.1.18.205:8080/saiku/rest/saiku/admin/schema/'" + schema.getId() + "'", schema);
                 DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(bdid);
                 JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo, schema);
-                HttpConnectDeal.postJson("http://10.65.1.92:8080/saiku/rest/saiku/admin/datasources", dbconnInfoObj);
+                HttpConnectDeal.postJson("http://10.1.18.205:8080/saiku/rest/saiku/admin/datasources", dbconnInfoObj);
 
             } catch (Exception e) {
                 e.printStackTrace();
