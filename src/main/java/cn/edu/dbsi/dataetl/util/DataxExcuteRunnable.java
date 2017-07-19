@@ -3,7 +3,6 @@ package cn.edu.dbsi.dataetl.util;
 import cn.edu.dbsi.dataetl.model.JobInfo;
 import cn.edu.dbsi.model.DataxTask;
 import cn.edu.dbsi.service.DataxTaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
@@ -13,12 +12,13 @@ import java.util.List;
  */
 public class DataxExcuteRunnable implements Runnable{
 
-    @Autowired
+
     private DataxTaskService dataxTaskService;
 
     private DataxTask dataxTask;
     private List<JobInfo> jobList ;
-    public DataxExcuteRunnable(DataxTask dataxTask,List<JobInfo> jobList){
+    public DataxExcuteRunnable(DataxTaskService dataxTaskService, DataxTask dataxTask,List<JobInfo> jobList){
+        this.dataxTaskService = dataxTaskService;
         this.dataxTask = dataxTask;
         this.jobList = jobList;
     }
@@ -31,7 +31,6 @@ public class DataxExcuteRunnable implements Runnable{
 
         if (fail_flag) {
             dataxTask.setTaskStatus("2");
-
         } else {
             dataxTask.setTaskStatus("1");
         }

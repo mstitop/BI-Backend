@@ -39,7 +39,6 @@ public class DataxJsonInfo {
         this.name = name == null ? null : name.trim();
     }
 
-
     public String getJsonAddress() {
         return jsonAddress;
     }

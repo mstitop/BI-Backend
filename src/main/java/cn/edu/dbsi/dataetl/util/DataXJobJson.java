@@ -49,7 +49,7 @@ public class DataXJobJson {
 
 
 
-        //log.info(json);
+        log.info(json);
 
         try {
             log.info("Write job json for table:"+config.getFileName());
@@ -88,10 +88,10 @@ public class DataXJobJson {
         if (template == null) {
             StringBuffer stb = new StringBuffer();
             try {
-                if (templateName.equalsIgnoreCase("mysql")){
-                    readToBuffer(stb, "job/msql2hdfsTemplete.json");
+                if (templateName.equalsIgnoreCase("Mysql")){
+                    readToBuffer(stb, "etljob/msql2hdfsTemplete.json");
                 }else {
-                    readToBuffer(stb, "job/oracle2hdfsTemplete.json");
+                    readToBuffer(stb, "etljob/oracle2hdfsTemplete.json");
                 }
 
             } catch (IOException e) {
@@ -109,10 +109,11 @@ public class DataXJobJson {
         int i = 0;
         int count = columns.size();
         for (Map.Entry<String,String> entry : columns.entrySet()) {
+            i++;
             stb.append("\"");
             stb.append(entry.getKey());
             stb.append("\"");
-            if(i < count - 1){
+            if(i < count){
                 stb.append(",");
             }
         }
@@ -124,7 +125,7 @@ public class DataXJobJson {
         int count = columns.size();
         for (Map.Entry<String,String> entry : columns.entrySet()) {
 
-
+            i++;
             stb.append("{");
             stb.append("\"name\": ");
             stb.append("\"");
@@ -135,7 +136,7 @@ public class DataXJobJson {
             stb.append(entry.getValue());
             stb.append("\"");
             stb.append("}");
-            if(i < count - 1){
+            if(i < count){
                 stb.append(",");
             }
         }

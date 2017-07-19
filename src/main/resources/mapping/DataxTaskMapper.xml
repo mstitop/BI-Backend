@@ -12,7 +12,7 @@
     <result column="is_delete" property="isDelete" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, "business_package_id", hive_address, task_status, create_time, finish_time,
+    id, name, business_package_id, hive_address, task_status, create_time, finish_time,
     is_delete
   </sql>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -32,7 +32,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.DataxTask" >
-    insert into datax_task (id, name, "business_package_id",
+    insert into datax_task (id, name, business_package_id,
       hive_address, task_status, create_time,
       finish_time, is_delete)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{businessPackageId,jdbcType=INTEGER}, 
@@ -49,7 +49,7 @@
         name,
       </if>
       <if test="businessPackageId != null" >
-        "business_package_id",
+        business_package_id,
       </if>
       <if test="hiveAddress != null" >
         hive_address,
@@ -101,9 +101,9 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="businessPackageId != null" >
-        "business_package_id" = #{businessPackageId,jdbcType=INTEGER},
+        business_package_id = #{businessPackageId,jdbcType=INTEGER},
       </if>
-      <if test="hiveIp != null" >
+      <if test="hiveAddress != null" >
         hive_address = #{hiveAddress,jdbcType=VARCHAR},
       </if>
       <if test="taskStatus != null" >
@@ -124,7 +124,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.DataxTask" >
     update datax_task
     set name = #{name,jdbcType=VARCHAR},
-      "business_package_id" = #{businessPackageId,jdbcType=INTEGER},
+      business_package_id = #{businessPackageId,jdbcType=INTEGER},
       hive_address = #{hiveAddress,jdbcType=VARCHAR},
       task_status = #{taskStatus,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

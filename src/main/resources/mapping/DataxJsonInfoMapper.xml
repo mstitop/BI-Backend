@@ -28,7 +28,7 @@
       json_address, db_id, datax_json_info.table_name,
       is_delete)
     values (#{id,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{json_address,jdbcType=VARCHAR}, #{dbId,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR},
+      #{jsonAddress,jdbcType=VARCHAR}, #{dbId,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR},
       #{isDelete,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.DataxJsonInfo" >
@@ -67,7 +67,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="json_address != null" >
-        #{json_address,jdbcType=VARCHAR},
+        #{jsonAddress,jdbcType=VARCHAR},
       </if>
       <if test="dbId != null" >
         #{dbId,jdbcType=INTEGER},
@@ -89,8 +89,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="json_address != null" >
-        json_address = #{json_address,jdbcType=VARCHAR},
+      <if test="jsonAddress != null" >
+        json_address = #{jsonAddress,jdbcType=VARCHAR},
       </if>
       <if test="dbId != null" >
         db_id = #{dbId,jdbcType=INTEGER},
@@ -108,7 +108,7 @@
     update datax_json_info
     set task_id = #{taskId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      json_address = #{json_address,jdbcType=VARCHAR},
+      json_address = #{jsonAddress,jdbcType=VARCHAR},
       db_id = #{dbId,jdbcType=INTEGER},
       datax_json_info.table_name = #{tableName,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=CHAR}

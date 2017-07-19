@@ -33,7 +33,7 @@ public class DataXTaskExcute {
             log.info("start job");*/
 
 
-            int packageId = dataxTask.getBusinessPackageId();
+            int taskId = dataxTask.getId();
 
             for (int t1 = 0; t1 < allTableStatus.size(); t1++) {
                 StringBuffer logInfo = new StringBuffer();
@@ -50,7 +50,7 @@ public class DataXTaskExcute {
                 boolean hasException = false;
 
                 try {
-                    String cmd = getCommand(packageId, jobInfo);
+                    String cmd = getCommand(taskId, jobInfo);
                     log.info("cmd: " + cmd);
                     hasException = executeCommand(cmd, jobInfo, logInfo);
 
@@ -116,10 +116,10 @@ public class DataXTaskExcute {
         return hasException;
     }
 
-    private String getCommand(int packageId, JobInfo jobInfo) {
+    private String getCommand(int taskId, JobInfo jobInfo) {
 
         String command = "python " + jobInfo.getDataxFloder() + "/bin/datax.py "
-                + jobInfo.getJobFileFloder() + "/" + packageId + "/" + jobInfo.getFileName() + ".json";
+                + jobInfo.getJobFileFloder() + "/" + taskId + "/" + jobInfo.getFileName() + ".json";
         return command;
     }
 

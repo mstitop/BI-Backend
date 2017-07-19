@@ -1,12 +1,5 @@
 package cn.edu.dbsi.dataetl.model;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-
 import java.util.Map;
 
 /**
@@ -17,9 +10,6 @@ import java.util.Map;
  * 解析 json 用的 model ，与 DataxJsonInfo 不同
  */
 
-@Configuration
-@PropertySource("classpath:config.properties")
-@ComponentScan(basePackages = {"cn.edu.dbsi",})
 
 public class JobInfo {
 
@@ -37,19 +27,19 @@ public class JobInfo {
 
     private String compress;
 
-    @Value("${target.hdfs.defaultFS}")
+ //   @Value("${target.hdfs.defaultFS}")
     private String defaultFS;
 
-    @Value("${target.hdfs.fieldDelimiter}")
+  //  @Value("${target.hdfs.fieldDelimiter}")
     private String fieldDelimiter;
 
-    @Value("${target.hdfs.hiveAddress}")
+  //  @Value("${target.hdfs.hiveAddress}")
     private String path;
 
-    @Value("${target.hdfs.writeMode}")
+  //  @Value("${target.hdfs.writeMode}")
     private String writeMode;
 
-    @Value("${migration.datax.tool.folder}")
+   // @Value("${migration.datax.tool.folder}")
     private String dataxFloder;
 
     private String fileName;
@@ -72,11 +62,6 @@ public class JobInfo {
 
 
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-
-    }
 
     public String getDataxFloder() {
         return dataxFloder;

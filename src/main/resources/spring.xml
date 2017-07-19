@@ -15,4 +15,5 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd
     <!-- skye  -->
     <context:component-scan base-package="cn.edu.dbsi" />
 
+
 </beans>

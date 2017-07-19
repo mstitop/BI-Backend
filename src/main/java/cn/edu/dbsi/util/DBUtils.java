@@ -1,6 +1,6 @@
 package cn.edu.dbsi.util;
 
-import cn.edu.dbsi.dataetl.model.HiveConnInfo;
+import cn.edu.dbsi.dataetl.util.JobConfig;
 import cn.edu.dbsi.model.DbconnInfo;
 
 import java.sql.*;
@@ -166,13 +166,13 @@ public class DBUtils {
 
     /**
      * 执行建 HIVE 表语句
-     * @param dbconnInfo
-     * @param sql
-     * @param args
+     * @param jobConfig
+     * @param tableName
+     * @param columns
      * @return
      */
-    public static  int createHiveTable(HiveConnInfo hiveConnInfo, String tableName,Map<String,String> columns ) {
-        Connection conn = getConn(hiveConnInfo.getDriver(),hiveConnInfo.getUrl(),hiveConnInfo.getUsername(),hiveConnInfo.getPassword());// 获取数据连接
+    public static  int createHiveTable(JobConfig jobConfig, String tableName,Map<String,String> columns ) {
+        Connection conn = getConn(jobConfig.getDriver(),jobConfig.getUrl(),jobConfig.getUsername(),jobConfig.getPassword());// 获取数据连接
         Statement stmt = null;
 
         String dropSql = "drop table " + tableName;
@@ -185,12 +185,11 @@ public class DBUtils {
             createSql.append(entry.getKey());
             createSql.append(" ");
             createSql.append(entry.getValue());
-            if(i < count - 1){
+            if(i < count){
                 createSql.append(",");
             }
-
         }
-        createSql.append(") row format delimited fields terminated by '\t'");
+        createSql.append(") row format delimited fields terminated by '"+ jobConfig.getFieldDelimiter() +"'");
         String createSqlFinal  = createSql.toString();
 
 
@@ -198,6 +197,33 @@ public class DBUtils {
             stmt = conn.createStatement();
             stmt.executeUpdate(dropSql);
             stmt.executeUpdate(createSqlFinal);
+
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+    /**
+     * 执行建 HIVE 库语句
+     * @param jobConfig
+     * @param dbName
+     * @return
+     */
+    public static  int createHiveDb(JobConfig jobConfig, String dbName ) {
+        Connection conn = getConn(jobConfig.getDriver(),jobConfig.getUrl(),jobConfig.getUsername(),jobConfig.getPassword());// 获取数据连接
+        Statement stmt = null;
+
+        String sql = "CREATE DATABASE  "+ dbName;
+
+
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
 
             stmt.close();
             conn.close();
