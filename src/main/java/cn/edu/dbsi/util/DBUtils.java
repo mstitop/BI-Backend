@@ -21,15 +21,21 @@ public class DBUtils {
      * @param dbconnInfo
      * @return
      */
-    public  static  Connection testConn(DbconnInfo dbconnInfo){
+    public  static  int testConn(DbconnInfo dbconnInfo){
+        int tag = 0;
         try {
             Class.forName(dbconnInfo.getJdbcname());
-            return DriverManager.getConnection(dbconnInfo.getUrl(), dbconnInfo.getUsername(), dbconnInfo.getPassword());
+            Connection conn = DriverManager.getConnection(dbconnInfo.getUrl(), dbconnInfo.getUsername(), dbconnInfo.getPassword());
+            if(conn!=null){
+                tag = 1;
+                conn.close();
+            }
         } catch (SQLException e) {
-            return null;
+            return 0;
         }catch (ClassNotFoundException e){
-            return null;
+            return 0;
         }
+        return tag;
     }
 
     /**

@@ -59,7 +59,7 @@ public class DbConnectionController {
             else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
                 dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
             dbconnInfo.setIsdelete("0");
-            if (DBUtils.testConn(dbconnInfo) != null) {
+            if (DBUtils.testConn(dbconnInfo) == 1) {
                 tag = dbConnectionServiceI.addDbConnInfo(dbconnInfo);
             } else {
                 return StatusUtil.error("", "此链接无效！");
@@ -91,7 +91,7 @@ public class DbConnectionController {
                 dbconnInfo.setJdbcname("oracle.jdbc.driver.OracleDriver");
             else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
                 dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
-            if (DBUtils.testConn(dbconnInfo) != null) {
+            if (DBUtils.testConn(dbconnInfo) == 1) {
                 tag = dbConnectionServiceI.updateDbConnInfo(dbconnInfo);
             } else {
                 return StatusUtil.error("", "此链接无效！");
@@ -143,7 +143,7 @@ public class DbConnectionController {
             dbconnInfo.setJdbcname("oracle.jdbc.driver.OracleDriver");
         else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
             dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
-        if (DBUtils.testConn(dbconnInfo) != null) {
+        if (DBUtils.testConn(dbconnInfo) == 1) {
             return StatusUtil.updateOk();
         } else {
             return StatusUtil.error("", "此链接无效！");
