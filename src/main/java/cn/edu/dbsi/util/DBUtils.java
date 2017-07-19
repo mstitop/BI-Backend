@@ -2,6 +2,7 @@ package cn.edu.dbsi.util;
 
 import cn.edu.dbsi.dataetl.util.JobConfig;
 import cn.edu.dbsi.model.DbconnInfo;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +14,23 @@ import java.util.Map;
  * Created by 郭世明 on 2017/6/26.
  */
 public class DBUtils {
+
+
+    /**
+     * 此方法因为是用于测试链接，故不将异常打印出来，在其他情况建议将异常打印
+     * @param dbconnInfo
+     * @return
+     */
+    public  static  Connection testConn(DbconnInfo dbconnInfo){
+        try {
+            Class.forName(dbconnInfo.getJdbcname());
+            return DriverManager.getConnection(dbconnInfo.getUrl(), dbconnInfo.getUsername(), dbconnInfo.getPassword());
+        } catch (SQLException e) {
+            return null;
+        }catch (ClassNotFoundException e){
+            return null;
+        }
+    }
 
     /**
      * 获取数据库连接

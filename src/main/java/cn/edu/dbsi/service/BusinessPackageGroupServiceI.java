@@ -11,4 +11,6 @@ public interface BusinessPackageGroupServiceI {
     BusinessPackageGroup getBusinessPackageGroupById(Integer id);
 
     int upadateBusinessPackageGroupName(BusinessPackageGroup businessPackageGroup);
+
+    int deleteBusinessPackageGroup(Integer id);
 }

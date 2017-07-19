@@ -66,7 +66,6 @@ public class BusinessPackageController {
     @RequestMapping(value = "/business-package", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
-        Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
         //System.out.println(json.toString());
@@ -114,7 +113,6 @@ public class BusinessPackageController {
     @RequestMapping(value = "/business-package/{businessPackageId}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<?> updateBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json,@PathVariable("businessPackageId") Integer businessPackageId) {
-        Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
         JSONObject obj = new JSONObject(json);
@@ -161,7 +159,6 @@ public class BusinessPackageController {
     @RequestMapping(value = "/business-package/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<?> deleteBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("id") Integer id) {
-        Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackage businessPackage = new BusinessPackage();
         businessPackage.setId(id);
         int tag = businessPackageServiceI.deleteBusinessPackage(businessPackage);

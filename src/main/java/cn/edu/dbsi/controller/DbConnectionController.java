@@ -2,6 +2,7 @@ package cn.edu.dbsi.controller;
 
 import cn.edu.dbsi.model.DbconnInfo;
 import cn.edu.dbsi.service.DbConnectionServiceI;
+import cn.edu.dbsi.util.DBUtils;
 import cn.edu.dbsi.util.StatusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class DbConnectionController {
             List<DbconnInfo> list = dbConnectionServiceI.getDbConnInfo();
             return new ResponseEntity<Object>(list, HttpStatus.OK);
         } else {
-            return StatusUtil.error("", "");
+            return StatusUtil.error("", "获取数据库连接信息失败");
         }
     }
 
@@ -48,24 +49,28 @@ public class DbConnectionController {
      * @param dbconnInfo
      * @return
      */
-    @RequestMapping(value = "/ds-conns", method = RequestMethod.POST)
+    @RequestMapping(value = "/ds-conn", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addDbConnInfo(@PathVariable("token") Integer token, @RequestBody DbconnInfo dbconnInfo) {
-        Map<String, Object> map = new HashMap<String, Object>();
         if (token != null && token == 000) {
+            int tag = 0;
             if (dbconnInfo != null && "Oracle".equals(dbconnInfo.getCategory()))
                 dbconnInfo.setJdbcname("oracle.jdbc.driver.OracleDriver");
             else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
                 dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
             dbconnInfo.setIsdelete("0");
-            int tag = dbConnectionServiceI.addDbConnInfo(dbconnInfo);
+            if (DBUtils.testConn(dbconnInfo) != null) {
+                tag = dbConnectionServiceI.addDbConnInfo(dbconnInfo);
+            } else {
+                return StatusUtil.error("", "此链接无效！");
+            }
             if (tag == 1) {
                 return StatusUtil.updateOk();
             } else {
-                return StatusUtil.error("", "");
+                return StatusUtil.error("", "增加数据库连接信息失败");
             }
         } else {
-            return StatusUtil.error("","Unauthorized");
+            return StatusUtil.error("", "Unauthorized");
         }
     }
 
@@ -76,17 +81,25 @@ public class DbConnectionController {
      * @param dbconnInfo
      * @return
      */
-    @RequestMapping(value = "/ds-conns/{dsConnsId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/ds-conn/{dsConnsId}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<?> updateDbConnInfo(@PathVariable("token") Integer token, @PathVariable("dsConnsId") Integer id, @RequestBody DbconnInfo dbconnInfo) {
-        Map<String, Object> map = new HashMap<String, Object>();
         dbconnInfo.setId(id);
         if (token != null && token == 000) {
-            int tag = dbConnectionServiceI.updateDbConnInfo(dbconnInfo);
+            int tag = 0;
+            if (dbconnInfo != null && "Oracle".equals(dbconnInfo.getCategory()))
+                dbconnInfo.setJdbcname("oracle.jdbc.driver.OracleDriver");
+            else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
+                dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
+            if (DBUtils.testConn(dbconnInfo) != null) {
+                tag = dbConnectionServiceI.updateDbConnInfo(dbconnInfo);
+            } else {
+                return StatusUtil.error("", "此链接无效！");
+            }
             if (tag == 1) {
                 return StatusUtil.updateOk();
             } else {
-                return StatusUtil.error("", "");
+                return StatusUtil.error("", "更新失败");
             }
 
         } else {
@@ -101,19 +114,39 @@ public class DbConnectionController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/ds-conns/{dsConnsId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/ds-conn/{dsConnsId}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<?> deleteDbConnInfo(@PathVariable("token") Integer token, @PathVariable("dsConnsId") Integer id) {
-        Map<String, Object> map = new HashMap<String, Object>();
         if (token != null && token == 000) {
             int tag = dbConnectionServiceI.deleteDbConnInfo(id);
             if (tag == 1) {
                 return StatusUtil.updateOk();
             } else {
-                return StatusUtil.error("", "");
+                return StatusUtil.error("", "删除链接失败");
             }
         } else {
             return StatusUtil.error("", "Unauthorized");
+        }
+    }
+
+
+    /**
+     * 测试链接是否成功
+     * @param token
+     * @param dbconnInfo
+     * @return
+     */
+    @RequestMapping(value = "/ds-conn/checking", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> checkDbConnInfo(@PathVariable("token") Integer token, @RequestBody DbconnInfo dbconnInfo) {
+        if (dbconnInfo != null && "Oracle".equals(dbconnInfo.getCategory()))
+            dbconnInfo.setJdbcname("oracle.jdbc.driver.OracleDriver");
+        else if (dbconnInfo != null && "Mysql".equals(dbconnInfo.getCategory()))
+            dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
+        if (DBUtils.testConn(dbconnInfo) != null) {
+            return StatusUtil.updateOk();
+        } else {
+            return StatusUtil.error("", "此链接无效！");
         }
     }
 }

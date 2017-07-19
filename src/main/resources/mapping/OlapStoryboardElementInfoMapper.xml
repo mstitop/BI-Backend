@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.dbsi.dao.OlapStoryboardElementInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.OlapStoryboardElementInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="storyboard_id" property="storyboardId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="saiku_id" property="saikuId" jdbcType="VARCHAR" />
+    <result column="saiku_name" property="saikuName" jdbcType="VARCHAR" />
+    <result column="saiku_path" property="saikuPath" jdbcType="VARCHAR" />
+    <result column="index" property="index" jdbcType="INTEGER" />
+    <result column="point_x" property="pointX" jdbcType="INTEGER" />
+    <result column="point_y" property="pointY" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, storyboard_id, name, saiku_id, saiku_name, saiku_path, olap_storyboard_element_info.index, point_x, point_y,
+    width, height, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from olap_storyboard_element_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStoryBoardId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from olap_storyboard_element_info
+    where storyboard_id = #{id,jdbcType=INTEGER} AND is_delete = "0"
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from olap_storyboard_element_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.dbsi.model.OlapStoryboardElementInfo" >
+    insert into olap_storyboard_element_info (id, storyboard_id, name,
+      saiku_id, saiku_name, saiku_path,
+      olap_storyboard_element_info.index, point_x, point_y,
+      width, height, is_delete
+      )
+    values (#{id,jdbcType=INTEGER}, #{storyboardId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{saikuId,jdbcType=VARCHAR}, #{saikuName,jdbcType=VARCHAR}, #{saikuPath,jdbcType=VARCHAR},
+      #{index,jdbcType=INTEGER}, #{pointX,jdbcType=INTEGER}, #{pointY,jdbcType=INTEGER}, 
+      #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{isDelete,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.OlapStoryboardElementInfo" >
+    insert into olap_storyboard_element_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="storyboardId != null" >
+        storyboard_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="saikuId != null" >
+        saiku_id,
+      </if>
+      <if test="saikuName != null" >
+        saiku_name,
+      </if>
+      <if test="saikuPath != null" >
+        saiku_path,
+      </if>
+      <if test="index != null" >
+        olap_storyboard_element_info.index,
+      </if>
+      <if test="pointX != null" >
+        point_x,
+      </if>
+      <if test="pointY != null" >
+        point_y,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="storyboardId != null" >
+        #{storyboardId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="saikuId != null" >
+        #{saikuId,jdbcType=VARCHAR},
+      </if>
+      <if test="saikuName != null" >
+        #{saikuName,jdbcType=VARCHAR},
+      </if>
+      <if test="saikuPath != null" >
+        #{saikuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="pointX != null" >
+        #{pointX,jdbcType=INTEGER},
+      </if>
+      <if test="pointY != null" >
+        #{pointY,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.OlapStoryboardElementInfo" >
+    update olap_storyboard_element_info
+    <set >
+      <if test="storyboardId != null" >
+        storyboard_id = #{storyboardId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="saikuId != null" >
+        saiku_id = #{saikuId,jdbcType=VARCHAR},
+      </if>
+      <if test="saikuName != null" >
+        saiku_name = #{saikuName,jdbcType=VARCHAR},
+      </if>
+      <if test="saikuPath != null" >
+        saiku_path = #{saikuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        olap_storyboard_element_info.index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="pointX != null" >
+        point_x = #{pointX,jdbcType=INTEGER},
+      </if>
+      <if test="pointY != null" >
+        point_y = #{pointY,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.OlapStoryboardElementInfo" >
+    update olap_storyboard_element_info
+    set storyboard_id = #{storyboardId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      saiku_id = #{saikuId,jdbcType=VARCHAR},
+      saiku_name = #{saikuName,jdbcType=VARCHAR},
+      saiku_path = #{saikuPath,jdbcType=VARCHAR},
+      olap_storyboard_element_info.index = #{index,jdbcType=INTEGER},
+      point_x = #{pointX,jdbcType=INTEGER},
+      point_y = #{pointY,jdbcType=INTEGER},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateIsDeleteByPrimaryKey" parameterType="cn.edu.dbsi.model.OlapStoryboardElementInfo">
+    update olap_storyboard_element_info
+    set is_delete = "1"
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

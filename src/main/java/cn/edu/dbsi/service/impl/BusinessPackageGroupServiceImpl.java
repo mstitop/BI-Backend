@@ -26,4 +26,8 @@ public class BusinessPackageGroupServiceImpl implements BusinessPackageGroupServ
     public int upadateBusinessPackageGroupName(BusinessPackageGroup businessPackageGroup) {
         return businessPackageGroupMapper.updateByPrimaryKeySelective(businessPackageGroup);
     }
+
+    public int deleteBusinessPackageGroup(Integer id) {
+        return businessPackageGroupMapper.updateIsDeleteByPrimaryKey(id);
+    }
 }

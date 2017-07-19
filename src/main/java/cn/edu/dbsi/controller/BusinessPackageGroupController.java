@@ -32,7 +32,6 @@ public class BusinessPackageGroupController {
     @RequestMapping(value = "/business-package-group", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
-        Map<String, Object> map = new HashMap<String, Object>();
         BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
         JSONObject obj = new JSONObject(json);
         String groupName = obj.getString("name");
@@ -55,7 +54,6 @@ public class BusinessPackageGroupController {
     @RequestMapping(value = "/business-package-group/{businessPackageGroupId}",method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<?> updateBusinessPackageGroupName(@PathVariable("token") Integer token,@RequestBody Map<String,Object> json,@PathVariable("businessPackageGroupId") Integer businessPackageGroupId){
-        Map<String,Object> map = new HashMap<String, Object>();
         BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
         JSONObject obj = new JSONObject(json);
         int id = obj.getInt("id");
@@ -67,6 +65,17 @@ public class BusinessPackageGroupController {
             return StatusUtil.updateOk();
         }else{
             return StatusUtil.error("","重命名业务包分组失败");
+        }
+    }
+
+    @RequestMapping(value = "/business-package-group/{businessPackageGroupId}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<?> deleteBusinessPackageGroup(@PathVariable("businessPackageGroupId") Integer businessPackageGroupId){
+        int tag =businessPackageGroupServiceI.deleteBusinessPackageGroup(businessPackageGroupId);
+        if(tag == 1){
+            return StatusUtil.updateOk();
+        }else{
+            return StatusUtil.error("","删除业务包分组失败");
         }
     }
 

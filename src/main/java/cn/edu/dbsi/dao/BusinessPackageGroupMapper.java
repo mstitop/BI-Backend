@@ -22,4 +22,6 @@ public interface BusinessPackageGroupMapper {
     List<Integer> selectPrimaryKeys();
 
     BusinessPackageGroup selectByPrimaryKey(Integer id);
+
+    int updateIsDeleteByPrimaryKey(Integer id);
 }

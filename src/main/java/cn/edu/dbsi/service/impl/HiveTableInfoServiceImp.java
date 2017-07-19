@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
  * Created by Skye on 2017/7/10.
  */
 @Service("hiveTableInfoService")
-public class HiveTableInfoServiceImp implements HiveTableInfoService{
+public class HiveTableInfoServiceImp implements HiveTableInfoService {
     @Autowired
     HiveTableInfoMapper hiveTableInfoMapper;
+
     public int addHiveTableInfo(HiveTableInfo hiveTableInfo) {
         return hiveTableInfoMapper.insert(hiveTableInfo);
     }
