@@ -21,6 +21,22 @@
     from datax_task
     WHERE is_delete = 0
   </select>
+  <select id="countTask" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select
+    count(1)
+    from datax_task
+    WHERE is_delete = 0
+  </select>
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List"/>
+    from datax_task
+    WHERE is_delete = 0
+    <if test="start!=null and pagesize!=null">
+      order by id desc limit #{start},#{pagesize}
+    </if>
+
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -140,4 +156,5 @@
   <select id="selectLastPrimaryKey" resultType="java.lang.Integer">
     select id from datax_task order by id DESC limit 1
   </select>
+
 </mapper>

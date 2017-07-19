@@ -103,15 +103,20 @@ public class DataxTaskController {
             // 获取表配置信息
             String tableName = table.getString("tableName");
             int jobChannel = table.getInt("jobChannel");
+
             String fileType = table.getString("fileType");
+            if (fileType.equals("无")){
+                fileType = "text";
+            }
             String compressType = table.getString("zipType");
-            if (compressType == null){
+            if (compressType.equals("无")){
                 compressType = "";
             }
             String where = table.getString("where");
-            if (where == null){
+            if (where.equals("无")){
                 where = "";
             }
+
             String targetTbName = tableName + "__" + dbName;
 
             JSONArray fields = table.getJSONArray("fields");
@@ -201,9 +206,18 @@ public class DataxTaskController {
      */
     @RequestMapping(value = "/datax-tasks", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getDataxTasksInfo(@PathVariable("token") Integer token) {
-        //Map<String, Object> map = new HashMap<String, Object>();
-        List<DataxTask> dataxTasks = dataxTaskService.getDataxTasks();
+    public ResponseEntity<?> getDataxTasksInfo(@PathVariable("token") Integer token,@RequestParam Integer page,@RequestParam Integer size) {
+
+        int count = dataxTaskService.countTask();
+        int start = (page-1)*size;
+        int pageNum = count/size + 1;
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+
+        Map<String,Object> pagMap = new HashMap<String,Object>();
+        pagMap.put("start",start);
+        pagMap.put("pagesize",size);
+
+        List<DataxTask> dataxTasks = dataxTaskService.getDataxTasksByPage(pagMap);
 
         List<Map<String, Object>> tasks = new ArrayList<Map<String, Object>>();
         BusinessPackage businessPackage;
@@ -226,10 +240,12 @@ public class DataxTaskController {
                 temp.put("taskStatus",dataxTask.getTaskStatus());
                 tasks.add(temp);
             }
-
-//            map.put("success", true);
-//            map.put("tasks", tasks);
-            return StatusUtil.querySuccess(tasks);
+            Map<String,Object> temp = new HashMap<String,Object>();
+            temp.put("total",count);
+            temp.put("pages",pageNum);
+            returnMap.put("pagination", temp);
+            returnMap.put("tasks", tasks);
+            return StatusUtil.querySuccess(returnMap);
         }else {
             return StatusUtil.error("","查询失败");
         }
@@ -262,37 +278,4 @@ public class DataxTaskController {
     }
 
 
-    /**
-     *  TestUpdate
-     * @param token
-     * @return
-     */
-    @RequestMapping(value = "/datax-task/test", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<?> getDataxTaskTestUpdate(@PathVariable("token") Integer token) {
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        DataxTask dataxTask = new DataxTask();
-        dataxTask.setId(27);
-        dataxTask.setName("dataxText");
-        dataxTask.setBusinessPackageId(30);
-        dataxTask.setHiveAddress("/user/hive/warehouse/bi_27.db/");
-        dataxTask.setTaskStatus("1");
-
-        int a = dataxTaskService.updateDataxTask(dataxTask);
-        return  StatusUtil.error("","更新结果"+ a);
-
-//        Map<String, Object> errorMap = new HashMap<String, Object>();
-//
-//        if(dataxTask != null ){
-//            map.put("taskStatus", Integer.parseInt(dataxTask.getTaskStatus()));
-//            return StatusUtil.querySuccess(map);
-//        }else {
-//            return  StatusUtil.error("","查询失败");
-//
-//        }
-
-
-
-    }
 }

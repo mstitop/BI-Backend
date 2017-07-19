@@ -34,7 +34,7 @@
         ],                                               
         "setting": {                                     
             "speed": {                                   
-                "channel": ""                            
+                "channel": "{job.channel}"
             }                                            
         }                                                
     }                                                    
