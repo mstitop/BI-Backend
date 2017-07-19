@@ -61,8 +61,10 @@ public class DbConnectionController {
             dbconnInfo.setIsdelete("0");
             if (DBUtils.testConn(dbconnInfo) == 1) {
                 tag = dbConnectionServiceI.addDbConnInfo(dbconnInfo);
-            } else {
-                return StatusUtil.error("", "此链接无效！");
+            } else if (DBUtils.testConn(dbconnInfo) == -1) {
+                return StatusUtil.error("40003", "用户名或密码错误！");
+            } else if (DBUtils.testConn(dbconnInfo) == -2) {
+                return StatusUtil.error("40003", "此URL无效！");
             }
             if (tag == 1) {
                 return StatusUtil.updateOk();
@@ -70,7 +72,7 @@ public class DbConnectionController {
                 return StatusUtil.error("", "增加数据库连接信息失败");
             }
         } else {
-            return StatusUtil.error("", "Unauthorized");
+            return StatusUtil.error("40001", "Unauthorized");
         }
     }
 
@@ -93,8 +95,10 @@ public class DbConnectionController {
                 dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
             if (DBUtils.testConn(dbconnInfo) == 1) {
                 tag = dbConnectionServiceI.updateDbConnInfo(dbconnInfo);
-            } else {
-                return StatusUtil.error("", "此链接无效！");
+            } else if (DBUtils.testConn(dbconnInfo) == -1) {
+                return StatusUtil.error("40003", "用户名或密码错误！");
+            } else if (DBUtils.testConn(dbconnInfo) == -2) {
+                return StatusUtil.error("40003", "此URL无效！");
             }
             if (tag == 1) {
                 return StatusUtil.updateOk();
@@ -103,7 +107,7 @@ public class DbConnectionController {
             }
 
         } else {
-            return StatusUtil.error("", "Unauthorized");
+            return StatusUtil.error("40001", "Unauthorized");
         }
     }
 
@@ -125,13 +129,14 @@ public class DbConnectionController {
                 return StatusUtil.error("", "删除链接失败");
             }
         } else {
-            return StatusUtil.error("", "Unauthorized");
+            return StatusUtil.error("40001", "Unauthorized");
         }
     }
 
 
     /**
      * 测试链接是否成功
+     *
      * @param token
      * @param dbconnInfo
      * @return
@@ -145,8 +150,10 @@ public class DbConnectionController {
             dbconnInfo.setJdbcname("com.mysql.jdbc.Driver");
         if (DBUtils.testConn(dbconnInfo) == 1) {
             return StatusUtil.updateOk();
+        } else if (DBUtils.testConn(dbconnInfo) == -1) {
+            return StatusUtil.error("40003", "用户名或密码错误！");
         } else {
-            return StatusUtil.error("", "此链接无效！");
+            return StatusUtil.error("40003", "此URL无效！");
         }
     }
 }

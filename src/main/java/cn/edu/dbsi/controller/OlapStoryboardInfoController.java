@@ -138,7 +138,7 @@ public class OlapStoryboardInfoController {
         int tag = olapStoryboardInfoServiceI.updateOlapStoryboardInfo(olapStoryboardInfo);
         int tag2 = 0, tag3 = 0, tag4 = 0;
         List<OlapStoryboardElementInfo> dbList = olapStoryboardElementInfoServiceI.getOlapStoryboardElementInfoByStoryBoardId(storyboardId);
-        JSONArray storyboardItems = obj.getJSONArray("storyboardItems");
+        JSONArray storyboardItems = obj.getJSONArray("items");
         for (Object item : storyboardItems) {
             JSONObject temp = (JSONObject) item;
             int itemId = temp.getInt("id");
@@ -146,7 +146,7 @@ public class OlapStoryboardInfoController {
             String saikuId = temp.getString("saikuId");
             String saikuName = temp.getString("saikuName");
             String saikuPath = temp.getString("saikuPath");
-            int index = temp.getInt("index");
+            int index = temp.getInt("string");
             int pointX = temp.getInt("pointX");
             int pointY = temp.getInt("pointY");
             int width = temp.getInt("width");

@@ -31,7 +31,11 @@ public class DBUtils {
                 conn.close();
             }
         } catch (SQLException e) {
-            return 0;
+            //判断用户名和密码
+            if(e.getMessage().contains("password"))
+                return -1;
+            else //链接错误
+                return -2;
         }catch (ClassNotFoundException e){
             return 0;
         }
