@@ -50,9 +50,13 @@ public class OlapStoryboardInfoController {
      */
     @RequestMapping(value = "/olap-storyboard/{storyboardId}", method = RequestMethod.GET)
     public ResponseEntity<?> getOlapStoryboardInfoById(@PathVariable("storyboardId") Integer storyboardId) {
+        Map<String,Object> map = new HashMap<String, Object>();
+        OlapStoryboardInfo olapStoryboardInfo = olapStoryboardInfoServiceI.getOlapStoryboardInfoById(storyboardId);
         List<OlapStoryboardElementInfo> list = olapStoryboardElementInfoServiceI.getOlapStoryboardElementInfoByStoryBoardId(storyboardId);
         if (list != null) {
-            return StatusUtil.querySuccess(list);
+            map.put("name",olapStoryboardInfo.getName());
+            map.put("items",list);
+            return StatusUtil.querySuccess(map);
         } else {
             return StatusUtil.error("", "此故事板信息为空！");
         }
@@ -76,7 +80,7 @@ public class OlapStoryboardInfoController {
         int lastOlapStoryboardInfoId = olapStoryboardInfoServiceI.getLastOlapStoryboardInfoPrimaryKey();
         olapStoryboardElementInfo.setStoryboardId(lastOlapStoryboardInfoId);
         olapStoryboardElementInfo.setIsDelete("0");
-        JSONArray storyboards = obj.getJSONArray("storyboards");
+        JSONArray storyboards = obj.getJSONArray("storyboardItems");
         int tag = 0;
         for (Object storyboard : storyboards) {
             JSONObject temp = (JSONObject) storyboard;
@@ -138,7 +142,7 @@ public class OlapStoryboardInfoController {
         int tag = olapStoryboardInfoServiceI.updateOlapStoryboardInfo(olapStoryboardInfo);
         int tag2 = 0, tag3 = 0, tag4 = 0;
         List<OlapStoryboardElementInfo> dbList = olapStoryboardElementInfoServiceI.getOlapStoryboardElementInfoByStoryBoardId(storyboardId);
-        JSONArray storyboardItems = obj.getJSONArray("items");
+        JSONArray storyboardItems = obj.getJSONArray("storyboardItems");
         for (Object item : storyboardItems) {
             JSONObject temp = (JSONObject) item;
             int itemId = temp.getInt("id");
@@ -146,7 +150,7 @@ public class OlapStoryboardInfoController {
             String saikuId = temp.getString("saikuId");
             String saikuName = temp.getString("saikuName");
             String saikuPath = temp.getString("saikuPath");
-            int index = temp.getInt("string");
+            int index = temp.getInt("index");
             int pointX = temp.getInt("pointX");
             int pointY = temp.getInt("pointY");
             int width = temp.getInt("width");

@@ -18,4 +18,6 @@ public interface OlapStoryboardInfoServiceI {
     int deleteOlapStoryboardInfo(Integer id);
 
     int updateOlapStoryboardInfo(OlapStoryboardInfo olapStoryboardInfo);
+
+    OlapStoryboardInfo getOlapStoryboardInfoById(Integer id);
 }

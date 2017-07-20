@@ -35,4 +35,8 @@ public class OlapStoryboardInfoServiceImpl implements OlapStoryboardInfoServiceI
     public int updateOlapStoryboardInfo(OlapStoryboardInfo olapStoryboardInfo) {
         return olapStoryboardInfoMapper.updateByPrimaryKeySelective(olapStoryboardInfo);
     }
+
+    public OlapStoryboardInfo getOlapStoryboardInfoById(Integer id) {
+        return olapStoryboardInfoMapper.selectByPrimaryKey(id);
+    }
 }
