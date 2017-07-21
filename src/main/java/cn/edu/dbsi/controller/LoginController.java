@@ -18,7 +18,6 @@ import java.util.Map;
  * Created by 郭世明 on 2017/6/2.
  */
 @RestController
-@Controller()
 @RequestMapping(value = "/login")
 public class LoginController {
 
@@ -26,13 +25,14 @@ public class LoginController {
     private LoginServiceI loginServiceI;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> checkUser(@RequestParam String account, @RequestParam String password) {
+    public ResponseEntity<?> checkUser(@RequestParam String account, @RequestParam String password,HttpServletRequest request) {
         User user = loginServiceI.getUserByUsernameAndPassword(account, password);
         if (user != null) {
             if (user.getIsExist() == 1) {
                 Map<String, Object> result = new HashMap<String, Object>();
                 Map<String, Object> map = new HashMap<String, Object>();
                 Map<String, Object> tokenMap = new HashMap<String, Object>();
+                request.getSession().setAttribute("id",user.getUserid().toString());
                 result.put("success",true);
                 //数据库中为null时，则返回""
                 map.put("icon ", user.getIcon() == null ? "" : user.getIcon());
@@ -45,7 +45,7 @@ public class LoginController {
                 map.put("description", user.getDescription() == null ? "" : user.getDescription());
                 result.put("person",map);
                 String token = JwtTokenUtil.generateToken(user);
-                tokenMap.put("token",token);
+                tokenMap.put("token","Bearer "+token);
                 result.put("auth",tokenMap);
                 return StatusUtil.querySuccess(result);
             } else {

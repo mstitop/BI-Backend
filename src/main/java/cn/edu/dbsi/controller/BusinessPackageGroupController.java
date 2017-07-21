@@ -1,5 +1,6 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.BusinessPackageGroup;
 import cn.edu.dbsi.service.BusinessPackageGroupServiceI;
 import cn.edu.dbsi.util.StatusUtil;
@@ -15,7 +16,7 @@ import java.util.Map;
 /**
  * Created by 郭世明 on 2017/6/27.
  */
-
+@LoginRequired
 @Controller
 @RequestMapping(value = "/rest")
 public class BusinessPackageGroupController {

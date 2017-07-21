@@ -1,5 +1,6 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.OlapStoryboardElementInfo;
 import cn.edu.dbsi.model.OlapStoryboardInfo;
 import cn.edu.dbsi.service.OlapStoryboardElementInfoServiceI;
@@ -16,6 +17,7 @@ import java.util.*;
 /**
  * Created by 郭世明 on 2017/7/17.
  */
+@LoginRequired
 @RestController
 @RequestMapping(value = "/rest")
 public class OlapStoryboardInfoController {

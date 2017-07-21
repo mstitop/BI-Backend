@@ -1,5 +1,6 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.BusinessPackage;
 import cn.edu.dbsi.model.BusinessPackageGroup;
 import cn.edu.dbsi.model.DbBusinessPackage;
@@ -24,6 +25,7 @@ import java.util.Map;
 /**
  * Created by 郭世明 on 2017/6/23.
  */
+@LoginRequired
 @Controller
 @RequestMapping(value = "/rest")
 public class BusinessPackageController {

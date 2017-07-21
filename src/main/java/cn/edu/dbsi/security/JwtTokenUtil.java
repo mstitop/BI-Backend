@@ -5,17 +5,15 @@ import cn.edu.dbsi.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 郭世明 on 2017/7/20.
+ * 该工具类利用Jwts来创建token 解析token
  */
-@Component
+
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -3301605591108950415L;
@@ -27,7 +25,7 @@ public class JwtTokenUtil implements Serializable {
 
     static final Long expiration = Long.valueOf(432000000);
 
-    public String getUsernameFromToken(String token) {
+    public static String getUsernameFromToken(String token) {
         String username;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -38,7 +36,7 @@ public class JwtTokenUtil implements Serializable {
         return username;
     }
 
-    public Date getCreatedDateFromToken(String token) {
+    public static Date getCreatedDateFromToken(String token) {
         Date created;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -49,7 +47,7 @@ public class JwtTokenUtil implements Serializable {
         return created;
     }
 
-    public Date getExpirationDateFromToken(String token) {
+    public static Date getExpirationDateFromToken(String token) {
         Date expiration;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -60,7 +58,7 @@ public class JwtTokenUtil implements Serializable {
         return expiration;
     }
 
-    private Claims getClaimsFromToken(String token) {
+    private static Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -77,18 +75,18 @@ public class JwtTokenUtil implements Serializable {
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 
-    private Boolean isTokenExpired(String token) {
+    private static Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
-    private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
+    private static Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }
 
     public static String generateToken(User userDetails) {
         Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_USERNAME, userDetails.getUserid());
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
@@ -101,13 +99,13 @@ public class JwtTokenUtil implements Serializable {
                 .compact();
     }
 
-    public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
+    public static Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
         final Date created = getCreatedDateFromToken(token);
         return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset)
                 && !isTokenExpired(token);
     }
 
-    public String refreshToken(String token) {
+    public static String refreshToken(String token) {
         String refreshedToken;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -119,15 +117,18 @@ public class JwtTokenUtil implements Serializable {
         return refreshedToken;
     }
 
-    public Boolean validateToken(String token, User userDetails) {
-//        JwtUser user = (JwtUser) userDetails;
-//        final String username = getUsernameFromToken(token);
-//        final Date created = getCreatedDateFromToken(token);
-//        //final Date expiration = getExpirationDateFromToken(token);
-//        return (
-//                username.equals(user.getUsername())
-//                        && !isTokenExpired(token)
-//                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
-        return true;
+    /**
+     * 用于验证token中的username与session中保存的username是否一致，只有一致时才验证通过
+     * @param token
+     * @param id
+     * @return
+     */
+    public static Boolean validateToken(String token, String id) {
+        final String username = getUsernameFromToken(token);
+        return (
+                username.equals(id)
+                        && !isTokenExpired(token)
+        );
+
     }
 }

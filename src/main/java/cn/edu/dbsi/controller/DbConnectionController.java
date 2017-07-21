@@ -1,5 +1,6 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.DbconnInfo;
 import cn.edu.dbsi.service.DbConnectionServiceI;
 import cn.edu.dbsi.util.DBUtils;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * Created by 郭世明 on 2017/6/22.
  */
+@LoginRequired
 @Controller
 @RequestMapping(value = "/rest")
 public class DbConnectionController {

@@ -1,5 +1,6 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.*;
 import cn.edu.dbsi.service.*;
 import cn.edu.dbsi.util.HttpConnectDeal;
@@ -24,7 +25,7 @@ import java.util.*;
 /**
  * Created by 郭世明 on 2017/6/29.
  */
-
+@LoginRequired
 @Controller
 @RequestMapping(value = "rest")
 public class SchemaController {
