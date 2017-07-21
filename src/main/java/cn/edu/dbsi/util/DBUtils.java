@@ -34,7 +34,7 @@ public class DBUtils {
             //判断用户名和密码
             if(e.getMessage().contains("password"))
                 return -1;
-            else //链接错误
+            else //URL链接错误或不允许接入
                 return -2;
         }catch (ClassNotFoundException e){
             return 0;

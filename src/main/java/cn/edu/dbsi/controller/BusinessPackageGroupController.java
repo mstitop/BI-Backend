@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping(value = "/{token}")
+@RequestMapping(value = "/rest")
 public class BusinessPackageGroupController {
 
     @Autowired
@@ -25,13 +25,12 @@ public class BusinessPackageGroupController {
 
     /**
      * 增加分组信息
-     * @param token
      * @param json
      * @return
      */
     @RequestMapping(value = "/business-package-group", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
+    public ResponseEntity<?> addBusinessPackage( @RequestBody Map<String, Object> json) {
         BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
         JSONObject obj = new JSONObject(json);
         String groupName = obj.getString("name");
@@ -47,13 +46,12 @@ public class BusinessPackageGroupController {
 
     /**
      * 重命名指定业务包分组
-     * @param token
      * @param json
      * @return
      */
     @RequestMapping(value = "/business-package-group/{businessPackageGroupId}",method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<?> updateBusinessPackageGroupName(@PathVariable("token") Integer token,@RequestBody Map<String,Object> json,@PathVariable("businessPackageGroupId") Integer businessPackageGroupId){
+    public ResponseEntity<?> updateBusinessPackageGroupName(@RequestBody Map<String,Object> json,@PathVariable("businessPackageGroupId") Integer businessPackageGroupId){
         BusinessPackageGroup businessPackageGroup = new BusinessPackageGroup();
         JSONObject obj = new JSONObject(json);
         int id = obj.getInt("id");

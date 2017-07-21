@@ -23,7 +23,7 @@ import java.util.*;
  * Created by Skye on 2017/7/6.
  */
 @Controller
-@RequestMapping(value = "/{token}")
+@RequestMapping(value = "{token}")
 public class DataxTaskController {
 
     @Autowired

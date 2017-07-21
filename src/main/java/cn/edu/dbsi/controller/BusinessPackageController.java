@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by 郭世明 on 2017/6/23.
  */
 @Controller
-@RequestMapping(value = "/{token}")
+@RequestMapping(value = "/rest")
 public class BusinessPackageController {
 
     @Autowired
@@ -42,30 +42,28 @@ public class BusinessPackageController {
 
     /**
      * 查询所有业务包信息
-     * @param token
+     *
      * @return
      */
     @RequestMapping(value = "/business-package-groups", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getBusinessPackageGroupById(@PathVariable("token") Integer token) {
-        if (token != null && token == 000) {
-            List<BusinessPackageGroup> list = businessPackageServiceI.getBusinessPackageGroup();
+    public ResponseEntity<?> getBusinessPackageGroupById() {
+        List<BusinessPackageGroup> list = businessPackageServiceI.getBusinessPackageGroup();
+        if (list != null)
             return StatusUtil.querySuccess(list);
-        } else {
-            return  StatusUtil.error("","Unauthorized");
-        }
+        else
+            return StatusUtil.error("", "查询所有业务包失败");
     }
 
     /**
      * 新增业务包信息
      *
-     * @param token
      * @param json
      * @return
      */
     @RequestMapping(value = "/business-package", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json) {
+    public ResponseEntity<?> addBusinessPackage(@RequestBody Map<String, Object> json) {
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
         //System.out.println(json.toString());
@@ -83,7 +81,7 @@ public class BusinessPackageController {
             StringBuilder sb = new StringBuilder();
             //获取数组中的每个对象
             JSONObject temp = dbs.getJSONObject(i);
-            String dbid =  String.valueOf(temp.getInt("id"));
+            String dbid = String.valueOf(temp.getInt("id"));
             JSONArray tables = temp.getJSONArray("tables");
             for (int j = 0; j < tables.length(); j++) {
                 //获取数组中的每个对象
@@ -99,20 +97,19 @@ public class BusinessPackageController {
         if (tag_one == 1 && tag_two == 1) {
             return StatusUtil.updateOk();
         } else {
-            return StatusUtil.error("","数据包保存失败");
+            return StatusUtil.error("", "数据包保存失败");
         }
     }
 
     /**
      * 更新数据包信息
      *
-     * @param token
      * @param json
      * @return
      */
     @RequestMapping(value = "/business-package/{businessPackageId}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<?> updateBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json,@PathVariable("businessPackageId") Integer businessPackageId) {
+    public ResponseEntity<?> updateBusinessPackage(@RequestBody Map<String, Object> json, @PathVariable("businessPackageId") Integer businessPackageId) {
         BusinessPackage businessPackage = new BusinessPackage();
         DbBusinessPackage dbBusinessPackage = new DbBusinessPackage();
         JSONObject obj = new JSONObject(json);
@@ -145,27 +142,26 @@ public class BusinessPackageController {
         if (tag_one == 1 && tag_two == 1) {
             return StatusUtil.updateOk();
         } else {
-            return StatusUtil.error("","数据包更新失败");
+            return StatusUtil.error("", "数据包更新失败");
         }
     }
 
     /**
      * 删除业务包
      *
-     * @param token
      * @param id
      * @return
      */
     @RequestMapping(value = "/business-package/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteBusinessPackageById(@PathVariable("id") Integer id) {
         BusinessPackage businessPackage = new BusinessPackage();
         businessPackage.setId(id);
         int tag = businessPackageServiceI.deleteBusinessPackage(businessPackage);
         if (tag == 1) {
             return StatusUtil.updateOk();
         } else {
-            return StatusUtil.error("","数据包删除失败");
+            return StatusUtil.error("", "数据包删除失败");
         }
     }
 
@@ -173,13 +169,12 @@ public class BusinessPackageController {
     /**
      * 指定业务包信息查询
      *
-     * @param token
      * @param packageid
      * @return
      */
     @RequestMapping(value = "/business-package/{packageid}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getBusinessPackageById(@PathVariable("token") Integer token, @PathVariable("packageid") Integer packageid) {
+    public ResponseEntity<?> getBusinessPackageById(@PathVariable("packageid") Integer packageid) {
         DbconnInfo dbconnInfo;
         Map<String, Object> bpmap = new HashMap<String, Object>();
         Map<String, Object> groupmap = new HashMap<String, Object>();
@@ -201,7 +196,7 @@ public class BusinessPackageController {
                         Map<String, Object> temp = new HashMap<String, Object>();
                         temp.put("id", dbconnInfo.getId());
                         temp.put("name", dbconnInfo.getName());
-                        temp.put("category",dbconnInfo.getCategory());
+                        temp.put("category", dbconnInfo.getCategory());
                         if (item.getTablename() != null && !"".equals(item.getTablename())) {
                             String[] tableNames = item.getTablename().split(",");
                             List<Map<String, Object>> tables = new ArrayList<Map<String, Object>>();
@@ -220,15 +215,15 @@ public class BusinessPackageController {
                     }
                     bpmap.put("dbs", dbs);
                     return StatusUtil.querySuccess(bpmap);
-                }else{
+                } else {
                     bpmap.put("dbs", "");
                     return StatusUtil.querySuccess(bpmap);
                 }
-            }else{
-                return StatusUtil.error("","此业务包不属于任何分组");
+            } else {
+                return StatusUtil.error("", "此业务包不属于任何分组");
             }
         } else {
-            return StatusUtil.error("","不存在此业务包");
+            return StatusUtil.error("", "不存在此业务包");
         }
     }
 

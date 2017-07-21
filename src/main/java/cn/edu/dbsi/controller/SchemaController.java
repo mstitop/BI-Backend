@@ -26,7 +26,7 @@ import java.util.*;
  */
 
 @Controller
-@RequestMapping(value = "{token}")
+@RequestMapping(value = "rest")
 public class SchemaController {
 
     @Autowired
@@ -60,7 +60,7 @@ public class SchemaController {
      */
     @RequestMapping(value = "/olap-schema", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> addBusinessPackage(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, HttpServletRequest request) {
+    public ResponseEntity<?> addBusinessPackage(@RequestBody Map<String, Object> json, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         List<SchemaDimension> schemaDimensions = new ArrayList<SchemaDimension>();
         List<SchemaMeasureGroup> schemaMeasureGroups = new ArrayList<SchemaMeasureGroup>();

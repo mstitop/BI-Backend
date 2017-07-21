@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by 郭世明 on 2017/7/17.
  */
 @RestController
-@RequestMapping(value = "/{token}")
+@RequestMapping(value = "/rest")
 public class OlapStoryboardElementInfoController {
 }
