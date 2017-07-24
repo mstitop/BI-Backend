@@ -23,8 +23,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String authHeader = httpServletRequest.getHeader(this.tokenHeader);
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
             final String authToken = authHeader.substring(tokenHead.length());
-
-            if (JwtTokenUtil.validateToken(authToken, (String) httpServletRequest.getSession().getAttribute("id"))) {
+            final String username = JwtTokenUtil.getUsernameFromToken(authToken);
+            if (JwtTokenUtil.validateToken(authToken, (String) httpServletRequest.getSession().getAttribute(username))) {
                 return true;
             }
         }
