@@ -19,4 +19,8 @@ public class LoginServiceImpl implements LoginServiceI {
         return userMapper.selectByPasswordAndUsername(username,password);
 
     }
+
+    public User getUserByUserId(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
 }

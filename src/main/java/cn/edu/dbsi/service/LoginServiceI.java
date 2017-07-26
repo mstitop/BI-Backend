@@ -7,4 +7,6 @@ import cn.edu.dbsi.model.User;
  */
 public interface LoginServiceI {
     User getUserByUsernameAndPassword(String username,String password);
+
+    User getUserByUserId(Integer id);
 }

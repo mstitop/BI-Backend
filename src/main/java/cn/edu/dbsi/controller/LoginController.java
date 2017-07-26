@@ -1,7 +1,7 @@
 package cn.edu.dbsi.controller;
 
 import cn.edu.dbsi.model.User;
-import cn.edu.dbsi.security.JwtTokenUtil;
+import cn.edu.dbsi.security.JwtToken;
 import cn.edu.dbsi.service.LoginServiceI;
 import cn.edu.dbsi.util.StatusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.annotation.Retention;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +22,10 @@ public class LoginController {
     @Autowired
     private LoginServiceI loginServiceI;
 
+    @Autowired
+    private JwtToken jwtTokenUtil;
+
+
     /**
      * 用户登录
      * @param account
@@ -31,18 +34,18 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/token",method = RequestMethod.GET)
-    public ResponseEntity<?> checkUser(@RequestParam String account, @RequestParam String password,HttpServletRequest request) {
+    public ResponseEntity<?> checkUser(@RequestParam String account, @RequestParam String password, HttpServletRequest request) {
         User user = loginServiceI.getUserByUsernameAndPassword(account, password);
         if (user != null) {
             if (user.getIsExist() == 1) {
                 Map<String, Object> result = new HashMap<String, Object>();
                 Map<String, Object> map = new HashMap<String, Object>();
                 Map<String, Object> tokenMap = new HashMap<String, Object>();
-                request.getSession().setAttribute(user.getUserid().toString(),user.getUserid().toString());
+//                request.getSession().setAttribute(user.getUserid().toString(),user.getUserid().toString());
                 result.put("success",true);
                 //数据库中为null时，则返回""
                 map.put("userId",user.getUserid() == null?"":user.getUserid());
-                map.put("icon ", user.getIcon() == null ? "" : user.getIcon());
+                map.put("icon", user.getIcon() == null ? "" : user.getIcon());
                 map.put("name", user.getRealname() == null ? "" : user.getRealname());
                 map.put("sex", user.getSex() == null ? "" : user.getSex());
                 map.put("position", user.getPosition() == null ? "" : user.getPosition());
@@ -51,7 +54,7 @@ public class LoginController {
                 map.put("address", user.getAddress() == null ? "" : user.getAddress());
                 map.put("description", user.getDescription() == null ? "" : user.getDescription());
                 result.put("person",map);
-                String token = JwtTokenUtil.generateToken(user);
+                String token = jwtTokenUtil.generateToken(user);
                 tokenMap.put("token","Bearer "+token);
                 result.put("auth",tokenMap);
                 return StatusUtil.querySuccess(result);
@@ -73,7 +76,7 @@ public class LoginController {
     @RequestMapping(value = "/rest/token/{userId}",method = RequestMethod.GET)
     public ResponseEntity<?> logout(@PathVariable("userId") Integer userId,HttpServletRequest request){
         String username = String.valueOf(userId.intValue());
-        request.getSession().removeAttribute(username);
+//        request.getSession().removeAttribute(username);
         return StatusUtil.updateOk();
     }
 

@@ -54,7 +54,6 @@ public class SchemaController {
     /**
      * 这个controller是用于生成saiku的schema文件
      *
-     * @param token
      * @param json
      * @param request
      * @return

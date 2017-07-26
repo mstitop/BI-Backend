@@ -128,20 +128,20 @@ public class HttpConnectDeal {
         // 实例化httpClient
         CloseableHttpClient httpclient = HttpClients.createDefault();
         //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
-        HttpHost targetHost = new HttpHost("10.1.18.205", 8080, "http");
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(
-                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
-                new UsernamePasswordCredentials("admin", "admin"));
+//        HttpHost targetHost = new HttpHost("10.65.1.92", 8080, "http");
+//        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+//        credsProvider.setCredentials(
+//                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+//                new UsernamePasswordCredentials("admin", "admin"));
         // 创建 AuthCache 实例
-        AuthCache authCache = new BasicAuthCache();
+//        AuthCache authCache = new BasicAuthCache();
         // 创建 BASIC scheme 对象 and 将它加入到本地的 auth cache
-        BasicScheme basicAuth = new BasicScheme();
-        authCache.put(targetHost, basicAuth);
+//        BasicScheme basicAuth = new BasicScheme();
+//        authCache.put(targetHost, basicAuth);
         // 将 AuthCache 加入到执行的上下文
-        HttpClientContext context = HttpClientContext.create();
-        context.setCredentialsProvider(credsProvider);
-        context.setAuthCache(authCache);
+//        HttpClientContext context = HttpClientContext.create();
+//        context.setCredentialsProvider(credsProvider);
+//        context.setAuthCache(authCache);
 
         // 实例化post方法
         HttpPost httpPost = new HttpPost(uri);
@@ -159,7 +159,8 @@ public class HttpConnectDeal {
             httpPost.setEntity(stringEntity);
             httpPost.setHeader("Content-type", "application/json");
             // 执行post请求
-            response = httpclient.execute(targetHost, httpPost, context);
+//            response = httpclient.execute(targetHost, httpPost, context);
+            response = httpclient.execute(httpPost);
             if (response.getStatusLine().getStatusCode() == 200) {
                 content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 System.out.println(content);
@@ -181,20 +182,20 @@ public class HttpConnectDeal {
     public static String postMutilpart(String path, String uri, Schema schema) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         //利用Preemptive authentication认证机制
-        HttpHost targetHost = new HttpHost("10.1.18.205", 8080, "http");
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(
-                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
-                new UsernamePasswordCredentials("admin", "admin"));
+//        HttpHost targetHost = new HttpHost("10.65.1.92", 8080, "http");
+//        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+//        credsProvider.setCredentials(
+//                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+//                new UsernamePasswordCredentials("admin", "admin"));
         // 创建 AuthCache 实例
-        AuthCache authCache = new BasicAuthCache();
+//        AuthCache authCache = new BasicAuthCache();
         // 创建 BASIC scheme 对象 and 将它加入到本地的 auth cache
-        BasicScheme basicAuth = new BasicScheme();
-        authCache.put(targetHost, basicAuth);
+//        BasicScheme basicAuth = new BasicScheme();
+//        authCache.put(targetHost, basicAuth);
         // 将 AuthCache 加入到执行的上下文
-        HttpClientContext context = HttpClientContext.create();
-        context.setCredentialsProvider(credsProvider);
-        context.setAuthCache(authCache);
+//        HttpClientContext context = HttpClientContext.create();
+//        context.setCredentialsProvider(credsProvider);
+//        context.setAuthCache(authCache);
         //创建POST请求实例
         HttpPost uploadFile = new HttpPost(uri);
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -218,7 +219,8 @@ public class HttpConnectDeal {
         CloseableHttpResponse response = null;
         try {
             //将认证、POST请求，上下文一并发送
-            response = httpclient.execute(targetHost, uploadFile, context);
+//            response = httpclient.execute(targetHost, uploadFile, context);
+            response = httpclient.execute(uploadFile);
         } catch (IOException e) {
             e.printStackTrace();
         }

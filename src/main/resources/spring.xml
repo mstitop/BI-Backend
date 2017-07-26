@@ -4,16 +4,24 @@ http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-4.2.xsd
-">
+"
+       xmlns:p="http://www.springframework.org/schema/p">
 
     <!-- 引入属性文件 -->
     <context:property-placeholder location="classpath:config.properties" />
 
     <!-- 自动扫描(自动注入) 扫描service包内的注解-->
-    <context:component-scan base-package="cn.edu.dbsi.service" />
+    <context:component-scan base-package="cn.edu.dbsi.service,cn.edu.dbsi.security,cn.edu.dbsi.dataetl,cn.edu.dbsi.interceptor" />
 
     <!-- skye  -->
-    <context:component-scan base-package="cn.edu.dbsi" />
+    <!--<context:component-scan base-package="cn.edu.dbsi" />-->
 
+    <!-- 配置redis的链接jedisConnFactory以及操作模板redisTemplate -->
+    <!--<bean id="jedisConnFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:use-pool="true"/>
 
+    <bean id="redisTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate"
+          p:connection-factory-ref="jedisConnFactory"/>-->
 </beans>
