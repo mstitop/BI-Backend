@@ -4,6 +4,7 @@ import cn.edu.dbsi.dataetl.model.JobInfo;
 import cn.edu.dbsi.dataetl.util.DataXJobJson;
 import cn.edu.dbsi.dataetl.util.DataxExcuteRunnable;
 import cn.edu.dbsi.dataetl.util.JobConfig;
+import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.*;
 import cn.edu.dbsi.service.*;
 import cn.edu.dbsi.util.DBUtils;
@@ -22,8 +23,9 @@ import java.util.*;
 /**
  * Created by Skye on 2017/7/6.
  */
+@LoginRequired
 @Controller
-@RequestMapping(value = "{token}")
+@RequestMapping(value = "/rest")
 public class DataxTaskController {
 
     @Autowired
@@ -42,7 +44,7 @@ public class DataxTaskController {
 
 
     /**
-     * 产生 datax json" 文件，并执行相应导入任务
+     * 产生 datax json 文件，并执行相应导入任务
      *
      * @param token
      * @param json
@@ -50,7 +52,7 @@ public class DataxTaskController {
      */
     @RequestMapping(value = "/datax-task", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> excuteDataxTask(@PathVariable("token") Integer token, @RequestBody Map<String, Object> json, HttpServletRequest request) {
+    public ResponseEntity<?> excuteDataxTask( @RequestBody Map<String, Object> json, HttpServletRequest request) {
 //        GenericXmlApplicationContext context = new GenericXmlApplicationContext();
 //        context.setValidating(false);
 //        context.load("classpath*:spring.xml");
@@ -206,7 +208,7 @@ public class DataxTaskController {
      */
     @RequestMapping(value = "/datax-tasks", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getDataxTasksInfo(@PathVariable("token") Integer token,@RequestParam Integer page,@RequestParam Integer size) {
+    public ResponseEntity<?> getDataxTasksInfo(@RequestParam Integer page,@RequestParam Integer size) {
 
         int count = dataxTaskService.countTask();
         int start = (page-1)*size;
@@ -259,7 +261,7 @@ public class DataxTaskController {
      */
     @RequestMapping(value = "/datax-task/{taskId}/status", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getDataxTaskInfoById(@PathVariable("token") Integer token,@PathVariable("taskId") Integer taskid) {
+    public ResponseEntity<?> getDataxTaskInfoById(@PathVariable("taskId") Integer taskid) {
         Map<String, Object> map = new HashMap<String, Object>();
         DataxTask dataxTask = dataxTaskService.getDataxTaskById(taskid);
 
@@ -276,6 +278,5 @@ public class DataxTaskController {
 
 
     }
-
 
 }

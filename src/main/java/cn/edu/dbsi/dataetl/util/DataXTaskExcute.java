@@ -40,7 +40,6 @@ public class DataXTaskExcute {
                 if (breakFlag) {
                     break;
                 }
-
                 JobInfo jobInfo = allTableStatus.get(t1);
                 String sourceTableName = jobInfo.getSourceTbName();
 
@@ -102,15 +101,22 @@ public class DataXTaskExcute {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line = null;
+        line = reader.readLine();
 
-        while ((line = reader.readLine()) != null) {
+        if (line == null){
+            hasException = true;
+            jobInfo.setHasException(hasException);
+        }
+        while (line != null) {
             logInfo.append(sourceTableName + " - " + line).append("\n");
             if (!hasException && line != null && (line.contains("DataXException") || line.contains("SQLException"))) {
                 hasException = true;
                 jobInfo.setHasException(hasException);
             }
             readExecueOutputLineStatus(line, jobInfo);
+            line = reader.readLine();
         }
+
         logInfo.append(jobInfo.getSourceTbName() + " execute finished!");
 
         return hasException;
