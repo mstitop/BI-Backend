@@ -46,7 +46,6 @@ public class DataxTaskController {
     /**
      * 产生 datax json 文件，并执行相应导入任务
      *
-     * @param token
      * @param json
      * @return
      */
@@ -166,7 +165,7 @@ public class DataxTaskController {
             dataxJsonInfo.setIsDelete("0");
             dataxJsonInfo.setDbId(dbId);
             String jsonAddress = request.getSession().getServletContext().getRealPath("/datax") + File.separator;
-            dataxJsonInfo.setJsonAddress(jsonAddress + targetTbName + ".json");
+            dataxJsonInfo.setJsonAddress(jsonAddress +"/"+ lastTaskId +"/"+ targetTbName + ".json");
             tag2 = dataxJsonInfoService.addJsonInfo(dataxJsonInfo);
 
 
@@ -176,8 +175,9 @@ public class DataxTaskController {
             hiveTableInfo.setTaskId(lastTaskId);
 
             tag3 = hiveTableInfoService.addHiveTableInfo(hiveTableInfo);
-
-            tag4 = DBUtils.createHiveDb(jobConfig, targetHiveDbName);
+            if(i == 0){
+                tag4 = DBUtils.createHiveDb(jobConfig, targetHiveDbName);
+            }
             tag5 = DBUtils.createHiveTable(jobConfig,  targetHiveDbName + "." + targetTbName, columnsMap);
 
             // 生成任务 json 文件
@@ -192,7 +192,13 @@ public class DataxTaskController {
 
         Map<String, Object> errorMap = new HashMap<String, Object>();
 
-        if (tag1 == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1) {
+        if(tag2 == 0){
+            return    StatusUtil.error("","存储 datax json 信息表出错");
+        }else if(tag4 == 0){
+            return    StatusUtil.error("","创建 hive 数据库出错");
+        }else if(tag5 == 0){
+            return    StatusUtil.error("","创建 hive 数据表出错");
+        }else if (tag1 == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1) {
             return   StatusUtil.updateOk();
         } else {
 
@@ -203,7 +209,6 @@ public class DataxTaskController {
 
     /**
      *  查询所有导入任务信息，并返回
-     * @param token
      * @return
      */
     @RequestMapping(value = "/datax-tasks", method = RequestMethod.GET)
@@ -256,7 +261,6 @@ public class DataxTaskController {
 
     /**
      *  查询单条导入任务信息，并返回
-     * @param token
      * @return
      */
     @RequestMapping(value = "/datax-task/{taskId}/status", method = RequestMethod.GET)

@@ -1,0 +1,425 @@
+[INFO][2017-08-03 15:06:56,956][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-03 15:06:56,959][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-03 15:06:57,061][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-03 15:06:57,063][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[INFO][2017-08-03 15:06:58,068][org.apache.hive.jdbc.HiveConnection]Could not open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[INFO][2017-08-03 15:06:58,069][org.apache.hive.jdbc.HiveConnection]Transport Used for JDBC connection: null
+[INFO][2017-08-03 15:08:38,140][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-03 15:08:38,143][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-03 15:08:38,228][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-03 15:08:38,229][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[INFO][2017-08-03 15:08:39,232][org.apache.hive.jdbc.HiveConnection]Could not open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[INFO][2017-08-03 15:08:39,232][org.apache.hive.jdbc.HiveConnection]Transport Used for JDBC connection: null
+[INFO][2017-08-03 15:10:10,931][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-03 15:10:10,933][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-03 15:10:11,026][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-03 15:10:11,028][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[DEBUG][2017-08-03 15:10:11,029][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-08-03 15:10:11,043][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-08-03 15:10:11,043][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-08-03 15:10:11,044][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-08-03 15:10:11,044][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-08-03 15:10:11,044][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-08-03 15:10:11,066][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-08-03 15:10:11,108][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-08-03 15:10:11,193][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:10:11,229][org.apache.thrift.transport.TSaslTransport]writing data length: 131
+[DEBUG][2017-08-03 15:10:12,946][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:10:12,985][org.apache.thrift.transport.TSaslTransport]writing data length: 100
+[DEBUG][2017-08-03 15:10:13,015][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 53
+[DEBUG][2017-08-03 15:10:13,033][org.apache.thrift.transport.TSaslTransport]writing data length: 102
+[DEBUG][2017-08-03 15:10:13,079][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 273
+[DEBUG][2017-08-03 15:10:13,131][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:10:13,227][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 289
+[DEBUG][2017-08-03 15:10:13,262][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:13,262][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:13,263][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:13,263][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:13,263][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:13,263][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:13,263][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:10:13,265][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 138
+[DEBUG][2017-08-03 15:10:13,272][org.apache.thrift.transport.TSaslTransport]writing data length: 96
+[DEBUG][2017-08-03 15:10:13,297][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
+[DEBUG][2017-08-03 15:10:13,436][org.apache.thrift.transport.TSaslTransport]writing data length: 83
+[DEBUG][2017-08-03 15:10:13,470][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40
+[INFO][2017-08-03 15:10:33,915][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-03 15:10:33,917][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-03 15:10:33,999][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-03 15:10:34,001][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[DEBUG][2017-08-03 15:10:34,003][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-08-03 15:10:34,006][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-08-03 15:10:34,007][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-08-03 15:10:34,007][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-08-03 15:10:34,007][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-08-03 15:10:34,007][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-08-03 15:10:34,008][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-08-03 15:10:34,025][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-08-03 15:10:34,054][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:10:34,072][org.apache.thrift.transport.TSaslTransport]writing data length: 131
+[DEBUG][2017-08-03 15:10:34,154][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:10:34,165][org.apache.thrift.transport.TSaslTransport]writing data length: 100
+[DEBUG][2017-08-03 15:10:34,194][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 53
+[DEBUG][2017-08-03 15:10:34,206][org.apache.thrift.transport.TSaslTransport]writing data length: 102
+[DEBUG][2017-08-03 15:10:34,209][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 273
+[DEBUG][2017-08-03 15:10:34,248][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:10:34,257][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 289
+[DEBUG][2017-08-03 15:10:34,276][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:34,276][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:34,276][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:34,276][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:34,277][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:34,277][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:10:34,277][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:10:34,279][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 138
+[DEBUG][2017-08-03 15:10:34,283][org.apache.thrift.transport.TSaslTransport]writing data length: 96
+[DEBUG][2017-08-03 15:10:34,289][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
+[DEBUG][2017-08-03 15:10:34,295][org.apache.thrift.transport.TSaslTransport]writing data length: 83
+[DEBUG][2017-08-03 15:10:34,303][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40
+[INFO][2017-08-03 15:11:53,541][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-03 15:11:53,543][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-03 15:11:53,639][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-03 15:11:53,640][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@79924b
+[DEBUG][2017-08-03 15:11:53,647][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-08-03 15:11:53,651][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-08-03 15:11:53,651][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-08-03 15:11:53,651][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-08-03 15:11:53,651][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-08-03 15:11:53,652][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-08-03 15:11:53,654][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-08-03 15:11:53,676][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-08-03 15:11:53,720][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:11:53,741][org.apache.thrift.transport.TSaslTransport]writing data length: 131
+[DEBUG][2017-08-03 15:11:53,806][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:11:53,821][org.apache.thrift.transport.TSaslTransport]writing data length: 100
+[DEBUG][2017-08-03 15:11:53,845][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 53
+[DEBUG][2017-08-03 15:11:53,859][org.apache.thrift.transport.TSaslTransport]writing data length: 102
+[DEBUG][2017-08-03 15:11:53,862][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 273
+[DEBUG][2017-08-03 15:11:53,902][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:11:53,909][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 289
+[DEBUG][2017-08-03 15:11:53,934][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:11:53,935][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:11:53,935][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:11:53,936][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:11:53,936][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:11:53,936][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:11:53,936][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:11:53,941][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 138
+[DEBUG][2017-08-03 15:11:53,947][org.apache.thrift.transport.TSaslTransport]writing data length: 96
+[DEBUG][2017-08-03 15:11:53,952][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
+[DEBUG][2017-08-03 15:11:53,961][org.apache.thrift.transport.TSaslTransport]writing data length: 83
+[DEBUG][2017-08-03 15:11:53,968][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40
+[INFO][2017-08-03 15:12:10,399][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-03 15:12:10,404][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-03 15:12:10,505][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-03 15:12:10,507][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@79924b
+[DEBUG][2017-08-03 15:12:10,512][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-08-03 15:12:10,515][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-08-03 15:12:10,515][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-08-03 15:12:10,515][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-08-03 15:12:10,515][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-08-03 15:12:10,516][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-08-03 15:12:10,517][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-08-03 15:12:10,541][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-08-03 15:12:10,579][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:12:10,602][org.apache.thrift.transport.TSaslTransport]writing data length: 131
+[DEBUG][2017-08-03 15:12:10,671][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-03 15:12:10,682][org.apache.thrift.transport.TSaslTransport]writing data length: 100
+[DEBUG][2017-08-03 15:12:10,713][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 53
+[DEBUG][2017-08-03 15:12:10,726][org.apache.thrift.transport.TSaslTransport]writing data length: 102
+[DEBUG][2017-08-03 15:12:10,730][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 273
+[DEBUG][2017-08-03 15:12:10,778][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:12:10,785][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 289
+[DEBUG][2017-08-03 15:12:10,808][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:12:10,809][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:12:10,811][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:12:10,811][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:12:10,811][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:12:10,811][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-03 15:12:10,811][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-03 15:12:10,814][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 138
+[DEBUG][2017-08-03 15:12:10,821][org.apache.thrift.transport.TSaslTransport]writing data length: 96
+[DEBUG][2017-08-03 15:12:10,826][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
+[DEBUG][2017-08-03 15:12:10,838][org.apache.thrift.transport.TSaslTransport]writing data length: 83
+[DEBUG][2017-08-03 15:12:10,846][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40
+[DEBUG][2017-08-06 16:15:44,531][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-06 16:15:44,581][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:15:44,582][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-06 16:15:44,600][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-06 16:15:44,602][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:15:44,604][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-06 16:15:44,626][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:49320<->10.1.18.211:7070
+[DEBUG][2017-08-06 16:15:44,626][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/cubes HTTP/1.1
+[DEBUG][2017-08-06 16:15:44,626][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-06 16:15:44,646][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-06 16:15:44,647][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/cubes HTTP/1.1
+[DEBUG][2017-08-06 16:15:44,647][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-06 16:15:44,647][org.apache.http.headers]http-outgoing-0 >> Content-Length: 2751
+[DEBUG][2017-08-06 16:15:44,647][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-06 16:15:44,647][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/cubes HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 2751[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,648][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,649][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,649][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,649][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,649][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,649][org.apache.http.wire]http-outgoing-0 >> "{"project":"game_inner","cubeDescData":"{  \"name\": \"test_cube8\",  \"model_name\": \"test_game_model\",  \"dimensions\": [    {      \"name\": \"STARTTIME\",      \"table\": \"KYLIN_FLAT_DB.FACT_GAME\",      \"column\": \"STARTTIME\"    },    {      \"name\": \"USERID\",      \"table\": \"KYLIN_FLAT_DB.FACT_GAME\",      \"column\": \"USERID\"    },    {      \"name\": \"GAME\",      \"table\": \"KYLIN_FLAT_DB.FACT_GAME\",      \"column\": \"GAME\"   },    {      \"name\": \"TYPEID\",      \"table\": \"KYLIN_FLAT_DB.FACT_GAME\",      \"column\": \"TYPEID\" },    {      \"name\": \"DURATION\",      \"table\": \"KYLIN_FLAT_DB.FACT_GAME\",      \"column\": \"DURATION\"    },    {      \"name\": \"LOCATIONID\",      \"table\": \"KYLIN_FLAT_DB.DIM_LOCATION\",      \"derived\": [        \"LOCATIONID\"      ]    }  ],  \"measures\": [    {      \"name\": \"_COUNT_\",      \"function\": {        \"expression\": \"COUNT\",        \"parameter\": {          \"type\": \"constant\",          \"value\": \"1\",          \"next_parameter\": null        },        \"returntype\": \"bigint\"      },      \"dependent_measure_ref\": null    }  ],  \"rowkey\": {    \"rowkey_columns\": [      {        \"column\": \"STARTTIME\",        \"encoding\": \"dict\",        \"isShardBy\": false      },      {        \"column\": \"USERID\",        \"encoding\": \"dict\",        \"isShardBy\": false      },      {        \"column\": \"GAME\",        \"encoding\": \"dict\",        \"isShardBy\": false      },      {        \"column\": \"TYPEID\",        \"encoding\": \"dict\",        \"isShardBy\": false      },      {        \"column\": \"DURATION\",        \"encoding\": \"dict\",        \"isShardBy\": false      },      {        \"column\": \"LOCATIONID\",        \"encoding\": \"dict\",        \"isShardBy\": false      }    ]  },  \"hbase_mapping\": {    \"column_family\": [      {        \"name\": \"F1\",        \"columns\": [          {            \"qualifier\": \"M\",            \"measure_refs\": [              \"_COUNT_\"            ]          }        ]      }    ]  },  \"aggregation_groups\": [    {      \"includes\": [        \"STARTTIME\",        \"USERID\",        \"GAME\",        \"TYPEID\",        \"DURATION\",        \"LOCATIONID\"      ],      \"select_rule\": {        \"hierarchy_dims\": [],        \"mandatory_dims\": [],        \"joint_dims\": []      }    }  ],  \"notify_list\": [],  \"status_need_notify\": [    \"ERROR\",    \"DISCARDED\",    \"SUCCEED\"  ],  \"partition_date_start\": 0,  \"partition_date_end\": 3153600000000,  \"auto_merge_time_ranges\": [    604800000,    2419200000  ],  \"retention_range\": 0,  \"engine_type\": 2,  \"storage_type\": 2,  \"override_kylin_properties\": {}}","cubeName":"test_cube8"}"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=B18EB56E585EFE22521B525D612FA5FD; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Transfer-Encoding: chunked[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Content-Encoding: gzip[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Vary: Accept-Encoding[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "Date: Sun, 06 Aug 2017 08:15:43 GMT[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "a[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,935][org.apache.http.wire]http-outgoing-0 << "[0x1f][0x8b][0x8][0x0][0x0][0x0][0x0][0x0][0x0][0x0][\r][\n]"
+[DEBUG][2017-08-06 16:15:44,936][org.apache.http.wire]http-outgoing-0 << "200[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,936][org.apache.http.wire]http-outgoing-0 << "[0xb5]V[0xdb]n[0xda]@[0x10][0xfd][0x15][0xe4]g[0xa8][0xb8]$[0x11][0xe4][0x8d][0x0][0xa9]P[0x13][0xa8][0xb8]<D[0x5][0xad][0x16]{l6[0x98][0xb5][0xbb][0x97][0xb4][0x8][0xf1][0xef][0x1d]{[0x8d]YsS[0xd5][0x6]?[0x80]=sf[0xce][0xce][0xec][0xcc][0xec]n[0x1d][0xad][0x99][0xe7]<:[0xcd][0xc5]][0xcb][0xf3][0xea]P[0xa9][0xd5][0xa1]U[0xb9]k[0xba]~e[0xd1]j>T[0xaa][0xad][0xfb]j[0xd5]o[0xd4][0x9b][0xf5][0x86][0xeb][0x94][0x1d]W/`@[0xd7][0x80][0x16][\n]"
+[DEBUG][2017-08-06 16:15:44,936][org.apache.http.wire]http-outgoing-0 << "[0xa4]"[0xc9]w3[0x93]wA[0xba]][0xaa]([0xea][0xb6][0xa5][0xd2][0xcc][0xe1][0x88][0x9b]9[0x8f][0xf8]v[0x80][0xce][0x9c]r[0xa2]ZG[0x1e][0x84][0xe4][0x8][0x10][0xe0]'I5[0x19][0xca]ck[0xe0][0x92]E\&[0xa8][0x1f]%|[0xb6][0xa5][0xf4][0xb1][0x9d][0x8f]'[0xed][0xd1]d[0xd2][0xed][0xa5]VF[0xab][0xe8]"[0xcc][0xd4][0xdf][0xde]^[0xfa][0x3][0xf2][0xfc][0xd2][0x9e][0x90][0xee][0xd3][0x97][0xe7]vgB[0xbe][0xb6][0xb]`7[\n]"
+[DEBUG][2017-08-06 16:15:44,936][org.apache.http.wire]http-outgoing-0 << "[0xf5][0x9a][0x9f]8K[0x94][0xbb][0xf2][0x5][0xd2][0xe9][0xb8]7[0xea]w?[0x83]q[0xef][0xe9]*[0xdd][0x91][0xfd]?[0x93][0x19][0xd5]5[0xa6][0xc9][0xdb][0xf7][0xde][0xe7][0x4][0xb6][0xf7]t[0x99][0xab];[0x1d][0xb5]'[0xfd][0xe1][0xe0]3[0xd8][0xe][0xbe][0xae]&[0xf2]e[0xd8]Ia[0x17]b[0xb7][0xff]J[0xf6][0x16][0x16][0xde][0x3][0xc1]>[0xc0][0xcb][0x8b][0xd2]Hm[0xd7]F6O[0x97][0x82][0xff][0xa6][0xe6][0x81]J-[0xe0]j-[0x93][0xce]p:[0x98][0x10][0x8b][0xcb][0xd7][0xdc]U[0xd8][0x2][0x89]~{ [0x83][0xdf]1[0xba][0x92][0x99]b[0xe6][0xa4]v[0xb9]Y[0x82][0x88][0xa9]@[0xb7][\n]"
+[DEBUG][2017-08-06 16:15:44,936][org.apache.http.wire]http-outgoing-0 << "D[0xc1]2[\r]w[0x13]gt.[0xb6][0x96][0xa2]\Y[0x86][0x9][0xe0][0x83][0x86]:C[0xd4][0x8e]T[0x1c]~+Rp[0xcd]u[0x18][0xee][0xf5];[0x8b]_[0x80][0xd2][0x82][0x1f][0xb8][0x16],`[0x9]S[0x11][0x99]$3[0x6][0xee][0x1]W$K[0x10][0x11][0xe0][0xdb][0x8e][0xf3][0x4][0x8a][0xe8][0xd7][\n]"
+[DEBUG][2017-08-06 16:15:44,936][org.apache.http.wire]http-outgoing-0 << "6y8{[0x1]1e [0xad][0xed][0xb0][0x12]u[0xa1][0xb9][0xad][0x85][0x2]w#[0x8f][0xf1][0xc0]`<[0xe6][0xaa][0x82][0x9a][0xc9][0xf1][0x92][\n]"
+[DEBUG][2017-08-06 16:15:44,937][org.apache.http.wire]http-outgoing-0 << "[0xef])%[0xf6]i([0xa1][0x18][0xc1][0x5][0xae][0xa3][0x1]q;[0xa2]BO[0xdc][0x8e][0xe6]h.[0xdc][0x8e][0xe8]d([0xdc][0x8e][0xea][0xcc]0[0xf8][0x1f][0xb2][0xe4]gnHg[0xce]rA%[0x9e]f4[0x8e]3O[[0x9b][0x9f][0xf8]t[0xcd][0xc2][0xcd][0xf9][0x92]=[0x8c][0x83][0xe7]Z[0x81][0xf9][0xb4][0xd0][0xb][0x96][0x6][0xf4]S[0xd3][0x90][0xf9][0xcc]4[0xe7][\r][\n]"
+[DEBUG][2017-08-06 16:15:44,937][org.apache.http.wire]http-outgoing-0 << "145[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,937][org.apache.http.wire]http-outgoing-0 << "[0xcc]y-4[0xb0]5[0x87][0x92]6;ve[0x0][0xf9][0x10][0xb2][0xc5][0xf3][0xc3][0xeb][0xee]HV[0xc][0x9c][0x6][0x81][0x80][0x80]&3[0x8b][0x4]"[0xd2][0xf1][0x99][0x81][0xc7][0xb8][0x1b]j[0xf][0x8a][0xf4][0x97][0xfa][0xf3]L'[0x9d][0xd4][0xfc][0x99][0xea]<[Ggft>[0x88]$[0x84][0xe0]*"[0xb4]9[0xb][0xac][\r]Yb6[0xa9]p[0x97][0x1b][0x82]7[0x12][0xb3][0xe8][0xb9][0xe5]tM[0xb9]GU$.[0xa8][0xdf]#[0x9c]{[0x96][0xca]JZ>[0xda]x[0xa4][0x98][0xbf]!![0x93]*[0xb7][0xc7][0x15])[0xaa][0xb4]$[0x1c][0xc0]#[0x6][0x91]'l[0xe6][0xf4]F[0xa3][0xe1]([0xb][0xe][0xa3][0xed][0x8f];[0xed]Q[0xb7][0xd7][0xcd]%[0xe3]i[0xa7][0xd3][0xeb][0xa5]q[0x1a]o8[0xb5][0x15]K[0xb7][0x5]W[0xb][0x4][0x9d][0x8b][0x94][0xac]zN[0x8b]#9[0xd1]5j[0xf7][0x8d][0x87]j[0xf6][0x98][0xed][0xd5]*[0xc2]I-[0x2] [\n]"
+[DEBUG][2017-08-06 16:15:44,937][org.apache.http.wire]http-outgoing-0 << "[0xaf]gDP[0x1e]X[0x1b][0xf9]P[0xbd]k[0xee][0xc1][0xa5]R[0xfd][0xae][0xd6][0xaa][0xa7][0x9f][0xf9][0xc][0xc7]c[0x83][0xa7]4[0xa9][0xe1][0x81][0x1f]8[0x1e][0xf][0xe8]3;/[0xea]Y[0x2]"A[0x83]ci[0xf4][0x1]B0[0xf][0xc8]j[0x13]2Nb[0x11][0xc5][0x80][0x8b]7[0xab][0xd8][0xee]vx[0x1d][0x95]J[0x0]v[0x18][0xf][0xcc]}49J[0xca][0xce][0x8a][0xfa]+j[0xb][0xa4]v]<D}[0x1d]:[0x8f]Jh(coH[0x89][0x84]{[0x0][0xba]~[0xc7][0x9a][0xc0][0xb]mz7e[0x9c][0x83][0xb0][0xbd]w[0xf0]Jk[0xb0][0xbb]?[0xe1]:[0xd7][0xb0]I[0xb][0x0][0x0][\r][\n]"
+[DEBUG][2017-08-06 16:15:44,937][org.apache.http.wire]http-outgoing-0 << "0[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,937][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 200 OK
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=B18EB56E585EFE22521B525D612FA5FD; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Transfer-Encoding: chunked
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Content-Encoding: gzip
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Vary: Accept-Encoding
+[DEBUG][2017-08-06 16:15:44,940][org.apache.http.headers]http-outgoing-0 << Date: Sun, 06 Aug 2017 08:15:43 GMT
+[DEBUG][2017-08-06 16:15:44,944][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive indefinitely
+[DEBUG][2017-08-06 16:15:44,944][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-06 16:15:44,947][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="B18EB56E585EFE22521B525D612FA5FD", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-06 16:15:44,997][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection [id: 0][route: {}->http://10.1.18.211:7070] can be kept alive indefinitely
+[DEBUG][2017-08-06 16:15:44,997][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-06 16:50:03,225][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-06 16:50:03,243][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:50:03,244][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-06 16:50:03,256][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-06 16:50:03,257][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:50:03,258][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-06 16:50:03,260][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:49917<->10.1.18.211:7070
+[DEBUG][2017-08-06 16:50:03,260][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:50:03,260][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-06 16:50:03,266][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> Content-Length: 1191
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/models HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 1191[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,267][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,268][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,268][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,268][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,268][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,268][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,268][org.apache.http.wire]http-outgoing-0 >> "{"modelDescData":"{\"name\": \"test_model5\",  \"owner\": \"ADMIN\",  \"description\": \"\",  \"fact_table\": \"DEFAULT.FACT_GAME\",  \"lookups\": [    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"join\": {        \"type\": \"inner\",        \"primary_key\": [          \"LOCATIONID\"        ],        \"foreign_key\": [          \"LOCATIONID\"        ]      }    }  ],  \"dimensions\": [    {      \"table\": \"DEFAULT.FACT_GAME\",      \"columns\": [        \"STARTTIME\",        \"USERID\",        \"GAME\",        \"TYPEID\",        \"DURATION\",        \"LOCATIONID\"      ]    },    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"columns\": [        \"LOCATIONID\",        \"LOCATION\"      ]    }  ],  \"metrics\": [    \"STARTTIME\",    \"USERID\",    \"GAME\"  ],  \"filter_condition\": \"\",  \"partition_desc\": {   \"partition_date_start\": 0,    \"partition_date_format\": \"yyyy-MM-dd\",    \"partition_time_format\": \"HH:mm:ss\",    \"partition_type\": \"APPEND\",    \"partition_condition_builder\": \"org.apache.kylin.metadata.model.PartitionDesc$DefaultPartitionConditionBuilder\"  },  \"capacity\": \"MEDIUM\"}","modelName":"test_model5","project":"game_inner"}"
+[DEBUG][2017-08-06 16:50:03,554][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,554][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,554][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=6BC96BAE0CED392368CCA2560CCFAC24; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,554][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,554][org.apache.http.wire]http-outgoing-0 << "Content-Length: 108[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,555][org.apache.http.wire]http-outgoing-0 << "Date: Sun, 06 Aug 2017 08:50:01 GMT[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,555][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,555][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-06 16:50:03,555][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/models","exception":"Fact table does not exist:DEFAULT.FACT_GAME"}"
+[DEBUG][2017-08-06 16:50:03,556][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-06 16:50:03,556][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-06 16:50:03,556][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=6BC96BAE0CED392368CCA2560CCFAC24; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-06 16:50:03,556][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-06 16:50:03,556][org.apache.http.headers]http-outgoing-0 << Content-Length: 108
+[DEBUG][2017-08-06 16:50:03,556][org.apache.http.headers]http-outgoing-0 << Date: Sun, 06 Aug 2017 08:50:01 GMT
+[DEBUG][2017-08-06 16:50:03,557][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-06 16:50:03,558][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-06 16:50:03,563][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="6BC96BAE0CED392368CCA2560CCFAC24", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-06 16:53:44,413][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-06 16:53:44,429][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:53:44,430][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-06 16:53:44,441][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-06 16:53:44,442][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:53:44,444][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-06 16:53:44,446][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:49966<->10.1.18.211:7070
+[DEBUG][2017-08-06 16:53:44,446][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:53:44,446][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-06 16:53:44,451][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-06 16:53:44,452][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> Content-Length: 1191
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/models HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 1191[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,453][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,454][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,454][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,454][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,454][org.apache.http.wire]http-outgoing-0 >> "{"modelDescData":"{\"name\": \"test_model5\",  \"owner\": \"ADMIN\",  \"description\": \"\",  \"fact_table\": \"DEFAULT.FACT_GAME\",  \"lookups\": [    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"join\": {        \"type\": \"inner\",        \"primary_key\": [          \"LOCATIONID\"        ],        \"foreign_key\": [          \"LOCATIONID\"        ]      }    }  ],  \"dimensions\": [    {      \"table\": \"DEFAULT.FACT_GAME\",      \"columns\": [        \"STARTTIME\",        \"USERID\",        \"GAME\",        \"TYPEID\",        \"DURATION\",        \"LOCATIONID\"      ]    },    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"columns\": [        \"LOCATIONID\",        \"LOCATION\"      ]    }  ],  \"metrics\": [    \"STARTTIME\",    \"USERID\",    \"GAME\"  ],  \"filter_condition\": \"\",  \"partition_desc\": {   \"partition_date_start\": 0,    \"partition_date_format\": \"yyyy-MM-dd\",    \"partition_time_format\": \"HH:mm:ss\",    \"partition_type\": \"APPEND\",    \"partition_condition_builder\": \"org.apache.kylin.metadata.model.PartitionDesc$DefaultPartitionConditionBuilder\"  },  \"capacity\": \"MEDIUM\"}","modelName":"test_model5","project":"game_inner"}"
+[DEBUG][2017-08-06 16:53:44,628][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,628][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,628][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=8CB69677FE447E0B6FAC41BD4934F771; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,628][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,628][org.apache.http.wire]http-outgoing-0 << "Content-Length: 108[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,628][org.apache.http.wire]http-outgoing-0 << "Date: Sun, 06 Aug 2017 08:53:43 GMT[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,629][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,629][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-06 16:53:44,629][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/models","exception":"Fact table does not exist:DEFAULT.FACT_GAME"}"
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=8CB69677FE447E0B6FAC41BD4934F771; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << Content-Length: 108
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << Date: Sun, 06 Aug 2017 08:53:43 GMT
+[DEBUG][2017-08-06 16:53:44,630][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-06 16:53:44,633][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-06 16:53:44,638][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="8CB69677FE447E0B6FAC41BD4934F771", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-06 16:54:11,073][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-06 16:54:11,094][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:54:11,096][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-06 16:54:11,115][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-06 16:54:11,117][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:54:11,119][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-06 16:54:11,125][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:49978<->10.1.18.211:7070
+[DEBUG][2017-08-06 16:54:11,125][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:54:11,125][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-06 16:54:11,131][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> Content-Length: 1191
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-06 16:54:11,132][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/models HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 1191[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,133][org.apache.http.wire]http-outgoing-0 >> "{"modelDescData":"{\"name\": \"test_model5\",  \"owner\": \"ADMIN\",  \"description\": \"\",  \"fact_table\": \"DEFAULT.FACT_GAME\",  \"lookups\": [    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"join\": {        \"type\": \"inner\",        \"primary_key\": [          \"LOCATIONID\"        ],        \"foreign_key\": [          \"LOCATIONID\"        ]      }    }  ],  \"dimensions\": [    {      \"table\": \"DEFAULT.FACT_GAME\",      \"columns\": [        \"STARTTIME\",        \"USERID\",        \"GAME\",        \"TYPEID\",        \"DURATION\",        \"LOCATIONID\"      ]    },    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"columns\": [        \"LOCATIONID\",        \"LOCATION\"      ]    }  ],  \"metrics\": [    \"STARTTIME\",    \"USERID\",    \"GAME\"  ],  \"filter_condition\": \"\",  \"partition_desc\": {   \"partition_date_start\": 0,    \"partition_date_format\": \"yyyy-MM-dd\",    \"partition_time_format\": \"HH:mm:ss\",    \"partition_type\": \"APPEND\",    \"partition_condition_builder\": \"org.apache.kylin.metadata.model.PartitionDesc$DefaultPartitionConditionBuilder\"  },  \"capacity\": \"MEDIUM\"}","modelName":"test_model5","project":"game_inner"}"
+[DEBUG][2017-08-06 16:54:11,282][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,283][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,283][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=EDFCF90A31B285965F08D3DBB5BA80C6; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,283][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,283][org.apache.http.wire]http-outgoing-0 << "Content-Length: 108[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,283][org.apache.http.wire]http-outgoing-0 << "Date: Sun, 06 Aug 2017 08:54:09 GMT[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,284][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,284][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-06 16:54:11,284][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/models","exception":"Fact table does not exist:DEFAULT.FACT_GAME"}"
+[DEBUG][2017-08-06 16:54:11,285][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-06 16:54:11,285][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-06 16:54:11,285][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=EDFCF90A31B285965F08D3DBB5BA80C6; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-06 16:54:11,285][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-06 16:54:11,286][org.apache.http.headers]http-outgoing-0 << Content-Length: 108
+[DEBUG][2017-08-06 16:54:11,286][org.apache.http.headers]http-outgoing-0 << Date: Sun, 06 Aug 2017 08:54:09 GMT
+[DEBUG][2017-08-06 16:54:11,286][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-06 16:54:11,287][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-06 16:54:11,294][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="EDFCF90A31B285965F08D3DBB5BA80C6", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-06 16:55:11,519][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-06 16:55:11,531][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:55:11,532][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-06 16:55:11,543][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-06 16:55:11,545][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-06 16:55:11,547][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-06 16:55:11,552][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:49992<->10.1.18.211:7070
+[DEBUG][2017-08-06 16:55:11,552][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:55:11,552][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-06 16:55:11,558][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-06 16:55:11,559][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/models HTTP/1.1
+[DEBUG][2017-08-06 16:55:11,559][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-06 16:55:11,559][org.apache.http.headers]http-outgoing-0 >> Content-Length: 1191
+[DEBUG][2017-08-06 16:55:11,559][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/models HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 1191[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,560][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,561][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,561][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,561][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,561][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,561][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,561][org.apache.http.wire]http-outgoing-0 >> "{"modelDescData":"{\"name\": \"test_model5\",  \"owner\": \"ADMIN\",  \"description\": \"\",  \"fact_table\": \"DEFAULT.FACT_GAME\",  \"lookups\": [    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"join\": {        \"type\": \"inner\",        \"primary_key\": [          \"LOCATIONID\"        ],        \"foreign_key\": [          \"LOCATIONID\"        ]      }    }  ],  \"dimensions\": [    {      \"table\": \"DEFAULT.FACT_GAME\",      \"columns\": [        \"STARTTIME\",        \"USERID\",        \"GAME\",        \"TYPEID\",        \"DURATION\",        \"LOCATIONID\"      ]    },    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"columns\": [        \"LOCATIONID\",        \"LOCATION\"      ]    }  ],  \"metrics\": [    \"STARTTIME\",    \"USERID\",    \"GAME\"  ],  \"filter_condition\": \"\",  \"partition_desc\": {   \"partition_date_start\": 0,    \"partition_date_format\": \"yyyy-MM-dd\",    \"partition_time_format\": \"HH:mm:ss\",    \"partition_type\": \"APPEND\",    \"partition_condition_builder\": \"org.apache.kylin.metadata.model.PartitionDesc$DefaultPartitionConditionBuilder\"  },  \"capacity\": \"MEDIUM\"}","modelName":"test_model5","project":"game_inner"}"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=4031EFC8148FB055E9AFD5E688F548B9; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "Content-Length: 108[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "Date: Sun, 06 Aug 2017 08:55:10 GMT[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-06 16:55:11,708][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/models","exception":"Fact table does not exist:DEFAULT.FACT_GAME"}"
+[DEBUG][2017-08-06 16:55:11,710][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-06 16:55:11,710][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-06 16:55:11,710][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=4031EFC8148FB055E9AFD5E688F548B9; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-06 16:55:11,710][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-06 16:55:11,710][org.apache.http.headers]http-outgoing-0 << Content-Length: 108
+[DEBUG][2017-08-06 16:55:11,711][org.apache.http.headers]http-outgoing-0 << Date: Sun, 06 Aug 2017 08:55:10 GMT
+[DEBUG][2017-08-06 16:55:11,711][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-06 16:55:11,713][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-06 16:55:11,718][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="4031EFC8148FB055E9AFD5E688F548B9", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[INFO][2017-08-09 10:10:53,117][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-08-09 10:10:53,147][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-08-09 10:10:53,629][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-08-09 10:10:53,630][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[DEBUG][2017-08-09 10:10:53,632][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-08-09 10:10:53,641][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-08-09 10:10:53,641][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-08-09 10:10:53,641][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-08-09 10:10:53,642][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-08-09 10:10:53,642][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-08-09 10:10:53,666][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-08-09 10:10:53,708][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-08-09 10:10:53,815][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-09 10:10:54,004][org.apache.thrift.transport.TSaslTransport]writing data length: 131
+[DEBUG][2017-08-09 10:10:55,660][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-08-09 10:10:55,742][org.apache.thrift.transport.TSaslTransport]writing data length: 100
+[DEBUG][2017-08-09 10:10:55,790][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 53
+[DEBUG][2017-08-09 10:10:55,917][org.apache.thrift.transport.TSaslTransport]writing data length: 102
+[DEBUG][2017-08-09 10:10:55,962][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 273
+[DEBUG][2017-08-09 10:10:56,021][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-09 10:10:56,113][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 289
+[DEBUG][2017-08-09 10:10:56,286][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-09 10:10:56,286][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-09 10:10:56,286][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-09 10:10:56,286][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-09 10:10:56,287][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-09 10:10:56,287][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-08-09 10:10:56,287][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-08-09 10:10:56,289][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 138
+[DEBUG][2017-08-09 10:10:56,297][org.apache.thrift.transport.TSaslTransport]writing data length: 96
+[DEBUG][2017-08-09 10:10:56,319][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
+[DEBUG][2017-08-09 10:10:56,352][org.apache.thrift.transport.TSaslTransport]writing data length: 83
+[DEBUG][2017-08-09 10:10:56,392][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40

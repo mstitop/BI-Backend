@@ -6,6 +6,8 @@ import cn.edu.dbsi.service.HiveTableInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Skye on 2017/7/10.
  */
@@ -16,5 +18,9 @@ public class HiveTableInfoServiceImp implements HiveTableInfoService {
 
     public int addHiveTableInfo(HiveTableInfo hiveTableInfo) {
         return hiveTableInfoMapper.insert(hiveTableInfo);
+    }
+
+    public List<String> selectTableNameBytask(int taskId) {
+        return hiveTableInfoMapper.selectTableNameBytask(taskId);
     }
 }

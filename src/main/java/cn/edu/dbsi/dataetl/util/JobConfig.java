@@ -40,6 +40,39 @@ public class JobConfig {
     @Value("${HIVE_DATABASE_URL}")
     private String url;
 
+    @Value("${KYLIN_OWNER}")
+    private String kylinOwner;
+
+    @Value("${KYLIN_PROJECT}")
+    private String kylinProject;
+
+    @Value("${KYLIN_URL}")
+    private String KylinUrl;
+
+    public String getKylinUrl() {
+        return KylinUrl;
+    }
+
+    public void setKylinUrl(String kylinUrl) {
+        KylinUrl = kylinUrl;
+    }
+
+    public String getKylinProject() {
+        return kylinProject;
+    }
+
+    public void setKylinProject(String kylinProject) {
+        this.kylinProject = kylinProject;
+    }
+
+    public String getKylinOwner() {
+        return kylinOwner;
+    }
+
+    public void setKylinOwner(String kylinOwner) {
+        this.kylinOwner = kylinOwner;
+    }
+
     public String getUsername() {
         return username;
     }

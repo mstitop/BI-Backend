@@ -1,14 +1,6 @@
 package cn.edu.dbsi.util;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import cn.edu.dbsi.dataetl.util.JobConfig;
 import cn.edu.dbsi.model.Schema;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -34,7 +26,15 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -49,6 +49,8 @@ public class HttpConnectDeal {
      * @param url 请求路径
      * @return json
      */
+
+
     public static String get(String url) {
         // 实例化httpclient
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -232,6 +234,71 @@ public class HttpConnectDeal {
             return "fail";
         }
 
+    }
+
+    /**
+     *  对kylin 发起 post json 请求
+     * @param uri
+     * @param json
+     * @return
+     */
+    //public static String postJson2Kylin(String uri, JSONObject json) {
+    public static String postJson2Kylin(JobConfig jobConfig, String uri, JSONObject json) {
+        // 实例化httpClient
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        /*String kylin_url = jobConfig.getKylinUrl();
+        int index1 = kylin_url.indexOf("//");
+        int index2 = kylin_url.lastIndexOf(":");
+        String hostname = kylin_url.substring(index1 + 2, index2);
+        int index3 = kylin_url.lastIndexOf("/");
+        int port = Integer.parseInt(kylin_url.substring(index2 + 1, index3));*/
+
+        //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
+        //HttpHost targetHost = new HttpHost("hostname", port, "http");
+        HttpHost targetHost = new HttpHost("10.1.18.211", 7070, "http");
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(
+                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+                new UsernamePasswordCredentials("admin", "KYLIN"));
+        // 创建 AuthCache 实例
+        AuthCache authCache = new BasicAuthCache();
+        // 创建 BASIC scheme 对象 and 将它加入到本地的 auth cache
+        BasicScheme basicAuth = new BasicScheme();
+        authCache.put(targetHost, basicAuth);
+        // 将 AuthCache 加入到执行的上下文
+        HttpClientContext context = HttpClientContext.create();
+        context.setCredentialsProvider(credsProvider);
+        context.setAuthCache(authCache);
+
+        // 实例化post方法
+        HttpPost httpPost = new HttpPost(uri);
+
+        // 结果
+        CloseableHttpResponse response = null;
+        String content = "";
+        try {
+            // 提交的参数
+            StringEntity stringEntity = new StringEntity(json.toString(), "UTF-8");
+//            stringEntity.setContentEncoding("UTF-8");
+            stringEntity.setContentType("application/json");
+
+            // 将参数给post方法
+            httpPost.setEntity(stringEntity);
+            httpPost.setHeader("Content-type", "application/json");
+            // 执行post请求
+           response = httpclient.execute(targetHost, httpPost, context);
+      //      response = httpclient.execute(httpPost);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                content = EntityUtils.toString(response.getEntity(), "UTF-8");
+                System.out.println(content);
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
     }
 
     public static String postStream(String urlStr) {

@@ -2,7 +2,6 @@ package cn.edu.dbsi.util;
 
 import cn.edu.dbsi.dataetl.util.JobConfig;
 import cn.edu.dbsi.model.DbconnInfo;
-import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -262,6 +261,39 @@ public class DBUtils {
         return 1;
     }
     /**
+     * 查询相应 hive 数据库中的所有表的字段、类型
+     * @param jobConfig
+     * @param tableName
+     * @return
+     */
+    public static  List<Map<String, Object>> listTables(JobConfig jobConfig, String tableName ) {
+        Connection conn = getConn(jobConfig.getDriver(),jobConfig.getUrl(),jobConfig.getUsername(),jobConfig.getPassword());// 获取数据连接
+        Statement stmt = null;
+
+        String descTableSql = "desc " + tableName;
+
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        try {
+            stmt = conn.createStatement();
+
+            ResultSet res = stmt.executeQuery(descTableSql);
+            while (res.next()) {
+                Map<String, Object> map  =  new HashMap<String, Object>();
+                map.put("name",res.getString(1));
+                map.put("type",res.getString(2));
+                list.add(map);
+            }
+
+            stmt.close();
+            conn.close();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /**
      * 关闭连接释放资源
      *
      * @param conn 数据库连接
@@ -280,6 +312,7 @@ public class DBUtils {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 将结果集转换成Map

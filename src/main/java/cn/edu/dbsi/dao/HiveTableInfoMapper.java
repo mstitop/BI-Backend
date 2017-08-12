@@ -3,6 +3,8 @@ package cn.edu.dbsi.dao;
 import cn.edu.dbsi.model.HiveTableInfo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("hiveTableInfoMapper")
 public interface HiveTableInfoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface HiveTableInfoMapper {
     int updateByPrimaryKeySelective(HiveTableInfo record);
 
     int updateByPrimaryKey(HiveTableInfo record);
+
+    List<String> selectTableNameBytask(int taskId);
 }

@@ -15,6 +15,12 @@
     from hive_table_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectTableNameBytask" resultType="java.lang.String"  parameterType="java.lang.Integer" >
+    select
+    hive_table_info.table_name
+    from hive_table_info
+    where task_id = #{task_id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from hive_table_info
     where id = #{id,jdbcType=INTEGER}
