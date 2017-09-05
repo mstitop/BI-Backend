@@ -1,5 +1,6 @@
 package cn.edu.dbsi.util;
 
+import cn.edu.dbsi.dto.CubeSchema;
 import cn.edu.dbsi.model.*;
 
 import java.util.List;
@@ -12,13 +13,13 @@ public class SchemaUtils {
 
     private static String newLine = "\r\n";
 
-    public static String createSchema(Schema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
+    public static String createSchema(CubeSchema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
         StringBuilder sb = new StringBuilder();
         sb = appendSchema(sb, schema, dimensions, measures);
         return sb.toString();
     }
 
-    public static StringBuilder appendSchema(StringBuilder sb, Schema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
+    public static StringBuilder appendSchema(StringBuilder sb, CubeSchema schema, List<SchemaDimension> dimensions, List<SchemaMeasureGroup> measures) {
         sb.append("<?xml version='1.0'?>").append(newLine)
                 .append("<Schema name='" + schema.getName() + "' metamodelVersion='4.0'>")
                 .append(newLine);
@@ -35,7 +36,7 @@ public class SchemaUtils {
      * @param schema
      * @return
      */
-    public static StringBuilder appendTable(StringBuilder sb, Schema schema) {
+    public static StringBuilder appendTable(StringBuilder sb, CubeSchema schema) {
         String[] tables = schema.getTableNames().split(",");
         sb.append("<PhysicalSchema>").append(newLine);
         for (int i = 0; i < tables.length; i++) {
@@ -54,7 +55,7 @@ public class SchemaUtils {
      * @param dimensionDescList
      * @return
      */
-    public static StringBuilder appendCube(StringBuilder sb, Schema schema, List<SchemaMeasureGroup> measureDescList, List<SchemaDimension> dimensionDescList) {
+    public static StringBuilder appendCube(StringBuilder sb, CubeSchema schema, List<SchemaMeasureGroup> measureDescList, List<SchemaDimension> dimensionDescList) {
         sb.append("<Cube name='" + schema.getCubeName() + "' defaultMeasure ='" + schema.getDefaultMeasureName() + "'>").append(newLine);
         sb = appendDimension(sb, dimensionDescList);
         sb.append("<MeasureGroups>").append(newLine);

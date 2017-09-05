@@ -1,6 +1,7 @@
 package cn.edu.dbsi.util;
 
 import cn.edu.dbsi.dataetl.util.JobConfig;
+import cn.edu.dbsi.dto.CubeSchema;
 import cn.edu.dbsi.model.Schema;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -181,7 +182,7 @@ public class HttpConnectDeal {
      * @param path
      * @param uri
      */
-    public static String postMutilpart(String path, String uri, Schema schema) {
+    public static String postMutilpart(String path, String uri, CubeSchema schema) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         //利用Preemptive authentication认证机制
 //        HttpHost targetHost = new HttpHost("10.65.1.92", 8080, "http");
@@ -242,7 +243,6 @@ public class HttpConnectDeal {
      * @param json
      * @return
      */
-    //public static String postJson2Kylin(String uri, JSONObject json) {
     public static String postJson2Kylin(JobConfig jobConfig, String uri, JSONObject json) {
         // 实例化httpClient
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -287,8 +287,8 @@ public class HttpConnectDeal {
             httpPost.setEntity(stringEntity);
             httpPost.setHeader("Content-type", "application/json");
             // 执行post请求
-           response = httpclient.execute(targetHost, httpPost, context);
-      //      response = httpclient.execute(httpPost);
+            response = httpclient.execute(targetHost, httpPost, context);
+//            response = httpclient.execute(httpPost);
             if (response.getStatusLine().getStatusCode() == 200) {
                 content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 System.out.println(content);

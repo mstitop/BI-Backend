@@ -5,38 +5,37 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="table_names" property="tableNames" jdbcType="VARCHAR" />
-    <result column="cube_name" property="cubeName" jdbcType="VARCHAR" />
+    <result column="cube_id" property="cubeId" jdbcType="INTEGER" />
     <result column="default_measure_name" property="defaultMeasureName" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="isdelete" property="isdelete" jdbcType="CHAR" />
-    <result column="business_package_id" property="businessPackageId" jdbcType="INTEGER" />
+    <result column="is_delete" property="isdelete" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, table_names, cube_name, default_measure_name, address, isdelete, business_package_id
+    id, name, table_names, cube_id, default_measure_name, address, is_delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from saikuschema
+    from cube_schema
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectSchemaLastPrimaryKey" resultType="java.lang.Integer">
-    select id from saikuschema order by id DESC limit 1
+    select id from cube_schema order by id DESC limit 1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from saikuschema
+    delete from cube_schema
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.Schema" >
-    insert into saikuschema (id, name, table_names,
-      cube_name, default_measure_name, address, 
-      isdelete, business_package_id)
+    insert into cube_schema (id, name, table_names,
+      cube_id, default_measure_name, address,
+      is_delete)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{tableNames,jdbcType=VARCHAR}, 
-      #{cubeName,jdbcType=VARCHAR}, #{defaultMeasureName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{isdelete,jdbcType=CHAR}, #{businessPackageId,jdbcType=INTEGER})
+      #{cubeId,jdbcType=INTEGER}, #{defaultMeasureName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+      #{isdelete,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.Schema" >
-    insert into saikuschema
+    insert into cube_schema
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -47,8 +46,8 @@
       <if test="tableNames != null" >
         table_names,
       </if>
-      <if test="cubeName != null" >
-        cube_name,
+      <if test="cubeId != null" >
+        cube_id,
       </if>
       <if test="defaultMeasureName != null" >
         default_measure_name,
@@ -57,10 +56,7 @@
         address,
       </if>
       <if test="isdelete != null" >
-        isdelete,
-      </if>
-      <if test="businessPackageId != null" >
-        business_package_id,
+        is_delete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -73,8 +69,8 @@
       <if test="tableNames != null" >
         #{tableNames,jdbcType=VARCHAR},
       </if>
-      <if test="cubeName != null" >
-        #{cubeName,jdbcType=VARCHAR},
+      <if test="cubeId != null" >
+        #{cubeId,jdbcType=INTEGER},
       </if>
       <if test="defaultMeasureName != null" >
         #{defaultMeasureName,jdbcType=VARCHAR},
@@ -85,13 +81,10 @@
       <if test="isdelete != null" >
         #{isdelete,jdbcType=CHAR},
       </if>
-      <if test="businessPackageId != null" >
-        #{businessPackageId,jdbcType=INTEGER},
-      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.Schema" >
-    update saikuschema
+    update cube_schema
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -99,8 +92,8 @@
       <if test="tableNames != null" >
         table_names = #{tableNames,jdbcType=VARCHAR},
       </if>
-      <if test="cubeName != null" >
-        cube_name = #{cubeName,jdbcType=VARCHAR},
+      <if test="cubeId != null" >
+        cube_id = #{cubeId,jdbcType=INTEGER},
       </if>
       <if test="defaultMeasureName != null" >
         default_measure_name = #{defaultMeasureName,jdbcType=VARCHAR},
@@ -109,23 +102,19 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="isdelete != null" >
-        isdelete = #{isdelete,jdbcType=CHAR},
-      </if>
-      <if test="businessPackageId != null" >
-        business_package_id = #{businessPackageId,jdbcType=INTEGER},
+        is_delete = #{isdelete,jdbcType=CHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.Schema" >
-    update saikuschema
+    update cube_schema
     set name = #{name,jdbcType=VARCHAR},
       table_names = #{tableNames,jdbcType=VARCHAR},
-      cube_name = #{cubeName,jdbcType=VARCHAR},
+      cube_id = #{cubeId,jdbcType=INTEGER},
       default_measure_name = #{defaultMeasureName,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      isdelete = #{isdelete,jdbcType=CHAR},
-      business_package_id = #{businessPackageId,jdbcType=INTEGER}
+      is_delete = #{isdelete,jdbcType=CHAR},
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

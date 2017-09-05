@@ -1,21 +1,26 @@
-package cn.edu.dbsi.model;
+package cn.edu.dbsi.dto;
+
+import cn.edu.dbsi.model.SchemaDimension;
+import cn.edu.dbsi.model.SchemaMeasureGroup;
 
 import java.util.List;
 
-public class Schema {
+public class CubeSchema {
     private Integer id;
 
     private String name;
 
     private String tableNames;
 
-    private Integer cubeId;
+    private String cubeName;
 
     private String defaultMeasureName;
 
     private String address;
 
     private String isdelete;
+
+    private Integer businessPackageId;
 
     private List<SchemaMeasureGroup> schemaMeasureGroups;
 
@@ -34,7 +39,7 @@ public class Schema {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getTableNames() {
@@ -42,15 +47,15 @@ public class Schema {
     }
 
     public void setTableNames(String tableNames) {
-        this.tableNames = tableNames;
+        this.tableNames = tableNames == null ? null : tableNames.trim();
     }
 
-    public Integer getCubeId() {
-        return cubeId;
+    public String getCubeName() {
+        return cubeName;
     }
 
-    public void setCubeId(Integer cubeId) {
-        this.cubeId = cubeId;
+    public void setCubeName(String cubeName) {
+        this.cubeName = cubeName == null ? null : cubeName.trim();
     }
 
     public String getDefaultMeasureName() {
@@ -58,7 +63,7 @@ public class Schema {
     }
 
     public void setDefaultMeasureName(String defaultMeasureName) {
-        this.defaultMeasureName = defaultMeasureName;
+        this.defaultMeasureName = defaultMeasureName == null ? null : defaultMeasureName.trim();
     }
 
     public String getAddress() {
@@ -66,7 +71,7 @@ public class Schema {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address == null ? null : address.trim();
     }
 
     public String getIsdelete() {
@@ -74,7 +79,15 @@ public class Schema {
     }
 
     public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
+        this.isdelete = isdelete == null ? null : isdelete.trim();
+    }
+
+    public Integer getBusinessPackageId() {
+        return businessPackageId;
+    }
+
+    public void setBusinessPackageId(Integer businessPackageId) {
+        this.businessPackageId = businessPackageId;
     }
 
     public List<SchemaMeasureGroup> getSchemaMeasureGroups() {

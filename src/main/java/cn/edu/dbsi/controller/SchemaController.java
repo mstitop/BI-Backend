@@ -1,5 +1,6 @@
 package cn.edu.dbsi.controller;
 
+import cn.edu.dbsi.dto.CubeSchema;
 import cn.edu.dbsi.interceptor.LoginRequired;
 import cn.edu.dbsi.model.*;
 import cn.edu.dbsi.service.*;
@@ -51,6 +52,9 @@ public class SchemaController {
     @Autowired
     private DbConnectionServiceI dbConnectionServiceI;
 
+    @Autowired
+    private CubeInfoServiceI cubeInfoServiceI;
+
     /**
      * 这个controller是用于生成saiku的schema文件
      *
@@ -61,7 +65,6 @@ public class SchemaController {
     @RequestMapping(value = "/olap-schema", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> addBusinessPackage(@RequestBody Map<String, Object> json, HttpServletRequest request) {
-        Map<String, Object> map = new HashMap<String, Object>();
         List<SchemaDimension> schemaDimensions = new ArrayList<SchemaDimension>();
         List<SchemaMeasureGroup> schemaMeasureGroups = new ArrayList<SchemaMeasureGroup>();
         List<SchemaDimensionAttribute> schemaDimensionAttributes = new ArrayList<SchemaDimensionAttribute>();
@@ -71,13 +74,25 @@ public class SchemaController {
         StringBuilder saiku = new StringBuilder();
         int tag = 0, tag2 = 0, tag3 = 0, tag4 = 0, tag5 = 0, tag6 = 0;
         Schema schema = new Schema();
+        CubeSchema cubeSchema = new CubeSchema();
+        CubeInfo cubeInfo = new CubeInfo();
         JSONObject obj = new JSONObject(json);
         String schemaName = obj.getString("name");
         int bpid = obj.getInt("bpid");
         int bdid = obj.getInt("bdid");
+        String description = obj.getString("description");
+        cubeSchema.setName(schemaName);
+        cubeSchema.setCubeName(schemaName);
+        cubeSchema.setBusinessPackageId(bpid);
         schema.setName(schemaName);
-        schema.setCubeName(schemaName);
-        schema.setBusinessPackageId(bpid);
+        cubeInfo.setName(schemaName);
+        cubeInfo.setBpOrDataxId(bpid);
+        cubeInfo.setDescription(description);
+        cubeInfo.setCategory("normal");
+        cubeInfo.setStatus("0");
+        cubeInfo.setIsDelete("0");
+        cubeInfoServiceI.addCubeInfo(cubeInfo);
+        schema.setCubeId(cubeInfoServiceI.selectLastCubeInfoPrimaryKey());
         JSONArray tableName = obj.getJSONArray("tableName");
         JSONArray dimensions = obj.getJSONArray("dimensions");
         JSONArray measureGroups = obj.getJSONArray("measureGroups");
@@ -86,15 +101,21 @@ public class SchemaController {
             JSONObject table = tableName.getJSONObject(i);
             sb.append(table.getString("name") + ",");
         }
-        schema.setTableNames(sb.toString());
+        cubeSchema.setTableNames(sb.toString());
         //将第一个维度名作为default_ measure _name
+        cubeSchema.setDefaultMeasureName(measureGroups.getJSONObject(0).getJSONArray("measures").getJSONObject(0).getString("name"));
+        cubeSchema.setIsdelete("0");
+        schema.setTableNames(sb.toString());
         schema.setDefaultMeasureName(measureGroups.getJSONObject(0).getJSONArray("measures").getJSONObject(0).getString("name"));
         schema.setIsdelete("0");
         tag = schemaServiceI.addSchema(schema);
         int schemaLastId = schemaServiceI.getLastSchemaId();
         //设定ID 是为了在生成schema文件时，用来匹配各个节点
+        cubeSchema.setId(schemaLastId);
         schema.setId(schemaLastId);
-
+        cubeInfo.setSchemaId(schemaLastId);
+        //更新是为了将Schema_id插入
+        cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
         //解析json数据中的维度和维度属性值
         for (int i = 0; i < dimensions.length(); i++) {
             SchemaDimension schemaDimension = new SchemaDimension();
@@ -178,9 +199,9 @@ public class SchemaController {
 
         //当所有存入操作都成功的时候，就开始生成schema文件
         if (tag == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1 && tag6 == 1) {
-            schema.setSchemaDimensions(schemaDimensions);
-            schema.setSchemaMeasureGroups(schemaMeasureGroups);
-            StringReader sr = new StringReader((SchemaUtils.appendSchema(saiku, schema, schema.getSchemaDimensions(), schema.getSchemaMeasureGroups())).toString());
+            cubeSchema.setSchemaDimensions(schemaDimensions);
+            cubeSchema.setSchemaMeasureGroups(schemaMeasureGroups);
+            StringReader sr = new StringReader((SchemaUtils.appendSchema(saiku, cubeSchema, cubeSchema.getSchemaDimensions(), cubeSchema.getSchemaMeasureGroups())).toString());
             InputSource is = new InputSource(sr);
             try {
                 String path = request.getSession().getServletContext().getRealPath("/saiku") + File.separator;
@@ -190,13 +211,14 @@ public class SchemaController {
                 Format format = Format.getPrettyFormat();
                 format.setEncoding("UTF-8");
                 XMLOut.setFormat(format);
-                XMLOut.output(doc, new FileOutputStream(path + schema.getName() + ".xml"));
-                schema.setAddress(path + schema.getName());
+                XMLOut.output(doc, new FileOutputStream(path + cubeSchema.getName() + ".xml"));
+                cubeSchema.setAddress(path + cubeSchema.getName());
+                schema.setAddress(path + cubeSchema.getName());
                 schemaServiceI.updateSchema(schema);
                 //主动向saiku发起POST请求，参数类型为multipart/form-data，实现加入数据模型
-                HttpConnectDeal.postMutilpart(path + schema.getName() + ".xml", "http://10.1.18.205:8080/saiku/rest/saiku/admin/schema/'" + schema.getId() + "'", schema);
+                HttpConnectDeal.postMutilpart(path + cubeSchema.getName() + ".xml", "http://10.1.18.205:8080/saiku/rest/saiku/admin/schema/'" + cubeSchema.getId() + "'", cubeSchema);
                 DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(bdid);
-                JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo, schema);
+                JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo, cubeSchema);
                 HttpConnectDeal.postJson("http://10.1.18.205:8080/saiku/rest/saiku/admin/datasources", dbconnInfoObj);
 
             } catch (Exception e) {
@@ -209,7 +231,7 @@ public class SchemaController {
     }
 
 
-    private JSONObject dbconnInfoToObj(DbconnInfo dbconnInfo, Schema schema) {
+    private JSONObject dbconnInfoToObj(DbconnInfo dbconnInfo, CubeSchema schema) {
         //根据saiku源码的内容，id，path，advanced三个键的值当不存在时，一定要传NULL，不要传""
         JSONObject dbconnInfoObj = new JSONObject();
         dbconnInfoObj.put("id", JSONObject.NULL);
@@ -224,5 +246,4 @@ public class SchemaController {
         dbconnInfoObj.put("advanced", JSONObject.NULL);
         return dbconnInfoObj;
     }
-
 }

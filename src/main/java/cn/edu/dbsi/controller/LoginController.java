@@ -30,11 +30,10 @@ public class LoginController {
      * 用户登录
      * @param account
      * @param password
-     * @param request
      * @return
      */
     @RequestMapping(value = "/token",method = RequestMethod.GET)
-    public ResponseEntity<?> checkUser(@RequestParam String account, @RequestParam String password, HttpServletRequest request) {
+    public ResponseEntity<?> checkUser(@RequestParam String account, @RequestParam String password) {
         User user = loginServiceI.getUserByUsernameAndPassword(account, password);
         if (user != null) {
             if (user.getIsExist() == 1) {
