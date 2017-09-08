@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.dbsi.dao.CubeInfoMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.CubeInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="bp_or_datax_id" property="bpOrDataxId" jdbcType="INTEGER" />
-    <result column="schema_id" property="schemaId" jdbcType="INTEGER" />
-    <result column="category" property="category" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="cn.edu.dbsi.dao.CubeInfoMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.dbsi.model.CubeInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="bp_or_datax_id" property="bpOrDataxId" jdbcType="INTEGER"/>
+        <result column="schema_id" property="schemaId" jdbcType="INTEGER"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, name, bp_or_datax_id, schema_id, category,description, status, is_delete
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from cube_info
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAllCubeInfo" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from cube_info
-  </select>
-  <select id="selectCubeInfoLastPrimaryKey" resultType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from cube_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAllCubeInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cube_info
+        WHERE is_delete = '0'
+    </select>
+    <select id="selectCubeInfoLastPrimaryKey" resultType="java.lang.Integer">
     select id from cube_info order by id DESC limit 1
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectCubeInfoByPage" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from cube_info
+        WHERE is_delete = '0'
+        <if test="start!=null and size!=null">
+            <!-- 优化 order by limit 当记录多的时候 速度会有明显差距-->
+            and id >=(SELECT id from cube_info WHERE is_delete = '0' ORDER BY id LIMIT #{start},1) LIMIT #{size}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from cube_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.dbsi.model.CubeInfo" >
+    <insert id="insert" parameterType="cn.edu.dbsi.model.CubeInfo">
     insert into cube_info (id, name, bp_or_datax_id, 
       schema_id, category, description, status,
       is_delete)
@@ -40,89 +51,89 @@
       #{schemaId,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
       #{isDelete,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.dbsi.model.CubeInfo" >
-    insert into cube_info
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="bpOrDataxId != null" >
-        bp_or_datax_id,
-      </if>
-      <if test="schemaId != null" >
-        schema_id,
-      </if>
-      <if test="category != null" >
-        category,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="isDelete != null" >
-        is_delete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="bpOrDataxId != null" >
-        #{bpOrDataxId,jdbcType=INTEGER},
-      </if>
-      <if test="schemaId != null" >
-        #{schemaId,jdbcType=INTEGER},
-      </if>
-      <if test="category != null" >
-        #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="isDelete != null" >
-        #{isDelete,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.CubeInfo" >
-    update cube_info
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="bpOrDataxId != null" >
-        bp_or_datax_id = #{bpOrDataxId,jdbcType=INTEGER},
-      </if>
-      <if test="schemaId != null" >
-        schema_id = #{schemaId,jdbcType=INTEGER},
-      </if>
-      <if test="category != null" >
-        category = #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="isDelete != null" >
-        is_delete = #{isDelete,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.CubeInfo" >
+    <insert id="insertSelective" parameterType="cn.edu.dbsi.model.CubeInfo">
+        insert into cube_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="bpOrDataxId != null">
+                bp_or_datax_id,
+            </if>
+            <if test="schemaId != null">
+                schema_id,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="bpOrDataxId != null">
+                #{bpOrDataxId,jdbcType=INTEGER},
+            </if>
+            <if test="schemaId != null">
+                #{schemaId,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dbsi.model.CubeInfo">
+        update cube_info
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="bpOrDataxId != null">
+                bp_or_datax_id = #{bpOrDataxId,jdbcType=INTEGER},
+            </if>
+            <if test="schemaId != null">
+                schema_id = #{schemaId,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.dbsi.model.CubeInfo">
     update cube_info
     set name = #{name,jdbcType=VARCHAR},
       bp_or_datax_id = #{bpOrDataxId,jdbcType=INTEGER},

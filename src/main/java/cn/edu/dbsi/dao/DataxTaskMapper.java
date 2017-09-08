@@ -21,8 +21,12 @@ public interface DataxTaskMapper {
     int updateByPrimaryKey(DataxTask record);
 
     List<DataxTask> selectAll();
-    List<DataxTask> selectPage(Map<String,Object> map);
+
+    List<DataxTask> selectPage(Map<String, Object> map);
+
     int updateIsDeleteByPrimaryKey(DataxTask record);
+
     int countTask();
+
     int selectLastPrimaryKey();
 }

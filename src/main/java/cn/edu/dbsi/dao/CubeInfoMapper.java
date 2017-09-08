@@ -4,6 +4,7 @@ import cn.edu.dbsi.model.CubeInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository("CubeInfoMapper")
 public interface CubeInfoMapper {
@@ -22,4 +23,6 @@ public interface CubeInfoMapper {
     int selectCubeInfoLastPrimaryKey();
 
     List<CubeInfo> selectAllCubeInfo();
+
+    List<CubeInfo> selectCubeInfoByPage(Map<String,Object> map);
 }

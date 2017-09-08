@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 郭世明 on 2017/9/2.
@@ -35,5 +36,9 @@ public class CubeInfoServiceImpl implements CubeInfoServiceI {
 
     public CubeInfo getCubeById(Integer id) {
         return cubeInfoMapper.selectByPrimaryKey(id);
+    }
+
+    public List<CubeInfo> getCubeInfoByPage(Map<String, Object> map) {
+        return cubeInfoMapper.selectCubeInfoByPage(map);
     }
 }

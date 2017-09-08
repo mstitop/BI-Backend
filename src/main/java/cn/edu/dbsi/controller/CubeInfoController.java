@@ -7,10 +7,7 @@ import cn.edu.dbsi.util.StatusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,10 +27,36 @@ public class CubeInfoController {
 
     @RequestMapping(value = "/cubes", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getCubes() {
+    public ResponseEntity<?> getCubes(@RequestParam Integer page,@RequestParam Integer size) {
         List<CubeInfo> cubes = cubeInfoServiceI.getCubes();
+        int start = (page - 1)*size;
         if (cubes != null) {
-            return StatusUtil.querySuccess(cubes);
+            Map<String,Object> result = new HashMap<String, Object>();
+            Map<String,Object> map = new HashMap<String, Object>();
+            Map<String,Object> pageMap = new HashMap<String, Object>();
+            int pages = (cubes.size())/size+1;
+            map.put("total",cubes.size());
+            map.put("pages",pages);
+            pageMap.put("start",start);
+            pageMap.put("size",size);
+            result.put("pagination",map);
+            List<CubeInfo> cubeByPage = cubeInfoServiceI.getCubeInfoByPage(pageMap);
+            if(cubeByPage !=null){
+                List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+                for(CubeInfo cube:cubeByPage){
+                    Map<String,Object> cubeMap = new HashMap<String, Object>();
+                    cubeMap.put("id",cube.getId());
+                    cubeMap.put("name",cube.getName());
+                    cubeMap.put("description",cube.getDescription());
+                    cubeMap.put("category",cube.getCategory());
+                    cubeMap.put("status",cube.getStatus());
+                    list.add(cubeMap);
+                }
+                result.put("cubes",list);
+                return StatusUtil.querySuccess(result);
+            }else {
+                return StatusUtil.error("","此页为空");
+            }
         }else{
             return StatusUtil.error("","内容为空！");
         }
