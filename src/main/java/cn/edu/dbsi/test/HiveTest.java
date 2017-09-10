@@ -1,12 +1,9 @@
 package cn.edu.dbsi.test;
 
 import cn.edu.dbsi.dataetl.util.JobConfig;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLException;
 
 
 public class HiveTest {
@@ -15,6 +12,7 @@ public class HiveTest {
 	private JobConfig jobConfig;
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
+		/*
 		String sql ="select * from kylin_flat_db.dim_location";
 		
 		Connection con=null;
@@ -30,7 +28,7 @@ public class HiveTest {
 
 			//stmt.executeUpdate( "use kylin_flat_db");
 
-			ResultSet res = stmt.executeQuery( "DESC bi_58.gamedata__nzy");
+			ResultSet res = stmt.executeQuery( "DESC bi_1.fact_game");
 			while (res.next()) {
 				System.out.print(res.getString(1)+"    ");
 				System.out.println(res.getString(2) + "    ");
@@ -41,6 +39,9 @@ public class HiveTest {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		*/
+
+
 	}
 
 }

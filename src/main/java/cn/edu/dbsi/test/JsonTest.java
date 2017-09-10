@@ -1,17 +1,11 @@
 package cn.edu.dbsi.test;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Skye on 2017/8/5.
  */
 public class JsonTest {
     public static void main(String[] args) {
-
+/*
         JSONObject obj = new JSONObject();
         obj.put("name","testName");
         obj.put("id",123);
@@ -37,12 +31,12 @@ public class JsonTest {
         obj.put("join",arr);
         obj.put("successful",true);
         String json = obj.toString();
-        /*JSONObject cubeObj = new JSONObject();
+        JSONObject cubeObj = new JSONObject();
         cubeObj.put("project","game_inner");
         cubeObj.put("cubeName","test_cube8");
         cubeObj.put("cubeDesc",json);
         System.out.println(cubeObj);
-        System.out.println(obj);*/
+        System.out.println(obj);
         System.out.println(json);
 
         JSONObject testSucess = new JSONObject(json);
@@ -52,6 +46,7 @@ public class JsonTest {
         if (testSucess.getString("exception") != null){
             System.out.println("no");
         }
+        */
         /*String kylin_url = "KYLIN_URL=http://10.1.18.211:7070/kylin";
         int index1 = kylin_url.indexOf("//");
         int index2 = kylin_url.lastIndexOf(":");
@@ -61,5 +56,11 @@ public class JsonTest {
         int index3 = kylin_url.lastIndexOf("/");
         String port = kylin_url.substring(index2 + 1, index3);
         System.out.println(port);*/
+
+        String db = "bi_1.grsfdf";
+
+
+        String re = db.split("[.]")[1].toUpperCase();
+        System.out.printf(re);
     }
 }

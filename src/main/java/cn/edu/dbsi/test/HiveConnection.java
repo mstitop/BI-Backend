@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 
 public class HiveConnection {
 	private static final String DRIVER_CLASS="org.apache.hive.jdbc.HiveDriver";
-	private static final String DATABASE_URL="jdbc:hive2://10.1.18.200:10000";
+	private static final String DATABASE_URL="jdbc:hive2://10.1.18.210:10000";
 
 	
 	public static Connection getConnection(){

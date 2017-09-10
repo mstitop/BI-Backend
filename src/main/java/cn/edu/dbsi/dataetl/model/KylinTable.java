@@ -7,7 +7,16 @@ import java.util.List;
  */
 public class KylinTable {
     private String factTable;
+    private String factTablePrimaryKey;
     private List<KylinLookup> kylinLookups;
+
+    public String getFactTablePrimaryKey() {
+        return factTablePrimaryKey;
+    }
+
+    public void setFactTablePrimaryKey(String factTablePrimaryKey) {
+        this.factTablePrimaryKey = factTablePrimaryKey;
+    }
 
     public String getFactTable() {
         return factTable;

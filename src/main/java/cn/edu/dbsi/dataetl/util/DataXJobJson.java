@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class DataXJobJson {
     protected static final Log log = LogFactory.getLog(DataXJobJson.class);
-    private static String template = null;
+
 
 
 
@@ -85,10 +85,10 @@ public class DataXJobJson {
         log.info("Write json to file:"+file.getAbsolutePath());
     }
     private String getTemplate(String templateName) {
-        if (template == null) {
-            StringBuffer stb = new StringBuffer();
+
+        StringBuffer stb = new StringBuffer();
             try {
-                if (templateName.equalsIgnoreCase("Mysql")){
+                if (templateName.equals("Mysql")){
                     readToBuffer(stb, "etljob/msql2hdfsTemplete.json");
                 }else {
                     readToBuffer(stb, "etljob/oracle2hdfsTemplete.json");
@@ -97,11 +97,9 @@ public class DataXJobJson {
             } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
-            template = stb.toString();
-            log.info(template);
-        }
 
-        return template;
+
+        return stb.toString();
     }
 
     private String getSourceDbColumnsString(Map<String,String> columns) {

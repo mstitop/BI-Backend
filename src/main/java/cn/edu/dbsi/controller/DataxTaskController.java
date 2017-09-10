@@ -217,7 +217,8 @@ public class DataxTaskController {
 
         int count = dataxTaskService.countTask();
         int start = (page-1)*size;
-        int pageNum = count/size + 1;
+        int pageNum = count%size == 0 ? count/size:count/size + 1;
+
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
         Map<String,Object> pagMap = new HashMap<String,Object>();

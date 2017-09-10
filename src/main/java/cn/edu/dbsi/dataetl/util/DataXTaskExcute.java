@@ -118,7 +118,7 @@ public class DataXTaskExcute {
         }
 
         logInfo.append(jobInfo.getSourceTbName() + " execute finished!");
-
+        log.info(logInfo.toString());
         return hasException;
     }
 

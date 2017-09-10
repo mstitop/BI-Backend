@@ -423,3 +423,649 @@
 [DEBUG][2017-08-09 10:10:56,319][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
 [DEBUG][2017-08-09 10:10:56,352][org.apache.thrift.transport.TSaslTransport]writing data length: 83
 [DEBUG][2017-08-09 10:10:56,392][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40
+[DEBUG][2017-08-30 14:48:27,978][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 14:48:28,007][org.apache.http.client.protocol.RequestAuthCache]Auth cache not set in the context
+[DEBUG][2017-08-30 14:48:28,008][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 14:48:28,022][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 14:48:28,023][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 14:48:28,025][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 14:48:28,047][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:56677<->10.1.18.211:7070
+[DEBUG][2017-08-30 14:48:28,047][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 14:48:28,047][org.apache.http.impl.execchain.MainClientExec]Target auth state: UNCHALLENGED
+[DEBUG][2017-08-30 14:48:28,048][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 14:48:28,049][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 14:48:28,049][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 14:48:28,049][org.apache.http.headers]http-outgoing-0 >> Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+[DEBUG][2017-08-30 14:48:28,049][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 14:48:28,049][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 14:48:28,049][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "Content-Type: application/x-www-form-urlencoded; charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,050][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,092][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 401 Unauthorized[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,092][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,092][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=5005BAA37E2EE200FE20CF5BBC49F85A; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,092][org.apache.http.wire]http-outgoing-0 << "Content-Type: text/html;charset=utf-8[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,092][org.apache.http.wire]http-outgoing-0 << "Content-Language: en[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,093][org.apache.http.wire]http-outgoing-0 << "Content-Length: 975[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,093][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 06:48:24 GMT[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,093][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 14:48:28,093][org.apache.http.wire]http-outgoing-0 << "<html><head><title>Apache Tomcat/7.0.69 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 401 - Unauthorized</h1><HR size="1" noshade="noshade"><p><b>type</b> Status report</p><p><b>message</b> <u>Unauthorized</u></p><p><b>description</b> <u>This request requires HTTP authentication.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/7.0.69</h3></body></html>"
+[DEBUG][2017-08-30 14:48:28,095][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 401 Unauthorized
+[DEBUG][2017-08-30 14:48:28,095][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 14:48:28,096][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=5005BAA37E2EE200FE20CF5BBC49F85A; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 14:48:28,096][org.apache.http.headers]http-outgoing-0 << Content-Type: text/html;charset=utf-8
+[DEBUG][2017-08-30 14:48:28,096][org.apache.http.headers]http-outgoing-0 << Content-Language: en
+[DEBUG][2017-08-30 14:48:28,096][org.apache.http.headers]http-outgoing-0 << Content-Length: 975
+[DEBUG][2017-08-30 14:48:28,096][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 06:48:24 GMT
+[DEBUG][2017-08-30 14:48:28,099][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive indefinitely
+[DEBUG][2017-08-30 14:48:28,099][org.apache.http.impl.auth.HttpAuthenticator]Authentication required
+[DEBUG][2017-08-30 14:48:28,099][org.apache.http.impl.auth.HttpAuthenticator]10.1.18.211:7070 requested authentication
+[DEBUG][2017-08-30 14:48:28,099][org.apache.http.impl.auth.HttpAuthenticator]Response contains no authentication challenges
+[DEBUG][2017-08-30 14:48:28,104][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="5005BAA37E2EE200FE20CF5BBC49F85A", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 16:07:21,391][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 16:07:21,429][org.apache.http.client.protocol.RequestAuthCache]Auth cache not set in the context
+[DEBUG][2017-08-30 16:07:21,431][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 16:07:21,443][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 16:07:21,444][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:21,446][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:21,448][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:58856<->10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:21,449][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:07:21,449][org.apache.http.impl.execchain.MainClientExec]Target auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:07:21,449][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:07:21,450][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.headers]http-outgoing-0 >> Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.wire]http-outgoing-0 >> "Content-Type: application/x-www-form-urlencoded; charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,451][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,452][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,452][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,452][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,452][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 401 Unauthorized[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=C220DE9991B283384D0A6BC4931883B5; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "Content-Type: text/html;charset=utf-8[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "Content-Language: en[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "Content-Length: 975[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 08:07:18 GMT[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 16:07:21,456][org.apache.http.wire]http-outgoing-0 << "<html><head><title>Apache Tomcat/7.0.69 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 401 - Unauthorized</h1><HR size="1" noshade="noshade"><p><b>type</b> Status report</p><p><b>message</b> <u>Unauthorized</u></p><p><b>description</b> <u>This request requires HTTP authentication.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/7.0.69</h3></body></html>"
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 401 Unauthorized
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=C220DE9991B283384D0A6BC4931883B5; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << Content-Type: text/html;charset=utf-8
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << Content-Language: en
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << Content-Length: 975
+[DEBUG][2017-08-30 16:07:21,459][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 08:07:18 GMT
+[DEBUG][2017-08-30 16:07:21,462][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive indefinitely
+[DEBUG][2017-08-30 16:07:21,462][org.apache.http.impl.auth.HttpAuthenticator]Authentication required
+[DEBUG][2017-08-30 16:07:21,463][org.apache.http.impl.auth.HttpAuthenticator]10.1.18.211:7070 requested authentication
+[DEBUG][2017-08-30 16:07:21,463][org.apache.http.impl.auth.HttpAuthenticator]Response contains no authentication challenges
+[DEBUG][2017-08-30 16:07:21,467][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="C220DE9991B283384D0A6BC4931883B5", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 16:07:40,914][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 16:07:40,932][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:40,933][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 16:07:40,945][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 16:07:40,946][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:40,947][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:40,949][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:58867<->10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:40,949][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:07:40,949][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-30 16:07:40,966][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.wire]http-outgoing-0 >> "Content-Type: application/x-www-form-urlencoded; charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,967][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,968][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,968][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,968][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,968][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-30 16:07:40,968][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,145][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,145][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,145][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=173CE7D3C79B4B0CF8865B1391C8BAC5; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,146][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,146][org.apache.http.wire]http-outgoing-0 << "Content-Length: 167[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,146][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 08:07:37 GMT[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,146][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,146][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 16:07:41,146][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/tables/default.sample_07/BI_test","exception":"Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported"}"
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=173CE7D3C79B4B0CF8865B1391C8BAC5; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << Content-Length: 167
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 08:07:37 GMT
+[DEBUG][2017-08-30 16:07:41,148][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-30 16:07:41,150][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-30 16:07:41,156][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="173CE7D3C79B4B0CF8865B1391C8BAC5", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 16:10:56,011][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 16:10:56,022][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:10:56,024][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 16:10:56,036][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 16:10:56,037][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:10:56,039][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 16:10:56,060][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:58964<->10.1.18.211:7070
+[DEBUG][2017-08-30 16:10:56,060][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:10:56,060][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-30 16:10:56,066][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,067][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,237][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=109AE7869BC898E283405ED678577EB3; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "Content-Length: 144[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 08:10:52 GMT[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 16:10:56,238][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/tables/default.sample_07/BI_test","exception":"Content type 'application/octet-stream' not supported"}"
+[DEBUG][2017-08-30 16:10:56,241][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-30 16:10:56,242][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 16:10:56,242][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=109AE7869BC898E283405ED678577EB3; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 16:10:56,243][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-30 16:10:56,243][org.apache.http.headers]http-outgoing-0 << Content-Length: 144
+[DEBUG][2017-08-30 16:10:56,243][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 08:10:52 GMT
+[DEBUG][2017-08-30 16:10:56,246][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-30 16:10:56,248][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-30 16:10:56,254][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="109AE7869BC898E283405ED678577EB3", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 16:11:20,319][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 16:11:20,330][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:11:20,334][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 16:11:20,350][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 16:11:20,352][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:11:20,353][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 16:11:20,373][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:58983<->10.1.18.211:7070
+[DEBUG][2017-08-30 16:11:20,374][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:11:20,374][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-30 16:11:20,379][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,380][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,381][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,381][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,381][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,381][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,381][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,381][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,545][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,545][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,545][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=49547751AF886D871BDEF1AA9B256A8E; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,545][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,545][org.apache.http.wire]http-outgoing-0 << "Content-Length: 144[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,546][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 08:11:17 GMT[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,546][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,546][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 16:11:20,546][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/tables/default.sample_07/BI_test","exception":"Content type 'application/octet-stream' not supported"}"
+[DEBUG][2017-08-30 16:11:20,547][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-30 16:11:20,548][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 16:11:20,548][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=49547751AF886D871BDEF1AA9B256A8E; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 16:11:20,548][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-30 16:11:20,548][org.apache.http.headers]http-outgoing-0 << Content-Length: 144
+[DEBUG][2017-08-30 16:11:20,548][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 08:11:17 GMT
+[DEBUG][2017-08-30 16:11:20,548][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-30 16:11:20,550][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-30 16:11:20,558][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="49547751AF886D871BDEF1AA9B256A8E", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 16:17:28,788][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 16:17:28,798][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:17:28,800][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 16:17:28,833][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 16:17:28,835][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:17:28,852][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 16:17:28,868][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:59379<->10.1.18.211:7070
+[DEBUG][2017-08-30 16:17:28,868][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:17:28,868][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-30 16:17:28,873][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,875][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,876][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,876][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,876][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,876][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,876][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-30 16:17:28,876][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=997A3FA54EF2E72DC24538F9070A8239; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "Content-Length: 445[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 08:17:25 GMT[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 16:17:29,021][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/tables/default.sample_07/BI_test","exception":"Could not read JSON: No content to map due to end-of-input\n at [Source: org.apache.catalina.connector.CoyoteInputStream@339679a9; line: 1, column: 1]; nested exception is com.fasterxml.jackson.databind.JsonMappingException: No content to map due to end-of-input\n at [Source: org.apache.catalina.connector.CoyoteInputStream@339679a9; line: 1, column: 1]"}"
+[DEBUG][2017-08-30 16:17:29,023][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-30 16:17:29,024][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 16:17:29,024][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=997A3FA54EF2E72DC24538F9070A8239; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 16:17:29,024][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-30 16:17:29,024][org.apache.http.headers]http-outgoing-0 << Content-Length: 445
+[DEBUG][2017-08-30 16:17:29,024][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 08:17:25 GMT
+[DEBUG][2017-08-30 16:17:29,024][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-30 16:17:29,026][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-30 16:17:29,034][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="997A3FA54EF2E72DC24538F9070A8239", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 16:21:11,351][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 16:21:11,365][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:21:11,374][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 16:21:11,392][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 16:21:11,393][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 16:21:11,399][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 16:21:11,411][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:59483<->10.1.18.211:7070
+[DEBUG][2017-08-30 16:21:11,411][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:21:11,411][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-30 16:21:11,417][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> Content-Length: 0
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,418][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 0[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,419][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 500 Internal Server Error[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=D902704F2B75B70248F1AA28A93E0589; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "Content-Length: 445[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 08:21:08 GMT[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,586][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,587][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 16:21:11,587][org.apache.http.wire]http-outgoing-0 << "{"url":"http://10.1.18.211:7070/kylin/api/tables/default.sample_07/BI_test","exception":"Could not read JSON: No content to map due to end-of-input\n at [Source: org.apache.catalina.connector.CoyoteInputStream@729d540d; line: 1, column: 1]; nested exception is com.fasterxml.jackson.databind.JsonMappingException: No content to map due to end-of-input\n at [Source: org.apache.catalina.connector.CoyoteInputStream@729d540d; line: 1, column: 1]"}"
+[DEBUG][2017-08-30 16:21:11,588][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 500 Internal Server Error
+[DEBUG][2017-08-30 16:21:11,588][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 16:21:11,588][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=D902704F2B75B70248F1AA28A93E0589; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 16:21:11,588][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-30 16:21:11,589][org.apache.http.headers]http-outgoing-0 << Content-Length: 445
+[DEBUG][2017-08-30 16:21:11,589][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 08:21:08 GMT
+[DEBUG][2017-08-30 16:21:11,589][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-08-30 16:21:11,591][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-30 16:21:11,596][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="D902704F2B75B70248F1AA28A93E0589", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 21:23:11,776][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-08-30 21:23:11,832][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-08-30 21:23:11,833][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-08-30 21:23:11,852][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-08-30 21:23:11,853][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-08-30 21:23:11,855][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-08-30 21:23:11,857][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:54777<->10.1.18.211:7070
+[DEBUG][2017-08-30 21:23:11,857][org.apache.http.impl.execchain.MainClientExec]Executing request POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 21:23:11,857][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-08-30 21:23:11,873][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-08-30 21:23:11,874][org.apache.http.headers]http-outgoing-0 >> POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1
+[DEBUG][2017-08-30 21:23:11,874][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-08-30 21:23:11,874][org.apache.http.headers]http-outgoing-0 >> Content-Length: 2
+[DEBUG][2017-08-30 21:23:11,874][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-08-30 21:23:11,874][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "POST /kylin/api/tables/default.sample_07/BI_test HTTP/1.1[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 2[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-08-30 21:23:11,875][org.apache.http.wire]http-outgoing-0 >> "{}"
+[DEBUG][2017-08-30 21:23:12,618][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,618][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,619][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=602BA81DE4D956A5AD55A0B8D69C0CC5; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,619][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,619][org.apache.http.wire]http-outgoing-0 << "Content-Length: 60[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,619][org.apache.http.wire]http-outgoing-0 << "Date: Wed, 30 Aug 2017 13:23:09 GMT[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,619][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-08-30 21:23:12,620][org.apache.http.wire]http-outgoing-0 << "{"result.loaded":["DEFAULT.SAMPLE_07"],"result.unloaded":[]}"
+[DEBUG][2017-08-30 21:23:12,644][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 200 OK
+[DEBUG][2017-08-30 21:23:12,644][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-08-30 21:23:12,644][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=602BA81DE4D956A5AD55A0B8D69C0CC5; Path=/kylin/; HttpOnly
+[DEBUG][2017-08-30 21:23:12,644][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-08-30 21:23:12,644][org.apache.http.headers]http-outgoing-0 << Content-Length: 60
+[DEBUG][2017-08-30 21:23:12,644][org.apache.http.headers]http-outgoing-0 << Date: Wed, 30 Aug 2017 13:23:09 GMT
+[DEBUG][2017-08-30 21:23:12,650][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive indefinitely
+[DEBUG][2017-08-30 21:23:12,650][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-08-30 21:23:12,655][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="602BA81DE4D956A5AD55A0B8D69C0CC5", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-08-30 21:23:12,656][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection [id: 0][route: {}->http://10.1.18.211:7070] can be kept alive indefinitely
+[DEBUG][2017-08-30 21:23:12,656][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:19:12,731][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-09-07 23:19:12,767][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:19:12,768][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:19:12,781][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:19:12,783][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:19:12,785][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-09-07 23:19:12,786][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:56286<->10.1.18.211:7070
+[DEBUG][2017-09-07 23:19:12,787][org.apache.http.impl.execchain.MainClientExec]Executing request PUT /kylin//api/cubes/test2/rebuild HTTP/1.1
+[DEBUG][2017-09-07 23:19:12,787][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-09-07 23:19:12,803][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> PUT /kylin//api/cubes/test2/rebuild HTTP/1.1
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> Content-type: application/json
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> Content-Length: 63
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-09-07 23:19:12,804][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "PUT /kylin//api/cubes/test2/rebuild HTTP/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "Content-type: application/json[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 63[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-09-07 23:19:12,805][org.apache.http.wire]http-outgoing-0 >> "{"buildType":"BUILD","startTime":"0","endTime":"3153600000000"}"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=AEAEA63E881DBA7BD9813E1B76E2A856; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Transfer-Encoding: chunked[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Content-Encoding: gzip[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Vary: Accept-Encoding[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "Date: Thu, 07 Sep 2017 15:19:06 GMT[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "a[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,485][org.apache.http.wire]http-outgoing-0 << "[0x1f][0x8b][0x8][0x0][0x0][0x0][0x0][0x0][0x0][0x0][\r][\n]"
+[DEBUG][2017-09-07 23:19:13,486][org.apache.http.wire]http-outgoing-0 << "200[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,486][org.apache.http.wire]http-outgoing-0 << "[0xed][0x9a]mS[0xe3]6[0x10][0xc7][0xbf][0x8a][0xc6]/{[0x98]H[0x8e][0x1f][0xe2][0xbc][0x83][0x4]H[0xda][0x90][0xa3][0x7][0xcc][0xb5][0xd3][0xe9]hdK[0x1][0xf7][0xfc]T[[0xe6]`[0x18][0xbe]{W[0x8e]![0xc6][0x98]6[0xbd]$sm[0x12][0x98][0x1][0xa4][0xc8]+[0xed][0xbb][0xf2]H<jE[0x11]p[0xad][0xaf]y[0x98]3Af\[0xb7]1qu[0xd3][0xe8][0x9a][0xba][0x8b][0xb9][0xaf];[0x96][0xdf]5{[0xdc]r|[0xcb][0xd3][0xe][0xb4][0x90][0xe5][0x92]F[0x9][0xf]f[0x81][0x80][0xc7][0x88][0x85]M[0xc7]u,[0xd3][0xb6][0xcd][0xde][0x81]v'[0xb2]<Hb0G[0xe][0xed]C[0xc][0xe3]c[0x16][0x9]hJ[0x91]K[0x3][0xe9][0x88][0xb8][0xe][0xc6][0x4][0xbe][0xcb]/j[0xb8][0x86][0xe1][0xf4]\[0xd7][0xc4]=[0xe2]`[0x87][0x18][0x96][0x5][0x83][0x8e][0xaf][0xc7][0x93]![0xfc]>;[0xbf][0xfa][0x80]{}[0x8c][0x91][0x81][0x89][0xa3]cW[0xc7][0xe]2[0xba]}[0xe2][0xf6][0xb1][\r][0xb6][0xe5]C[0xaa]l[0x97][0xc3][0xa1][0xc9][0x8b][0x8c][0xc9]rv|[0xa0]e"dRp[0xea][0x17][0xde][0xcb][0xfc][0xda][0xa2];[0x17]7[0x91][0x88]%|b{[0xc4]7[0x8][0xeb][0xe9][0x96][0xcd][0x85]n[0xda][0x1e][0xd6]][0x9b]a[0x9d][0x10]nv}gf[0x1a]=[0x1][0xf][0x8a]{[0xe1][0xd3]\[0xb2]LR[0x19]([0x97]p[0xd5]'b[0xbe][0xe8][0x89]2[0xfa][0x95][0x5]2[0x88]o[0xca]f.E[0x9a]k[0xfd][0xdf][0x1e][0xb5] [0x96]"[0xcb][0x8a]T[0xe]"P-.[0xc2][0xf0]@[Zv[0x1d][0xd7][0x94][0x1c]d[0x2]<@ce0[0x12]<P[0x8d]Sp[\n]"
+[DEBUG][2017-09-07 23:19:13,486][org.apache.http.wire]http-outgoing-0 << "[0x8d][0x82];[0x81][0xae][0x98][0x17][0xaa][0xe5][0xe6][0xe2][0xcf]B[0xc4][0xbe][0xa0]j[0x92][0xe7][0xa5][0xfa][0xb5][0xb9][0x9f][0xd7]S[0xef]\[0xce][0xc7][0xb2]Gy[0xb9][0xe8]R~[0xaa][0x7]e[0x1][0xde]j[0x17]'[0xd3][0xe1]xz[0x6][0xab][0x0][0xdb][0xb4][\n]"
+[DEBUG][2017-09-07 23:19:13,486][org.apache.http.wire]http-outgoing-0 << "[0xd2][0xe5][0xe8]d2[0xa1][0x83][0xf3]![0x1d][0x1d][\r]?~[0xbc][0xd0][0xd4][0x1a]f[0x89][0xd6]|[0x82][0xa8][0x14]1e[0xf9]C[0xec]k[0xfd][0x19][0xb]s[0xf1]t[0xb0][0xb2]bd[0xa1][0xd8]'P)[0x97]Y[0xe0][0x15][0xff],[0x15][0xd9]A[0xa9][0x8c][0x85]T'[0xf7]2c[0xbe]D[0xa7][0xea]G)[0x10][0x1a][0x82]vA[0xc][0xcd]A[0x12][0x16]Q[0x9c]7[0x15]3[0xea][0x8a]iH[0xf7][0x93]x[0x86]:I*;_[0x1e][0xc2] [0xd6][0xcb]B[0xd0]Q[0xbd][0xf3][0xe][0xfa]G[0xe2]Q[0xd5]<[0xbc][0x8f]B[0x18][0xe][0xf9][0xa9]&GU[0x85]H[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,486][org.apache.http.wire]http-outgoing-0 << "200[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,486][org.apache.http.wire]http-outgoing-0 << "[\n]"
+[DEBUG][2017-09-07 23:19:13,487][org.apache.http.wire]http-outgoing-0 << "[0x99][0x16][0x12][0xcd][0xc7]VODB2[0xce]$[0xab],.[0xe3]U[0xa7]4[0xd7][0x99][0x81][0x1f][0x94]W[0x1e][0xc0][0xac][0xa5][0x7]H[0xaf][0xb2]?[0xe0]h[0x99][0xec][0x87][0xf1][0x10]/e[0xc4][0xcf]a[0xad] [\n]"
+[DEBUG][2017-09-07 23:19:13,487][org.apache.http.wire]http-outgoing-0 << "G2+^[0xf5][0xaf]w[0xd9][0xb][0xbb][0xf5]9r[0x16][0xa5]`[0xe8]&[0x15][0x99][0xf][0xab]GPD[0x91][0xe]j[0x96][0xf2][0xfd]TN[0xa9][0xe2]F[0x9f]#F[0xab][0x88][0xd1][0xd2]([0xbd][0x4][0xf2]J[0xbd][0xc1][0xc4][0x8f][0x89]7[0xe6]h[0xc9][0x92][0xbf][0xf5][0x9][0xd0]]$[0xc0]q[0x11][0x84][0x1c][0x98][0x7]<[0xd4]F[0x6][0xf9]jKa[0xd9]C[0x93][0xfb]n[0x93][0xfb][0x6][0xc8][0xff][0x96][0xb1] [0xde]4[0xf7][0xbb][0x10]Js[0x11][0xca]K[0x6]E~Px[0x9][0x84][0xe0][0xf2]%[0x89][0x9a]a4w[0xb0][0xe0][o[0xde]&F[0xad][0x9b][0xa1][0xb5]f[0xc4]SP/P[0xe9][0x94][0xa3][>[0xcb][0xfb][0x9d]N[0x4]o[0x93]"[0xeb][0xf7][0xb0][0x81][0xd7]D~[0x96]|[0xfd]"[0x1e]J[0xc1][0xf3][0x8e][0x9a]P[0xcf][0xf4][0xf2]][0xf3][0xbd]*[0xbe][0xb]Ya7[0xb][0xdc]1[0xcb]_rc[0x8]:7#o[0xaf]wS[0xff][0xb6]Zx:9[0xba][0xa2]WG[0xc7][0x93][0x93]u[0xbf][0x16][0xf8][0xa5][0xe7][0x1d][0xf]T[0xa0][0xf3][0xbf][0x9b][0x1b][0xa9][0x12][0x88][0xce][0x5][0xa2][0xa5]d"[0xa3][0x95]3[0xa1][0xb8][0x13]![0xc2][0xfb][0xad][0xb4][0x8d]4[0xa7]I[0xda]T_l[0xa6]5[0xe0]P[0x1f][0x99][0x8b]O[0x9a][0xf8]9[0xff][0x5][0xfc]6[0xc8][0xda]Fh6[0xf9];,O[0x87]z[0x1b][0xc9][0xd5][0xb][0xe1][0x1c]g[0xb2][0xc7][0xb9][\r][0xe7][0xde][0xf2]8w[0xdf][0xc7][0xb9][0xb7]}8[0xd7]`[0xdb][0x8][0xcc][0xdd]U`6[0xf6]0[0xb7][0xc1][0xec].[0xf][0xb3][0xf1]>[0xcc][0xee][0xf6][0xc1][0xdc][0xdd]0[0xcc][0xc6]*0w[0xf7]0[0xb7][0xc0]L[0xf0][0xf2]0[0x93][0xf7]a&x[0xfb]h66L3Y[0x85]fsOs[0x1b][0xcd]dy[0x9a][0xf1][0xdf][0xd0]L[0xb6][0x8f]f[0xb2]a[0x9a][0xf1]*4[{[0x9a][0xdb]h6[0x9a]4[0xf][0xd4]%\[0x13][0xd6]o[0xbe]8[0xa0]A[0x1c][0x89]h=[0xc8]n[0x84][0xa9]&J[0xca][0xfd][0xe6])[0xc2][0x9e][0x9b][0xb7][0xdc][0xd4][0xce][0xe1][0x7]I|'2[0xf9][0xaa][0xf6][0xc9][0x4][0x8d]N[0x83][0x96];[0xbb]7G[0xf1][0xab][0x95][0xbd][0xef]zLIog[0xe0][0xe2]fj[0xe9][0xf]/[0xbc]o[0xcc][0xaf]j[0xf5][0xb7]R[0x1d][0xb0][0xce]S[0xe0][0xd7][0xc9]x[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,490][org.apache.http.wire]http-outgoing-0 << "8a[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,490][org.apache.http.wire]http-outgoing-0 << "J[0x8f][0xbe][0xf8]|[0xfd][0xf9][0x97]kk[0xd0]L[0x8e]2[0xa4][0xf4]L[0xc4]"c2[0xa9]W[0xd9]]@[0xbe]v_1I[0x18][0x9f][0x3]^[0x92]^[0x1e][0xd1][0xb6][0xdf]Q[0x9b][\r][0xde][0xe7][0xac]|[0xd7][0x98][0xbe][0xce][0xa1]][0x88]\[0xed][0x12][0xe5]:[0xe5][0xea][0x12]E[0x95]y4Vs6[0x3][0xf6][0xea]"e7.[0x99]H[0xed][0xce][0xa1][0xfc]w[0x8b]A(X\[0xa4]o[0xb4][0xb1][0xff]w[0xda][0xfc][0xe]6[0xb]/[\n]"
+[DEBUG][2017-09-07 23:19:13,490][org.apache.http.wire]http-outgoing-0 << "$[0xac][0x12][0x1e]>[0x1a][0x9e][0x8f][0xa7][0xf0][0x84][0xda]TZ[0xa6]I[0xb3][0xe4]&[0x13]9t[0xe2]C[0xfc][0xf4][0x17][0xdd][0xc8]fBo%[0x0][0x0][\r][\n]"
+[DEBUG][2017-09-07 23:19:13,490][org.apache.http.wire]http-outgoing-0 << "0[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,490][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 200 OK
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=AEAEA63E881DBA7BD9813E1B76E2A856; Path=/kylin/; HttpOnly
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Transfer-Encoding: chunked
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Content-Encoding: gzip
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Vary: Accept-Encoding
+[DEBUG][2017-09-07 23:19:13,501][org.apache.http.headers]http-outgoing-0 << Date: Thu, 07 Sep 2017 15:19:06 GMT
+[DEBUG][2017-09-07 23:19:13,505][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive indefinitely
+[DEBUG][2017-09-07 23:19:13,505][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-09-07 23:19:13,508][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="AEAEA63E881DBA7BD9813E1B76E2A856", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-09-07 23:19:13,511][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection [id: 0][route: {}->http://10.1.18.211:7070] can be kept alive indefinitely
+[DEBUG][2017-09-07 23:19:13,511][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:27:48,778][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-09-07 23:27:48,796][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:27:48,799][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:27:48,812][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:27:48,813][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:27:48,816][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-09-07 23:27:48,818][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:56689<->10.1.18.211:7070
+[DEBUG][2017-09-07 23:27:48,818][org.apache.http.impl.execchain.MainClientExec]Executing request GET null/api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:27:48,818][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-09-07 23:27:48,823][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-09-07 23:27:48,824][org.apache.http.headers]http-outgoing-0 >> GET null/api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "GET null/api/cubes/test2 HTTP/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,825][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,829][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 400 Bad Request[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,829][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,829][org.apache.http.wire]http-outgoing-0 << "Content-Length: 0[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,829][org.apache.http.wire]http-outgoing-0 << "Date: Thu, 07 Sep 2017 15:27:42 GMT[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,829][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,829][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-09-07 23:27:48,831][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 400 Bad Request
+[DEBUG][2017-09-07 23:27:48,831][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-09-07 23:27:48,831][org.apache.http.headers]http-outgoing-0 << Content-Length: 0
+[DEBUG][2017-09-07 23:27:48,831][org.apache.http.headers]http-outgoing-0 << Date: Thu, 07 Sep 2017 15:27:42 GMT
+[DEBUG][2017-09-07 23:27:48,831][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-09-07 23:27:48,833][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-09-07 23:27:48,833][org.apache.http.impl.conn.DefaultManagedHttpClientConnection]http-outgoing-0: Close connection
+[DEBUG][2017-09-07 23:27:48,833][org.apache.http.impl.execchain.MainClientExec]Connection discarded
+[DEBUG][2017-09-07 23:27:48,833][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:28:50,485][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-09-07 23:28:50,506][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:28:50,509][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:28:50,547][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:28:50,548][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:28:50,550][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-09-07 23:28:50,553][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:56750<->10.1.18.211:7070
+[DEBUG][2017-09-07 23:28:50,553][org.apache.http.impl.execchain.MainClientExec]Executing request GET null/api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:28:50,553][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-09-07 23:28:50,559][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-09-07 23:28:50,560][org.apache.http.headers]http-outgoing-0 >> GET null/api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:28:50,560][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-09-07 23:28:50,560][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-09-07 23:28:50,560][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-09-07 23:28:50,560][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-09-07 23:28:50,560][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "GET null/api/cubes/test2 HTTP/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,561][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,563][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 400 Bad Request[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,563][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,563][org.apache.http.wire]http-outgoing-0 << "Content-Length: 0[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,563][org.apache.http.wire]http-outgoing-0 << "Date: Thu, 07 Sep 2017 15:28:43 GMT[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,563][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,563][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-09-07 23:28:50,565][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 400 Bad Request
+[DEBUG][2017-09-07 23:28:50,565][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-09-07 23:28:50,565][org.apache.http.headers]http-outgoing-0 << Content-Length: 0
+[DEBUG][2017-09-07 23:28:50,565][org.apache.http.headers]http-outgoing-0 << Date: Thu, 07 Sep 2017 15:28:43 GMT
+[DEBUG][2017-09-07 23:28:50,565][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-09-07 23:28:50,567][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-09-07 23:28:50,567][org.apache.http.impl.conn.DefaultManagedHttpClientConnection]http-outgoing-0: Close connection
+[DEBUG][2017-09-07 23:28:50,568][org.apache.http.impl.execchain.MainClientExec]Connection discarded
+[DEBUG][2017-09-07 23:28:50,568][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:29:00,372][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-09-07 23:29:00,429][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:00,431][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:29:00,501][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:29:00,504][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:00,513][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:00,546][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:56765<->10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:00,547][org.apache.http.impl.execchain.MainClientExec]Executing request GET null/api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:29:00,547][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-09-07 23:29:00,555][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.headers]http-outgoing-0 >> GET null/api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.wire]http-outgoing-0 >> "GET null/api/cubes/test2 HTTP/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,557][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,558][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,558][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,558][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,558][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,558][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,559][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 400 Bad Request[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,560][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,560][org.apache.http.wire]http-outgoing-0 << "Content-Length: 0[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,560][org.apache.http.wire]http-outgoing-0 << "Date: Thu, 07 Sep 2017 15:28:53 GMT[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,560][org.apache.http.wire]http-outgoing-0 << "Connection: close[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,560][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-09-07 23:29:00,562][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 400 Bad Request
+[DEBUG][2017-09-07 23:29:00,562][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-09-07 23:29:00,562][org.apache.http.headers]http-outgoing-0 << Content-Length: 0
+[DEBUG][2017-09-07 23:29:00,562][org.apache.http.headers]http-outgoing-0 << Date: Thu, 07 Sep 2017 15:28:53 GMT
+[DEBUG][2017-09-07 23:29:00,562][org.apache.http.headers]http-outgoing-0 << Connection: close
+[DEBUG][2017-09-07 23:29:00,564][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-09-07 23:29:00,564][org.apache.http.impl.conn.DefaultManagedHttpClientConnection]http-outgoing-0: Close connection
+[DEBUG][2017-09-07 23:29:00,565][org.apache.http.impl.execchain.MainClientExec]Connection discarded
+[DEBUG][2017-09-07 23:29:00,565][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:29:35,706][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2017-09-07 23:29:35,720][org.apache.http.client.protocol.RequestAuthCache]Re-using cached 'basic' auth scheme for http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:35,722][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection request: [route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+[DEBUG][2017-09-07 23:29:35,773][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection leased: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+[DEBUG][2017-09-07 23:29:35,774][org.apache.http.impl.execchain.MainClientExec]Opening connection {}->http://10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:35,781][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to /10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:35,797][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 10.1.18.45:56786<->10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:35,797][org.apache.http.impl.execchain.MainClientExec]Executing request GET /kylin//api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:29:35,798][org.apache.http.impl.execchain.MainClientExec]Target auth state: CHALLENGED
+[DEBUG][2017-09-07 23:29:35,805][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2017-09-07 23:29:35,806][org.apache.http.headers]http-outgoing-0 >> GET /kylin//api/cubes/test2 HTTP/1.1
+[DEBUG][2017-09-07 23:29:35,806][org.apache.http.headers]http-outgoing-0 >> Host: 10.1.18.211:7070
+[DEBUG][2017-09-07 23:29:35,806][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.headers]http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.headers]http-outgoing-0 >> Authorization: Basic YWRtaW46S1lMSU4=
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "GET /kylin//api/cubes/test2 HTTP/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "Host: 10.1.18.211:7070[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_77)[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "Authorization: Basic YWRtaW46S1lMSU4=[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,807][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "Server: Apache-Coyote/1.1[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "Set-Cookie: JSESSIONID=E703E848B950A34244F6B5ECDAC16750; Path=/kylin/; HttpOnly[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "Content-Length: 1616[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "Date: Thu, 07 Sep 2017 15:29:29 GMT[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2017-09-07 23:29:35,961][org.apache.http.wire]http-outgoing-0 << "{"uuid":"b89961e1-ee8b-4a02-a1d9-89dc9b168aba","last_modified":1504797844941,"version":"1.6.0","name":"test2","owner":"ADMIN","descriptor":"test2","cost":50,"status":"DISABLED","segments":[{"uuid":"6b1c21a8-56de-46b0-96a0-11d43c7f428e","name":"19700101000000_2922789940817071255","storage_location_identifier":"KYLIN_BQPWUWXU5C","date_range_start":0,"date_range_end":9223372036854775807,"source_offset_start":0,"source_offset_end":0,"status":"NEW","size_kb":0,"input_records":0,"input_records_size":0,"last_build_time":0,"last_build_job_id":null,"create_time_utc":1504797546355,"cuboid_shard_nums":{},"total_shards":1,"blackout_cuboids":[],"binary_signature":null,"dictionaries":{"BI_1.FACT_GAME/GAME":"/dict/BI_1.FACT_GAME/GAME/71161aba-97ad-4032-9bb8-d510b72d34fb.dict","BI_1.FACT_GAME/LOCATIONID":"/dict/BI_1.DIM_LOCATION/LOCATIONID/5820ca92-05b1-4a52-bd04-b6a44c09ef07.dict","BI_1.FACT_GAME/STARTTIME":"/dict/BI_1.FACT_GAME/STARTTIME/5aae9f57-c870-404e-bb73-f4e9bca9e5f7.dict","BI_1.FACT_GAME/TYPEID":"/dict/BI_1.DIM_GAMETYPE/TYPEID/7c39c8e8-3703-4cea-b24d-69cc4452d710.dict","BI_1.FACT_GAME/USERID":"/dict/BI_1.FACT_GAME/USERID/4c635c29-ee5e-4ee3-bfcc-a7294e849d33.dict"},"snapshots":{"BI_1.DIM_GAMETYPE":"/table_snapshot/BI_1.DIM_GAMETYPE/3337cbb5-987c-4f85-a94d-7c1c7d620c41.snapshot","BI_1.DIM_LOCATION":"/table_snapshot/BI_1.DIM_LOCATION/428c6f14-1ca9-489a-b134-95a23b853155.snapshot"},"index_path":null,"rowkey_stats":[["STARTTIME",76809,3],["USERID",85929,3],["GAME",892,2],["TYPEID",33,1],["LOCATIONID",355,2]]}],"create_time_utc":1504792131427,"size_kb":0,"input_records_count":0,"input_records_size":0}"
+[DEBUG][2017-09-07 23:29:35,963][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 200 OK
+[DEBUG][2017-09-07 23:29:35,964][org.apache.http.headers]http-outgoing-0 << Server: Apache-Coyote/1.1
+[DEBUG][2017-09-07 23:29:35,964][org.apache.http.headers]http-outgoing-0 << Set-Cookie: JSESSIONID=E703E848B950A34244F6B5ECDAC16750; Path=/kylin/; HttpOnly
+[DEBUG][2017-09-07 23:29:35,964][org.apache.http.headers]http-outgoing-0 << Content-Type: application/json;charset=UTF-8
+[DEBUG][2017-09-07 23:29:35,964][org.apache.http.headers]http-outgoing-0 << Content-Length: 1616
+[DEBUG][2017-09-07 23:29:35,964][org.apache.http.headers]http-outgoing-0 << Date: Thu, 07 Sep 2017 15:29:29 GMT
+[DEBUG][2017-09-07 23:29:35,969][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive indefinitely
+[DEBUG][2017-09-07 23:29:35,969][org.apache.http.impl.auth.HttpAuthenticator]Authentication succeeded
+[DEBUG][2017-09-07 23:29:35,976][org.apache.http.client.protocol.ResponseProcessCookies]Cookie accepted [JSESSIONID="E703E848B950A34244F6B5ECDAC16750", version:0, domain:10.1.18.211, path:/kylin/, expiry:null]
+[DEBUG][2017-09-07 23:29:54,970][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection [id: 0][route: {}->http://10.1.18.211:7070] can be kept alive indefinitely
+[DEBUG][2017-09-07 23:29:54,970][org.apache.http.impl.conn.PoolingHttpClientConnectionManager]Connection released: [id: 0][route: {}->http://10.1.18.211:7070][total kept alive: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+[INFO][2017-09-08 09:56:52,397][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.200:10000
+[INFO][2017-09-08 09:56:52,417][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.200:10000
+[INFO][2017-09-08 09:56:52,626][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[DEBUG][2017-09-08 09:56:52,627][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[INFO][2017-09-08 09:56:53,832][org.apache.hive.jdbc.HiveConnection]Could not open client transport with JDBC Uri: jdbc:hive2://10.1.18.200:10000
+[INFO][2017-09-08 09:56:53,832][org.apache.hive.jdbc.HiveConnection]Transport Used for JDBC connection: null
+[INFO][2017-09-08 09:58:08,093][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.210:10000
+[INFO][2017-09-08 09:58:08,095][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.210:10000
+[INFO][2017-09-08 09:58:08,175][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.210:10000
+[DEBUG][2017-09-08 09:58:08,176][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@2f686d1f
+[DEBUG][2017-09-08 09:58:08,178][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-09-08 09:58:08,200][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-09-08 09:58:08,200][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-09-08 09:58:08,200][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-09-08 09:58:08,200][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-09-08 09:58:08,200][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-09-08 09:58:08,201][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-09-08 09:58:08,415][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-09-08 09:58:08,420][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 163
+[ERROR][2017-09-08 09:58:08,421][org.apache.hive.jdbc.HiveConnection]Error opening session
+org.apache.thrift.TApplicationException: Required field 'client_protocol' is unset! Struct:TOpenSessionReq(client_protocol:null, configuration:{use:database=default})
+	at org.apache.thrift.TApplicationException.read(TApplicationException.java:111)
+	at org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:71)
+	at org.apache.hive.service.cli.thrift.TCLIService$Client.recv_OpenSession(TCLIService.java:156)
+	at org.apache.hive.service.cli.thrift.TCLIService$Client.OpenSession(TCLIService.java:143)
+	at org.apache.hive.jdbc.HiveConnection.openSession(HiveConnection.java:583)
+	at org.apache.hive.jdbc.HiveConnection.<init>(HiveConnection.java:192)
+	at org.apache.hive.jdbc.HiveDriver.connect(HiveDriver.java:105)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at cn.edu.dbsi.test.HiveConnection.getConnection(HiveConnection.java:16)
+	at cn.edu.dbsi.test.HiveTest.main(HiveTest.java:25)
+[INFO][2017-09-08 10:05:24,642][org.apache.hive.jdbc.Utils]Supplied authorities: 10.1.18.210:10000
+[INFO][2017-09-08 10:05:24,643][org.apache.hive.jdbc.Utils]Resolved authority: 10.1.18.210:10000
+[INFO][2017-09-08 10:05:24,735][org.apache.hive.jdbc.HiveConnection]Will try to open client transport with JDBC Uri: jdbc:hive2://10.1.18.210:10000
+[DEBUG][2017-09-08 10:05:24,736][org.apache.thrift.transport.TSaslTransport]opening transport org.apache.thrift.transport.TSaslClientTransport@14acaea5
+[DEBUG][2017-09-08 10:05:24,743][org.apache.thrift.transport.TSaslClientTransport]Sending mechanism name PLAIN and initial response of length 10
+[DEBUG][2017-09-08 10:05:24,745][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status START and payload length 5
+[DEBUG][2017-09-08 10:05:24,745][org.apache.thrift.transport.TSaslTransport]CLIENT: Writing message with status COMPLETE and payload length 10
+[DEBUG][2017-09-08 10:05:24,745][org.apache.thrift.transport.TSaslTransport]CLIENT: Start message handled
+[DEBUG][2017-09-08 10:05:24,745][org.apache.thrift.transport.TSaslTransport]CLIENT: Main negotiation loop complete
+[DEBUG][2017-09-08 10:05:24,745][org.apache.thrift.transport.TSaslTransport]CLIENT: SASL Client receiving last message
+[DEBUG][2017-09-08 10:05:24,747][org.apache.thrift.transport.TSaslTransport]CLIENT: Received message with status COMPLETE and payload length 0
+[DEBUG][2017-09-08 10:05:24,763][org.apache.thrift.transport.TSaslTransport]writing data length: 71
+[DEBUG][2017-09-08 10:05:24,799][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-09-08 10:05:24,814][org.apache.thrift.transport.TSaslTransport]writing data length: 126
+[DEBUG][2017-09-08 10:05:24,866][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 109
+[DEBUG][2017-09-08 10:05:24,875][org.apache.thrift.transport.TSaslTransport]writing data length: 100
+[DEBUG][2017-09-08 10:05:24,922][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 321
+[DEBUG][2017-09-08 10:05:25,048][org.apache.thrift.transport.TSaslTransport]writing data length: 102
+[DEBUG][2017-09-08 10:05:25,051][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 273
+[DEBUG][2017-09-08 10:05:25,082][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-09-08 10:05:25,089][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 277
+[DEBUG][2017-09-08 10:05:25,104][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-09-08 10:05:25,104][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-09-08 10:05:25,104][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-09-08 10:05:25,105][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-09-08 10:05:25,105][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-09-08 10:05:25,105][org.apache.hive.jdbc.HiveQueryResultSet]Fetched row string: 
+[DEBUG][2017-09-08 10:05:25,105][org.apache.thrift.transport.TSaslTransport]writing data length: 112
+[DEBUG][2017-09-08 10:05:25,107][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 138
+[DEBUG][2017-09-08 10:05:25,111][org.apache.thrift.transport.TSaslTransport]writing data length: 96
+[DEBUG][2017-09-08 10:05:25,114][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 42
+[DEBUG][2017-09-08 10:05:25,120][org.apache.thrift.transport.TSaslTransport]writing data length: 83
+[DEBUG][2017-09-08 10:05:25,125][org.apache.thrift.transport.TSaslTransport]CLIENT: reading data length: 40
