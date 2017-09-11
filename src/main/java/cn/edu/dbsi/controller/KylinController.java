@@ -73,7 +73,7 @@ public class KylinController {
                     return StatusUtil.error("", "获取 hive 表信息出错！");
                 }
                 tableMap.put("name", tableName);
-                tableMap.put("fileds", list);
+                tableMap.put("fields", list);
 
                 tablesList.add(tableMap);
             }
@@ -370,7 +370,7 @@ public class KylinController {
         cubeInfo.setBpOrDataxId(bpid);
         cubeInfo.setDescription(description);
         cubeInfo.setCategory("kylin");
-        cubeInfo.setStatus("0");
+        cubeInfo.setStatus("2");
         cubeInfo.setIsDelete("0");
         cubeInfoServiceI.addCubeInfo(cubeInfo);
 
@@ -426,10 +426,19 @@ public class KylinController {
 
             String colStr = kylinDimension.getColumns();
             String[] colsStr = colStr.split(",");
+            boolean isExist = false;
             for (String col : colsStr) {
                 SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
                 String attributeName = col.split("-")[1];
                 String fieldName = col.split("-")[0];
+                if (fieldName.equals(kylinTable.getFactTable())) {
+                    isExist = true;
+                }
+                for (KylinLookup kylinLookup : kylinLookups) {
+                    if (fieldName.equals(kylinLookup.getName())) {
+                        isExist = true;
+                    }
+                }
                 schemaDimensionAttribute.setDimensionId(dimensionId);
                 schemaDimensionAttribute.setName(attributeName);
                 schemaDimensionAttribute.setFieldName(fieldName);
@@ -440,24 +449,25 @@ public class KylinController {
             SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
             String attributeName = "";
             String fieldName = "";
-            if(kylinDimension.getTableName().equals(kylinTable.getFactTable())){
-                 attributeName = kylinTable.getFactTablePrimaryKey();
-                 fieldName = kylinTable.getFactTablePrimaryKey();
-            }else {
-                for (KylinLookup kylinLookup:kylinLookups){
-                    if (kylinDimension.getTableName().equals(kylinLookup.getName())){
-                         attributeName = kylinLookup.getPrimaryKey();
-                         fieldName = kylinLookup.getPrimaryKey();
-                        break;
+            if (!isExist) {
+                if(kylinDimension.getTableName().equals(kylinTable.getFactTable())){
+                    attributeName = kylinTable.getFactTablePrimaryKey();
+                    fieldName = kylinTable.getFactTablePrimaryKey();
+                }else {
+                    for (KylinLookup kylinLookup:kylinLookups){
+                        if (kylinDimension.getTableName().equals(kylinLookup.getName())){
+                            attributeName = kylinLookup.getPrimaryKey();
+                            fieldName = kylinLookup.getPrimaryKey();
+                            break;
+                        }
                     }
                 }
+                schemaDimensionAttribute.setDimensionId(dimensionId);
+                schemaDimensionAttribute.setName(attributeName);
+                schemaDimensionAttribute.setFieldName(fieldName);
+                tag3 = dimensionAttributeServiceI.addDimensionAttribute(schemaDimensionAttribute);
+                schemaDimensionAttributes.add(schemaDimensionAttribute);
             }
-            schemaDimensionAttribute.setDimensionId(dimensionId);
-            schemaDimensionAttribute.setName(attributeName);
-            schemaDimensionAttribute.setFieldName(fieldName);
-            tag3 = dimensionAttributeServiceI.addDimensionAttribute(schemaDimensionAttribute);
-            schemaDimensionAttributes.add(schemaDimensionAttribute);
-
 
             schemaDimension.setSchemaDimensionAttributes(schemaDimensionAttributes);
             schemaDimensions.add(schemaDimension);
@@ -471,7 +481,7 @@ public class KylinController {
         int measureGroupId = measureGroupServiceI.getLastMeasureGroupId();
         schemaMeasureGroup.setId(measureGroupId);
         for(KylinMeasure kylinMeasure:kylinMeasuresList){
-            if (kylinMeasure.getParamType().equals("constant")){
+            if (kylinMeasure.getName().equals("_COUNT_")) {
                 continue;
             }
             SchemaMeasure schemaMeasure = new SchemaMeasure();
@@ -712,6 +722,26 @@ public class KylinController {
         List<String> dictionariesTempList = new ArrayList<String>();
         cubeObj.put("dictionaries", dictionariesTempList);
 
+        // 在 rowkey 中增加 事实表中未出现的维表中的主键字段
+        List<KylinLookup> kylinLookupList = kylinTable.getKylinLookups();
+        for (KylinLookup kylinLookup : kylinLookupList) {
+            String column = kylinLookup.getForeignKey();
+            boolean flag = false;
+            for (int i = 0; i < rowColArr.length(); i++) {
+                JSONObject rowKey = rowColArr.getJSONObject(i);
+                if (column.equals(rowKey.getString("column"))) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                continue;
+            }
+            JSONObject rowcolObj = new JSONObject();
+            rowcolObj.put("column", column);
+            rowcolObj.put("encoding", "dict");
+            rowcolObj.put("isShardBy", false);
+            rowColArr.put(rowcolObj);
+        }
         JSONObject rowkeyObj = new JSONObject();
         rowkeyObj.put("rowkey_columns", rowColArr);
 

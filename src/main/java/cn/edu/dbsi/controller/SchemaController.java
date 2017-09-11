@@ -16,12 +16,19 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.InputSource;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 郭世明 on 2017/6/29.
@@ -89,7 +96,7 @@ public class SchemaController {
         cubeInfo.setBpOrDataxId(bpid);
         cubeInfo.setDescription(description);
         cubeInfo.setCategory("normal");
-        cubeInfo.setStatus("0");
+        cubeInfo.setStatus("1");
         cubeInfo.setIsDelete("0");
         cubeInfoServiceI.addCubeInfo(cubeInfo);
         schema.setCubeId(cubeInfoServiceI.selectLastCubeInfoPrimaryKey());

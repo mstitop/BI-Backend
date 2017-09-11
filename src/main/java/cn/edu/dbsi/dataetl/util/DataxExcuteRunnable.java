@@ -30,7 +30,7 @@ public class DataxExcuteRunnable implements Runnable{
         dataxTask.setFinishTime(new Date());
 
         if (fail_flag) {
-            dataxTask.setTaskStatus("2");
+            dataxTask.setTaskStatus("0");
         } else {
             dataxTask.setTaskStatus("1");
         }

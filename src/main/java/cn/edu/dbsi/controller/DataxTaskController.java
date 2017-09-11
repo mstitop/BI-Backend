@@ -72,7 +72,7 @@ public class DataxTaskController {
         dataxTask.setBusinessPackageId(businessPackageId);
         dataxTask.setIsDelete("0");
         dataxTask.setCreateTime(new Date());
-        dataxTask.setTaskStatus("0");
+        dataxTask.setTaskStatus("2");
 
         tag1 = dataxTaskService.saveDataxTask(dataxTask);
         int lastTaskId = dataxTaskService.getLastDataxTaskId();
