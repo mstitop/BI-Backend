@@ -41,4 +41,7 @@ public class CubeInfoServiceImpl implements CubeInfoServiceI {
     public List<CubeInfo> getCubeInfoByPage(Map<String, Object> map) {
         return cubeInfoMapper.selectCubeInfoByPage(map);
     }
+    public int getLastCubeInfoId() {
+        return cubeInfoMapper.selectLastPrimaryKey();
+    }
 }

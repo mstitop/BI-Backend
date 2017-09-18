@@ -2,6 +2,7 @@ package cn.edu.dbsi.dataetl.util;
 
 import cn.edu.dbsi.dataetl.model.JobInfo;
 import cn.edu.dbsi.model.DataxTask;
+import cn.edu.dbsi.service.DataxTaskService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,19 +21,17 @@ public class DataXTaskExcute {
 
     protected static final Log log = LogFactory.getLog(DataXTaskExcute.class);
 
-    protected static boolean breakFlag = false;
 
 
 
-    public boolean execute(DataxTask dataxTask, List<JobInfo> allTableStatus) {
+    public boolean execute(DataxTaskService dataxTaskService,DataxTask dataxTask, List<JobInfo> allTableStatus) {
 
+        boolean breakFlag = false;
         try {
             // 在主方法中初始化后再传入
             /*initAllTableStatus();
             log.info("init All Table Status done" );
             log.info("start job");*/
-
-
             int taskId = dataxTask.getId();
 
             for (int t1 = 0; t1 < allTableStatus.size(); t1++) {
@@ -52,24 +51,30 @@ public class DataXTaskExcute {
                     String cmd = getCommand(taskId, jobInfo);
                     log.info("cmd: " + cmd);
                     hasException = executeCommand(cmd, jobInfo, logInfo);
-
+                    System.out.println(hasException);
                     if (hasException) {
                         breakFlag = true;
                         logInfo.append(dataxTask.getName() + " breaked as got exception in " + jobInfo.getSourceTbName()).append("\n");
-                        log.info(logInfo.toString());
+                        //log.info(logInfo.toString());
 
                     }
 
                 } catch (Exception e) {
 
+                    e.printStackTrace();
+
                     hasException = true;
                     if (hasException) {
                         breakFlag = true;
                         logInfo.append(dataxTask.getName() + " breaked as got exception in " + jobInfo.getSourceTbName()).append("\n");
-                        log.info(logInfo.toString());
+                        //log.info(logInfo.toString());
                     }
                 }
 
+                if (!breakFlag){
+                    dataxTask.setProgress((t1 + 1)/(allTableStatus.size()*1.0));
+                    dataxTaskService.updateDataxTask(dataxTask);
+                }
                 jobInfo.setHasException(hasException);
                 jobInfo.setFinished(true);
                 log.info(logInfo.toString());
@@ -118,7 +123,7 @@ public class DataXTaskExcute {
         }
 
         logInfo.append(jobInfo.getSourceTbName() + " execute finished!");
-        log.info(logInfo.toString());
+        //log.info(logInfo.toString());
         return hasException;
     }
 
@@ -140,7 +145,7 @@ public class DataXTaskExcute {
             } else if (value.matches("\\d+rec\\/s")) {
                 jobInfo.setReadWriteRecordSpeed(value);
             }
-        } else if (line != null && line.contains("used")) {
+        } else if (line != null && line.contains("used") && line.contains("]ms")) {
             int count = Integer.parseInt(line.substring(line.indexOf("used") + 5, line.indexOf("ms") - 1).trim());
             jobInfo.setCostTime(count + "ms");
         } else if (line != null && line.contains("StandAloneJobContainerCommunicator")) {

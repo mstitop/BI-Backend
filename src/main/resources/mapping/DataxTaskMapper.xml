@@ -7,12 +7,13 @@
     <result column="business_package_id" property="businessPackageId" jdbcType="INTEGER" />
     <result column="hive_address" property="hiveAddress" jdbcType="VARCHAR" />
     <result column="task_status" property="taskStatus" jdbcType="CHAR" />
+    <result column="progress" property="progress" jdbcType="DOUBLE" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, business_package_id, hive_address, task_status, create_time, finish_time,
+    id, name, business_package_id, hive_address, task_status, progress, create_time, finish_time,
     is_delete
   </sql>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -49,10 +50,10 @@
   </delete>
   <insert id="insert" parameterType="cn.edu.dbsi.model.DataxTask" >
     insert into datax_task (id, name, business_package_id,
-      hive_address, task_status, create_time,
+      hive_address, task_status,progress, create_time,
       finish_time, is_delete)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{businessPackageId,jdbcType=INTEGER}, 
-      #{hiveAddress,jdbcType=VARCHAR}, #{taskStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{hiveAddress,jdbcType=VARCHAR}, #{taskStatus,jdbcType=CHAR},#{progress,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP},
       #{finishTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.dbsi.model.DataxTask" >
@@ -72,6 +73,9 @@
       </if>
       <if test="taskStatus != null" >
         task_status,
+      </if>
+      <if test="progress != null" >
+        progress,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -99,6 +103,9 @@
       <if test="taskStatus != null" >
         #{taskStatus,jdbcType=CHAR},
       </if>
+      <if test="progress != null" >
+        #{progress,jdbcType=DOUBLE},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -125,6 +132,9 @@
       <if test="taskStatus != null" >
         task_status = #{taskStatus,jdbcType=CHAR},
       </if>
+      <if test="progress != null" >
+        progress = #{progress,jdbcType=DOUBLE},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -143,6 +153,7 @@
       business_package_id = #{businessPackageId,jdbcType=INTEGER},
       hive_address = #{hiveAddress,jdbcType=VARCHAR},
       task_status = #{taskStatus,jdbcType=CHAR},
+      progress = #{progress,jdbcType=DOUBLE},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=CHAR}

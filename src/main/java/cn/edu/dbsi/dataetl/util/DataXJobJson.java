@@ -4,8 +4,12 @@ package cn.edu.dbsi.dataetl.util;
 import cn.edu.dbsi.dataetl.model.JobInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +19,78 @@ import java.util.Map;
 public class DataXJobJson {
     protected static final Log log = LogFactory.getLog(DataXJobJson.class);
 
+    public void generateJsonJobFile2(JobInfo config, int taskId){
 
+        JSONObject returnJson = new JSONObject();
+        JSONObject jobJson = new JSONObject();
+        JSONArray contentArr = new JSONArray();
+        JSONObject contentObj = new JSONObject();
+        // 构建 reader json
+        JSONObject readObj = new JSONObject();
+        if (config.getSourceDbType().equalsIgnoreCase("Mysql")){
+            readObj.put("name","mysqlreader");
+        }else {
+            readObj.put("name","oraclereader");
+        }
+        JSONObject readParaObj = new JSONObject();
+        readParaObj.put("column",getSourceDbColumnsList(config.getColumns()));
+        JSONArray readerConnArr = new JSONArray();
+        JSONObject readerConnObj = new JSONObject();
+        List<String> jdbcList  = new ArrayList<String>();
+        jdbcList.add(config.getSourceDbUrl());
+        readerConnObj.put("jdbcUrl",jdbcList);
+        List<String> tableList  = new ArrayList<String>();
+        tableList.add(config.getSourceTbName());
+        readerConnObj.put("table",tableList);
+        readerConnArr.put(readerConnObj);
+        readParaObj.put("connection",readerConnArr);
+        readParaObj.put("password",config.getSourceDbPassword());
+        readParaObj.put("username",config.getSourceDbUsername());
+        readParaObj.put("where",config.getWhere());
+        readObj.put("parameter",readParaObj);
+        contentObj.put("reader",readObj);
+
+        // 构建 writer json
+        JSONObject writeObj = new JSONObject();
+
+        writeObj.put("name","hdfswriter");
+
+        JSONObject writeParaObj = new JSONObject();
+        writeParaObj.put("column",getHdfsColumnsJsonArr(config.getColumns()));
+
+        writeParaObj.put("compress",config.getCompress());
+        writeParaObj.put("defaultFS",config.getDefaultFS());
+        writeParaObj.put("fieldDelimiter",config.getFieldDelimiter());
+        writeParaObj.put("fileName",config.getFileName());
+        writeParaObj.put("fileType",config.getFileType());
+        writeParaObj.put("path",config.getPath());
+        writeParaObj.put("writeMode",config.getWriteMode());
+        writeObj.put("parameter",writeParaObj);
+        contentObj.put("writer",writeObj);
+
+        JSONArray  transformerArr = config.getTransformer();
+        if (config.getTransformer().length() > 0){
+            contentObj.put("transformer",transformerArr);
+        }
+        contentArr.put(contentObj);
+
+        jobJson.put("content",contentArr);
+
+        JSONObject settingObj = new JSONObject();
+        JSONObject speedObj = new JSONObject();
+        speedObj.put("channel",config.getChannel());
+        settingObj.put("speed",speedObj);
+
+        jobJson.put("setting",settingObj);
+        returnJson.put("job",jobJson);
+
+        try {
+            log.info("Write job json for table:" + config.getFileName());
+            writeToFile(config.getFileName(), returnJson.toString(),config.getJobFileFloder(), taskId);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
+    }
 
 
     public void generateJsonJobFile(JobInfo config, int taskId) {
@@ -78,13 +153,16 @@ public class DataXJobJson {
         dirFile.mkdirs();
 
         File file = new File(fileStr);
-
-        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        //OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
+        //BufferedWriter out = new BufferedWriter(new FileWriter(file),"UTF-8");
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"));
+        //BufferedWriter out = new BufferedWriter(write);
         out.write(json);
         out.close();
         log.info("Write json to file:"+file.getAbsolutePath());
     }
-    private String getTemplate(String templateName) {
+    public String getTemplate(String templateName) {
 
         StringBuffer stb = new StringBuffer();
             try {
@@ -117,6 +195,14 @@ public class DataXJobJson {
         }
         return stb.toString();
     }
+    private List<String> getSourceDbColumnsList(Map<String,String> columns) {
+        StringBuffer stb = new StringBuffer();
+        List<String> list = new ArrayList<String>();
+        for (Map.Entry<String,String> entry : columns.entrySet()) {
+            list.add(entry.getKey());
+        }
+        return list;
+    }
     private String getHdfsColumnsString(Map<String,String> columns) {
         StringBuffer stb = new StringBuffer();
         int i = 0;
@@ -139,5 +225,15 @@ public class DataXJobJson {
             }
         }
         return stb.toString();
+    }
+    private JSONArray getHdfsColumnsJsonArr(Map<String,String> columns) {
+       JSONArray returnArr = new JSONArray();
+        for (Map.Entry<String,String> entry : columns.entrySet()) {
+            JSONObject colObj = new JSONObject();
+            colObj.put("name",entry.getKey());
+            colObj.put("type",entry.getValue());
+            returnArr.put(colObj);
+        }
+        return returnArr;
     }
 }

@@ -374,6 +374,8 @@ public class KylinController {
         cubeInfo.setIsDelete("0");
         cubeInfoServiceI.addCubeInfo(cubeInfo);
 
+        int lastCubeId = cubeInfoServiceI.getLastCubeInfoId();
+        cubeInfo.setId(lastCubeId);
 
         schema.setCubeId(cubeInfoServiceI.selectLastCubeInfoPrimaryKey());
 
@@ -406,6 +408,7 @@ public class KylinController {
         schema.setId(schemaLastId);
         cubeSchema.setId(schemaLastId);
         cubeInfo.setSchemaId(schemaLastId);
+
         //更新是为了将Schema_id插入
         cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
         // 存储维度和维度属性值
@@ -431,11 +434,11 @@ public class KylinController {
                 SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
                 String attributeName = col.split("-")[1];
                 String fieldName = col.split("-")[0];
-                if (fieldName.equals(kylinTable.getFactTable())) {
+                if (fieldName.equalsIgnoreCase(kylinTable.getFactTablePrimaryKey())) {
                     isExist = true;
                 }
                 for (KylinLookup kylinLookup : kylinLookups) {
-                    if (fieldName.equals(kylinLookup.getName())) {
+                    if (fieldName.equalsIgnoreCase(kylinLookup.getPrimaryKey())) {
                         isExist = true;
                     }
                 }
@@ -481,7 +484,7 @@ public class KylinController {
         int measureGroupId = measureGroupServiceI.getLastMeasureGroupId();
         schemaMeasureGroup.setId(measureGroupId);
         for(KylinMeasure kylinMeasure:kylinMeasuresList){
-            if (kylinMeasure.getName().equals("_COUNT_")) {
+            if (kylinMeasure.getName().equals("_COUNT_")||kylinMeasure.getParamType().equals("constant")) {
                 continue;
             }
             SchemaMeasure schemaMeasure = new SchemaMeasure();
@@ -517,6 +520,12 @@ public class KylinController {
             schemaDimensionMeasure.setIsForeign(isForeign);
             schemaDimensionMeasure.setDimensionName(dimensionName);
             schemaDimensionMeasure.setMeasureGroupId(measureGroupId);
+            for(SchemaDimension schemaDimension: schemaDimensions){
+                if (schemaDimension.getTableName().equalsIgnoreCase(kylinDimension.getTableName())){
+                    schemaDimensionMeasure.setDimensionId(schemaDimension.getId());
+                    break;
+                }
+            }
             tag6 = dimensionLinkServiceI.addDimensionLink(schemaDimensionMeasure);
             schemaDimensionMeasures.add(schemaDimensionMeasure);
         }
@@ -682,6 +691,9 @@ public class KylinController {
         hbase_map_f1_list.add("_COUNT_");
         List<String> hbase_map_f2_list = new ArrayList<String>();
         for (KylinMeasure kylinMeasure : kylinMeasureList) {
+            if (kylinMeasure.getParamType().equalsIgnoreCase("count")){
+                continue;
+            }
             JSONObject measureObj = new JSONObject();
             measureObj.put("name", kylinMeasure.getName());
             JSONObject funcObj = new JSONObject();
@@ -694,7 +706,6 @@ public class KylinController {
             funcObj.put("parameter",paraObj);
 
             measureObj.put("function", funcObj);
-
             measuresArr.put(measureObj);
 
             if (kylinMeasure.getExpression().equals("COUNT_DISTINCT")) {

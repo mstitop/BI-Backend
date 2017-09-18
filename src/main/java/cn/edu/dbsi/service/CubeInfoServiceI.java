@@ -20,4 +20,6 @@ public interface CubeInfoServiceI {
     CubeInfo getCubeById(Integer id);
 
     List<CubeInfo> getCubeInfoByPage(Map<String,Object> map);
+
+    int getLastCubeInfoId();
 }

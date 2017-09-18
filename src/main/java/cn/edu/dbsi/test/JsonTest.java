@@ -1,5 +1,12 @@
 package cn.edu.dbsi.test;
 
+import cn.edu.dbsi.dataetl.util.DataXJobJson;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Skye on 2017/8/5.
  */
@@ -62,5 +69,49 @@ public class JsonTest {
 
         String re = db.split("[.]")[1].toUpperCase();
         System.out.printf(re);
+
+        JSONObject transformer = new JSONObject();
+        transformer.put("name","dx_filter");
+        JSONObject parameter = new JSONObject();
+        parameter.put("columnIndex",1);
+        List<String> list = new ArrayList<String>();
+        list.add("=");
+        list.add("null");
+        parameter.put("paras",list);
+        transformer.put("testNUll",new JSONObject());
+        transformer.put("parameter",parameter);
+
+        System.out.println(transformer);
+
+        System.out.println(transformer.toString());
+
+        JSONObject transformer2 = new JSONObject(transformer.toString());
+        JSONObject pa = transformer2.getJSONObject("parameter");
+        pa.put("testPara","test");
+
+
+        System.out.println(transformer2);
+        if (transformer2.isNull("testNUll")){
+            System.out.println("yes");
+        }else {
+            System.out.println("no");
+        }
+        DataXJobJson dataXJobJson = new DataXJobJson();
+        //String temple = dataXJobJson.getTemplate("Mysql");
+        //System.out.println(temple);
+
+       // JSONObject templeJ =  new JSONObject(temple);
+       // System.out.println(templeJ.toString());
+
+        List<Object> primary_key = new ArrayList<Object>();
+        primary_key.add("test");
+        primary_key.add("xkh");
+        JSONObject obj3 = new JSONObject();
+        obj3.put("type","inner");
+        obj3.put("primary_key",primary_key);
+
+        System.out.println(obj3);
+        JSONArray arr = obj3.getJSONArray("primary_key");
+        System.out.println(arr.getString(0));
     }
 }

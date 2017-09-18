@@ -13,6 +13,8 @@ public class DataxTask {
 
     private String taskStatus;
 
+    private Double progress;
+
     private Date createTime;
 
     private Date finishTime;
@@ -57,6 +59,14 @@ public class DataxTask {
 
     public void setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus == null ? null : taskStatus.trim();
+    }
+
+    public Double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Double progress) {
+        this.progress = progress;
     }
 
     public Date getCreateTime() {

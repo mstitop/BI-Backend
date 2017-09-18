@@ -20,6 +20,9 @@
         from cube_info
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="selectLastPrimaryKey" resultType="java.lang.Integer">
+        select id from cube_info order by id DESC limit 1
+    </select>
     <select id="selectAllCubeInfo" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

@@ -73,6 +73,7 @@ public class DataxTaskController {
         dataxTask.setIsDelete("0");
         dataxTask.setCreateTime(new Date());
         dataxTask.setTaskStatus("2");
+        dataxTask.setProgress(0.0);
 
         tag1 = dataxTaskService.saveDataxTask(dataxTask);
         int lastTaskId = dataxTaskService.getLastDataxTaskId();
@@ -113,10 +114,7 @@ public class DataxTaskController {
             if (compressType.equals("无")){
                 compressType = "";
             }
-            String where = table.getString("where");
-            if (where.equals("无")){
-                where = "";
-            }
+
 
             String targetTbName = tableName + "__" + dbName;
 
@@ -133,6 +131,104 @@ public class DataxTaskController {
 
             }
 
+
+            // 获取 transform 对象
+            JSONObject transform = table.getJSONObject("where");
+
+            String custom = transform.getString("custom");
+
+            if (custom.equals("无")){
+                custom = "";
+            }
+            JSONArray removeNullArr = transform.getJSONArray("removeNull");
+
+            JSONObject timeFilter = transform.getJSONObject("timeFilter");
+
+            String timeFilterFieldName = "";
+            String timeFilterStart = "";
+            String timeFilterEnd = "";
+            if (!timeFilter.isNull("fieldName")){
+                timeFilterFieldName = timeFilter.getString("fieldName");
+                timeFilterStart = timeFilter.getString("start");
+                timeFilterEnd = timeFilter.getString("end");
+            }
+
+
+            StringBuilder timeFilterStr = new StringBuilder();
+            if (!timeFilterStart.equals("")){
+                timeFilterStr.append(timeFilterFieldName);
+                timeFilterStr.append(" > '");
+                timeFilterStr.append(timeFilterStart);
+                timeFilterStr.append("' ");
+                if (!timeFilterEnd.equals("")){
+                    timeFilterStr.append(" AND ");
+                    timeFilterStr.append(timeFilterFieldName);
+                    timeFilterStr.append(" < '");
+                    timeFilterStr.append(timeFilterEnd);
+                    timeFilterStr.append("' ");
+                }
+            }else if (!timeFilterEnd.equals("")){
+                timeFilterStr.append(timeFilterFieldName);
+                timeFilterStr.append(" < '");
+                timeFilterStr.append(timeFilterEnd);
+                timeFilterStr.append("' ");
+            }
+            if (custom.equals("")){
+                custom += timeFilterStr.toString();
+            }else if (!timeFilterStart.equals("") || !timeFilterEnd.equals("")){
+                custom += " AND " +  timeFilterStr.toString();
+            }
+            // 加入空值过滤
+            StringBuilder removeNullStr = new StringBuilder();
+            for(int j = 0; j < removeNullArr.length();j++){
+                String column = removeNullArr.getString(j);
+                removeNullStr.append(column);
+                removeNullStr.append(" IS NOT NULL ");
+                if (j < removeNullArr.length()-1){
+                    removeNullStr.append("AND ");
+                }
+            }
+            if (custom.equals("") && removeNullStr.length() != 0){
+                custom += removeNullStr.toString();
+            }else if (!custom.equals("") && removeNullStr.length() != 0){
+                custom += " AND " +  removeNullStr.toString();
+            }
+
+
+            JSONArray fuzzyFilter = transform.getJSONArray("fuzzyFilters");
+
+            // 构造 transformer Json 对象
+            JSONArray tansformerJson = new JSONArray();
+
+            // 加入运算符过滤
+            for(int j = 0;j < fuzzyFilter.length();j++){
+                JSONObject fuzzyFilterObj = fuzzyFilter.getJSONObject(j);
+                String fieldName = fuzzyFilterObj.getString("fieldName");
+                String value = fuzzyFilterObj.getString("value");
+                String symbol = fuzzyFilterObj.getString("symbol");
+                if (value.equals("null")&&symbol.equals("=")){
+                    break;
+                }
+                int l = 0;
+                for (Map.Entry<String,String> entry : columnsMap.entrySet()){
+                    if(fieldName.equalsIgnoreCase(entry.getKey())){
+                        break;
+                    }else {
+                        l++;
+                    }
+                }
+                JSONObject filterObj = new JSONObject();
+                filterObj.put("name","dx_filter");
+                JSONObject filterParaObj = new JSONObject();
+                filterParaObj.put("columnIndex",l);
+                List<String> list = new ArrayList<String>();
+                list.add(symbol);
+                list.add(value);
+                filterParaObj.put("paras",list);
+                filterObj.put("parameter",filterParaObj);
+                tansformerJson.put(filterObj);
+            }
+
             // 每个表产生一个任务
             jobInfo = new JobInfo();
             jobInfo.setSourceDbType(dbType);
@@ -143,9 +239,10 @@ public class DataxTaskController {
             jobInfo.setChannel(jobChannel);
             jobInfo.setColumns(columnsMap);
             jobInfo.setCompress(compressType);
-            jobInfo.setWhere(where);
+            jobInfo.setWhere(custom);
             jobInfo.setFileType(fileType);
             jobInfo.setFileName(targetTbName);
+            jobInfo.setTransformer(tansformerJson);
 
             jobInfo.setDefaultFS(jobConfig.getDefaultFS());
             String tablePath = jobConfig.getPath() + "/" +targetHiveDbName + ".db/" + targetTbName;
@@ -182,7 +279,7 @@ public class DataxTaskController {
 
             // 生成任务 json 文件
             DataXJobJson dataXJobJson = new DataXJobJson();
-            dataXJobJson.generateJsonJobFile(jobInfo, lastTaskId);
+            dataXJobJson.generateJsonJobFile2(jobInfo, lastTaskId);
         }
 
         // 开启任务执行线程
@@ -245,7 +342,8 @@ public class DataxTaskController {
                     temp.put("finishTime","");
                 }
 
-                temp.put("taskStatus",dataxTask.getTaskStatus());
+                temp.put("status",dataxTask.getTaskStatus());
+                temp.put("progress",dataxTask.getProgress().toString());
                 tasks.add(temp);
             }
             Map<String,Object> temp = new HashMap<String,Object>();
@@ -273,7 +371,13 @@ public class DataxTaskController {
         Map<String, Object> errorMap = new HashMap<String, Object>();
 
         if(dataxTask != null ){
-            map.put("taskStatus", Integer.parseInt(dataxTask.getTaskStatus()));
+            map.put("status", Integer.parseInt(dataxTask.getTaskStatus()));
+            map.put("progress",dataxTask.getProgress().toString());
+            if (dataxTask.getFinishTime() != null && !"".equals(dataxTask.getFinishTime())) {
+                map.put("finishTime",dataxTask.getFinishTime());
+            }else {
+                map.put("finishTime","");
+            }
             return StatusUtil.querySuccess(map);
         }else {
             return  StatusUtil.error("","查询失败");
