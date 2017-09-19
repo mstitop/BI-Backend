@@ -35,8 +35,9 @@
         from cube_info
         WHERE is_delete = '0'
         <if test="start!=null and size!=null">
-            <!-- 优化 order by limit 当记录多的时候 速度会有明显差距-->
-            and id >=(SELECT id from cube_info WHERE is_delete = '0' ORDER BY id LIMIT #{start},1) LIMIT #{size}
+            <!-- 优化 order by limit 当记录多的时候 速度会有明显差距
+            and id >=(SELECT id from cube_info WHERE is_delete = '0' ORDER BY id LIMIT #{start},1) LIMIT #{size}-->
+            order by id desc limit #{start},#{size}
         </if>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
