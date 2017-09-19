@@ -279,8 +279,8 @@ public class DBUtils {
             ResultSet res = stmt.executeQuery(descTableSql);
             while (res.next()) {
                 Map<String, Object> map  =  new HashMap<String, Object>();
-                map.put("name",res.getString(1));
-                map.put("type",res.getString(2));
+                map.put("name",res.getString(1).toUpperCase());
+                map.put("type",res.getString(2).toLowerCase());
                 list.add(map);
             }
 

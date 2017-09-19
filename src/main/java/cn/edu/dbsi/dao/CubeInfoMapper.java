@@ -25,4 +25,6 @@ public interface CubeInfoMapper {
     List<CubeInfo> selectAllCubeInfo();
 
     List<CubeInfo> selectCubeInfoByPage(Map<String,Object> map);
+
+    int selectLastPrimaryKey();
 }

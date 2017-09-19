@@ -1,5 +1,7 @@
 package cn.edu.dbsi.dataetl.model;
 
+import org.json.JSONArray;
+
 import java.util.Map;
 
 /**
@@ -27,7 +29,17 @@ public class JobInfo {
 
     private String compress;
 
- //   @Value("${target.hdfs.defaultFS}")
+    private JSONArray transformer;
+
+    public JSONArray getTransformer() {
+        return transformer;
+    }
+
+    public void setTransformer(JSONArray transformer) {
+        this.transformer = transformer;
+    }
+
+    //   @Value("${target.hdfs.defaultFS}")
     private String defaultFS;
 
   //  @Value("${target.hdfs.fieldDelimiter}")

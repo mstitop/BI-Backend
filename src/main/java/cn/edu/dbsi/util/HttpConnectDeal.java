@@ -2,7 +2,6 @@ package cn.edu.dbsi.util;
 
 import cn.edu.dbsi.dataetl.util.JobConfig;
 import cn.edu.dbsi.dto.CubeSchema;
-import cn.edu.dbsi.model.Schema;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
@@ -15,6 +14,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -301,6 +301,118 @@ public class HttpConnectDeal {
         return content;
     }
 
+
+    /**
+     *  对kylin 发起 put json 请求
+     * @param uri
+     * @param json
+     * @return
+     */
+    public static String putJson2Kylin(JobConfig jobConfig, String uri, JSONObject json) {
+        // 实例化httpClient
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+
+
+        //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
+        //HttpHost targetHost = new HttpHost("hostname", port, "http");
+        HttpHost targetHost = new HttpHost("10.1.18.211", 7070, "http");
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(
+                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+                new UsernamePasswordCredentials("admin", "KYLIN"));
+        // 创建 AuthCache 实例
+        AuthCache authCache = new BasicAuthCache();
+        // 创建 BASIC scheme 对象 and 将它加入到本地的 auth cache
+        BasicScheme basicAuth = new BasicScheme();
+        authCache.put(targetHost, basicAuth);
+        // 将 AuthCache 加入到执行的上下文
+        HttpClientContext context = HttpClientContext.create();
+        context.setCredentialsProvider(credsProvider);
+        context.setAuthCache(authCache);
+
+        // 实例化put方法
+
+        HttpPut httpPut = new HttpPut(uri);
+        // 结果
+        CloseableHttpResponse response = null;
+        String content = "";
+        try {
+            // 提交的参数
+            StringEntity stringEntity = new StringEntity(json.toString(), "UTF-8");
+
+            stringEntity.setContentType("application/json");
+
+
+            // 将参数给put方法
+            httpPut.setEntity(stringEntity);
+
+            httpPut.setHeader("Content-type", "application/json");
+
+            // 执行put请求
+            response = httpclient.execute(targetHost, httpPut, context);
+
+            if (response.getStatusLine().getStatusCode() == 200) {
+                content = EntityUtils.toString(response.getEntity(), "UTF-8");
+                System.out.println(content);
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
+
+    /**
+     *  对kylin 发起 get 请求
+     * @param uri
+     * @param json
+     * @return
+     */
+    public static String getFromKylin(JobConfig jobConfig, String uri) {
+        // 实例化httpClient
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
+        //HttpHost targetHost = new HttpHost("hostname", port, "http");
+        HttpHost targetHost = new HttpHost("10.1.18.211", 7070, "http");
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(
+                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+                new UsernamePasswordCredentials("admin", "KYLIN"));
+        // 创建 AuthCache 实例
+        AuthCache authCache = new BasicAuthCache();
+        // 创建 BASIC scheme 对象 and 将它加入到本地的 auth cache
+        BasicScheme basicAuth = new BasicScheme();
+        authCache.put(targetHost, basicAuth);
+        // 将 AuthCache 加入到执行的上下文
+        HttpClientContext context = HttpClientContext.create();
+        context.setCredentialsProvider(credsProvider);
+        context.setAuthCache(authCache);
+
+        // 实例化get方法
+
+        HttpGet httpGet = new HttpGet(uri);
+        // 结果
+        CloseableHttpResponse response = null;
+        String content = "";
+        try {
+
+            // 执行put请求
+            response = httpclient.execute(targetHost, httpGet, context);
+
+            if (response.getStatusLine().getStatusCode() == 200) {
+                content = EntityUtils.toString(response.getEntity(), "UTF-8");
+                System.out.println(content);
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
     public static String postStream(String urlStr) {
         try {
             URL url = new URL(urlStr);

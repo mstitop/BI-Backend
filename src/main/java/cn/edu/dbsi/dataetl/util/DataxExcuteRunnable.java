@@ -25,12 +25,12 @@ public class DataxExcuteRunnable implements Runnable{
     public void run() {
         DataXTaskExcute dataXTaskExcute = new DataXTaskExcute();
 
-        boolean fail_flag = dataXTaskExcute.execute(dataxTask, jobList);
+        boolean fail_flag = dataXTaskExcute.execute(dataxTaskService,dataxTask, jobList);
 
         dataxTask.setFinishTime(new Date());
 
         if (fail_flag) {
-            dataxTask.setTaskStatus("2");
+            dataxTask.setTaskStatus("0");
         } else {
             dataxTask.setTaskStatus("1");
         }

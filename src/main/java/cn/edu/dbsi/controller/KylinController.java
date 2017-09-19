@@ -2,8 +2,11 @@ package cn.edu.dbsi.controller;
 
 import cn.edu.dbsi.dataetl.model.*;
 import cn.edu.dbsi.dataetl.util.JobConfig;
+import cn.edu.dbsi.dataetl.util.KylinCubeRunnable;
+import cn.edu.dbsi.dto.CubeSchema;
 import cn.edu.dbsi.interceptor.LoginRequired;
-import cn.edu.dbsi.service.HiveTableInfoService;
+import cn.edu.dbsi.model.*;
+import cn.edu.dbsi.service.*;
 import cn.edu.dbsi.util.DBUtils;
 import cn.edu.dbsi.util.HttpConnectDeal;
 import cn.edu.dbsi.util.StatusUtil;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +36,22 @@ public class KylinController {
 
     @Autowired
     private HiveTableInfoService hiveTableInfoService;
+    @Autowired
+    private DataxTaskService dataxTaskService;
+    @Autowired
+    private SchemaServiceI schemaServiceI;
+    @Autowired
+    private DimensionServiceI dimensionServiceI;
+    @Autowired
+    private DimensionAttributeServiceI dimensionAttributeServiceI;
+    @Autowired
+    private MeasureGroupServiceI measureGroupServiceI;
+    @Autowired
+    private MeasuresServiceI measuresServiceI;
+    @Autowired
+    private DimensionLinkServiceI dimensionLinkServiceI;
+    @Autowired
+    private CubeInfoServiceI cubeInfoServiceI;
     @Autowired
     private JobConfig jobConfig;
 
@@ -53,7 +73,7 @@ public class KylinController {
                     return StatusUtil.error("", "获取 hive 表信息出错！");
                 }
                 tableMap.put("name", tableName);
-                tableMap.put("fileds", list);
+                tableMap.put("fields", list);
 
                 tablesList.add(tableMap);
             }
@@ -72,6 +92,7 @@ public class KylinController {
      * @param request
      * @return
      */
+
     @RequestMapping(value = "/kylin/cube", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> createCube(@RequestBody Map<String, Object> json, HttpServletRequest request) {
@@ -80,6 +101,8 @@ public class KylinController {
         List<KylinLookup> kylinLookupList = new ArrayList<KylinLookup>();
         List<KylinDimension> kylinDimensionsList = new ArrayList<KylinDimension>();
         List<KylinMeasure> kylinMeasuresList = new ArrayList<KylinMeasure>();
+
+        StringBuilder saiku = new StringBuilder();
 
         JSONObject obj = new JSONObject(json);
         String cubeName = obj.getString("name");
@@ -95,7 +118,9 @@ public class KylinController {
 
         KylinTable kylinTable = new KylinTable();
         String factTable = hiveDbName + "." + tablesObj.getString("factTable");
+        String factTablePrimaryKey = tablesObj.getString("factTableKey");
         kylinTable.setFactTable(factTable);
+        kylinTable.setFactTablePrimaryKey(factTablePrimaryKey);
         // 解析 lookup 信息
         JSONArray lookups = tablesObj.getJSONArray("lookups");
         for (int i = 0; i < lookups.length(); i++) {
@@ -119,8 +144,15 @@ public class KylinController {
             kylinDimension.setName(dimensionObj.getString("name"));
             String tableName = hiveDbName + "." + dimensionObj.getString("tableName");
             kylinDimension.setTableName(tableName);
-            kylinDimension.setKeyAttribute(dimensionObj.getString("keyAttribute"));
-
+            if(tableName.equals(factTable)){
+                kylinDimension.setKeyAttribute(factTablePrimaryKey);
+            }else {
+                for (KylinLookup kylinLookup:kylinLookupList){
+                    if(kylinLookup.getName().equals(tableName)){
+                        kylinDimension.setKeyAttribute(kylinLookup.getPrimaryKey());
+                    }
+                }
+            }
             JSONArray columnsObj = dimensionObj.getJSONArray("columns");
             StringBuffer cols = new StringBuffer();
             for (int j = 0; j < columnsObj.length(); j++) {
@@ -163,7 +195,7 @@ public class KylinController {
         tables.append(kylinTable1.getFactTable());
         String project = jobConfig.getKylinProject();
 
-        int tagModel = 1,tagCube = 1;
+        int tagModel = 1,tagCube = 1,tagLoad = 1,tagSaiku = 1, buildTag = 1;
         // 生成 kylin model json
         JSONObject modelObj = cube2KylinModel(kylinCube);
         System.out.println(modelObj);
@@ -177,62 +209,363 @@ public class KylinController {
         String kylinModelApi = jobConfig.getKylinUrl() + "/api/models";
         String kylinCubeApi = jobConfig.getKylinUrl() + "/api/cubes";
 
-        String modelResponse = HttpConnectDeal.postJson2Kylin(jobConfig,kylinModelApi,modelObj);
-        System.out.println(modelResponse);
-        if (modelResponse == "" || modelResponse == null){
-            tagModel  = 0;
+        String loadResponse = HttpConnectDeal.postJson2Kylin(jobConfig,kylinLoadHiveApi,new JSONObject());
+        if (loadResponse == "" || loadResponse == null){
+            tagLoad  = 0;
         }else {
-            try{
-                JSONObject modelResponseObj = new JSONObject(modelResponse);
-                if (!modelResponseObj.getBoolean("successful")){
-                    tagModel  = 0;
+            try {
+                JSONObject loadResponseObj = new JSONObject(loadResponse);
+                if (loadResponseObj.getJSONArray("result.unloaded").length() != 0) {
+                    tagLoad = 0;
                 }
-            }catch (JSONException e){
-                tagModel  = 0;
+            } catch (JSONException e) {
+                tagLoad = 0;
             }
+
         }
+
+        if(tagLoad == 0){
+            return StatusUtil.error("", "导入 Hive 表失败");
+        }else {
+            String modelResponse = HttpConnectDeal.postJson2Kylin(jobConfig,kylinModelApi,modelObj);
+            tagModel = isSuccessful(modelResponse);
+        }
+
+
         if (tagModel == 0){
             return StatusUtil.error("", "生成 model 失败");
         }else {
             String cubeResponse = HttpConnectDeal.postJson2Kylin(jobConfig,kylinCubeApi,cubeObj);
-            if (cubeResponse == "" || cubeResponse == null){
-                tagCube  = 0;
-            }else {
-                try{
-                    JSONObject cubeResponseObj = new JSONObject(cubeResponse);
-                    if (!cubeResponseObj.getBoolean("successful")){
-                        tagCube  = 0;
-                    }
-                }catch (JSONException e){
-                    tagCube  = 0;
-                }
-            }
+            tagCube = isSuccessful(cubeResponse);
         }
+        CubeSchema cubeSchema;
+        Schema schema;
+        CubeInfo cubeInfo;
+        String saikuPath = request.getSession().getServletContext().getRealPath("/saiku") + File.separator;
+
         if (tagCube == 0){
             return StatusUtil.error("", "生成 cube 失败");
         }else {
-            // 将 kylinCube 解析成 schema 形式
+            // 将 kylinCube 解析成 schema 形式,并存入数据库
 
-            // 给 saiku 传递 schema.xml
+            Map<String,Object> saikuMap = cube2SaikuSchema(kylinCube,saikuPath);
+            tagSaiku = (Integer)saikuMap.get("isSuccess");
+            cubeSchema = (CubeSchema)saikuMap.get("cubeSchema");
+            schema = (Schema)saikuMap.get("schema");
+            cubeInfo = (CubeInfo)saikuMap.get("cubeInfo");
+        }
+        if(tagSaiku == 0){
+            return StatusUtil.error("", "存储 saiku schema 表失败");
+        }else {
+            String kylinBuildCubeApi = jobConfig.getKylinUrl() + "/api/cubes/" + cubeName + "/rebuild";
+
+            JSONObject buildJson = new JSONObject();
+            buildJson.put("startTime","0");
+            buildJson.put("endTime","3153600000000");
+            buildJson.put("buildType","BUILD");
+            String buildResponse = HttpConnectDeal.putJson2Kylin(jobConfig,kylinBuildCubeApi,buildJson);
+            if (buildResponse == "" || buildResponse == null){
+                buildTag  = 0;
+            }else {
+                try {
+                    JSONObject buildResponseObj = new JSONObject(buildResponse);
+                    buildResponseObj.get("uuid");
+                } catch (JSONException e) {
+                    buildTag = 0;
+                }
+
+            }
         }
 
+        if (buildTag == 0){
+            return StatusUtil.error("", "构建 cube 失败");
+        }else {
+            // 开启监控 cube 是否构建完成任务执行线程
+            Runnable excuteRunnable = new KylinCubeRunnable(cubeInfo,cubeSchema,schemaServiceI,cubeInfoServiceI,jobConfig,saikuPath);
+            Thread thread = new Thread(excuteRunnable);
+            thread.start();
+        }
 
         return StatusUtil.updateOk();
+
     }
 
+
+
     /**
-     * 执行构建 cube
+     * 1 查询 cube 是否构建完成
+     * 2 向 saiku 发送cube schema xml信息
+     *
+     * 没有写是否构建出错的判断，可以获取构建cube返回的 uuid，其为job id 然后查看 job 状态来判断
+     * 或者 查看 cube 信息，其中有 last_build_job_id 字段，但此字段若 Build cube job 为完成则为  null ，还未测试 job 为 error 的情况下 last_build_job_id 是否会显示 job id
      * @param cubeName
      * @return
      */
-    @RequestMapping(value = "/kylin/{cubeName}/build", method = RequestMethod.GET)
+    @RequestMapping(value = "/kylin/{cubeName}/get", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> builtCube(@PathVariable("cubeName") String cubeName) {
+    public ResponseEntity<?> getCube(@PathVariable("cubeName") String cubeName) {
+        String kylinGetCubeApi = jobConfig.getKylinUrl() + "/api/cubes/" + cubeName;
 
 
-            return null;
+        String getResponse = HttpConnectDeal.postJson2Kylin(jobConfig,kylinGetCubeApi,new JSONObject());
+        int getTag = 1;
+        int isReady = 0;
+        if (getResponse == "" || getResponse == null){
+            getTag  = 0;
+        }else {
+            try {
+                JSONObject buildResponseObj = new JSONObject(getResponse);
+                if(buildResponseObj.get("status").equals("READY")){
+                    isReady = 1;
+                }
+            } catch (JSONException e) {
+                getTag = 0;
+            }
+
+        }
+
+        if (getTag == 0){
+            return StatusUtil.error("", "查询 cube 失败");
+        }
 
 
+
+
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+        returnMap.put("cubeStatus",isReady);
+
+        return StatusUtil.querySuccess(returnMap);
+
+    }
+
+
+    private Map<String, Object> cube2SaikuSchema(KylinCube kylinCube,String path){
+        // saiku xml 需要表名全部大写，去掉  bi_1. 数据库前缀
+        // Dimension 需要加入主键
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+        int tag = 0, tag2 = 0, tag3 = 0, tag4 = 0, tag5 = 0, tag6 = 0;
+        List<SchemaDimension> schemaDimensions = new ArrayList<SchemaDimension>();
+        List<SchemaMeasureGroup> schemaMeasureGroups = new ArrayList<SchemaMeasureGroup>();
+
+        List<SchemaMeasure> schemaMeasures = new ArrayList<SchemaMeasure>();
+        List<SchemaDimensionMeasure> schemaDimensionMeasures = new ArrayList<SchemaDimensionMeasure>();
+        Schema schema = new Schema();
+        CubeSchema cubeSchema = new CubeSchema();
+        CubeInfo cubeInfo = new CubeInfo();
+
+        DataxTask dataxTask = dataxTaskService.getDataxTaskById(kylinCube.getTaskId());
+        String schemaName = kylinCube.getName();
+        int bpid = dataxTask.getBusinessPackageId();
+        // 此时数据库为 hive ，用0标识
+        int bdid = 0;
+
+        String description = kylinCube.getDescription();
+        cubeSchema.setName(schemaName);
+        cubeSchema.setCubeName(schemaName);
+        cubeSchema.setBusinessPackageId(bpid);
+
+        schema.setName(schemaName);
+
+        cubeInfo.setName(schemaName);
+        cubeInfo.setBpOrDataxId(bpid);
+        cubeInfo.setDescription(description);
+        cubeInfo.setCategory("kylin");
+        cubeInfo.setStatus("2");
+        cubeInfo.setIsDelete("0");
+        cubeInfoServiceI.addCubeInfo(cubeInfo);
+
+        int lastCubeId = cubeInfoServiceI.getLastCubeInfoId();
+        cubeInfo.setId(lastCubeId);
+
+        schema.setCubeId(cubeInfoServiceI.selectLastCubeInfoPrimaryKey());
+
+        StringBuilder tableNames = new StringBuilder();
+        KylinTable kylinTable = kylinCube.getKylinTables();
+        List<KylinLookup> kylinLookups = kylinTable.getKylinLookups();
+        //取出所有table的名字，存入到schema表中
+        tableNames.append(kylinTable.getFactTable().split("[.]")[1].toUpperCase() + ",");
+        int count = 0;
+        for (KylinLookup kylinLookup:kylinLookups){
+            count ++;
+            tableNames.append(kylinLookup.getName().split("[.]")[1].toUpperCase());
+            if(count < kylinLookups.size()){
+                tableNames.append(",");
+            }
+
+        }
+        schema.setTableNames(tableNames.toString());
+        cubeSchema.setTableNames(tableNames.toString());
+        //将第一个指标名作为default_ measure _name
+        List<KylinMeasure> kylinMeasuresList = kylinCube.getKylinMeasuresList();
+        schema.setDefaultMeasureName(kylinMeasuresList.get(0).getName());
+        schema.setIsdelete("0");
+
+        cubeSchema.setDefaultMeasureName(kylinMeasuresList.get(0).getName());
+        cubeSchema.setIsdelete("0");
+        tag = schemaServiceI.addSchema(schema);
+        int schemaLastId = schemaServiceI.getLastSchemaId();
+        //设定ID 是为了在生成schema文件时，用来匹配各个节点
+        schema.setId(schemaLastId);
+        cubeSchema.setId(schemaLastId);
+        cubeInfo.setSchemaId(schemaLastId);
+
+        //更新是为了将Schema_id插入
+        cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
+        // 存储维度和维度属性值
+        List<KylinDimension> kylinDimensionList = kylinCube.getKylinDimensionsList();
+        for (KylinDimension kylinDimension:kylinDimensionList){
+            List<SchemaDimensionAttribute> schemaDimensionAttributes = new ArrayList<SchemaDimensionAttribute>();
+            SchemaDimension schemaDimension = new SchemaDimension();
+            String dimensionName = kylinDimension.getName();
+            String dimensionTableName = kylinDimension.getTableName().split("[.]")[1].toUpperCase();
+            String key_attribute = kylinDimension.getKeyAttribute();
+            schemaDimension.setSchemaId(schemaLastId);
+            schemaDimension.setName(dimensionName);
+            schemaDimension.setTableName(dimensionTableName);
+            schemaDimension.setKey(key_attribute);
+            tag2 = dimensionServiceI.addDimension(schemaDimension);
+            int dimensionId = dimensionServiceI.getLastDimensionId();
+            schemaDimension.setId(dimensionId);
+
+            String colStr = kylinDimension.getColumns();
+            String[] colsStr = colStr.split(",");
+            boolean isExist = false;
+            for (String col : colsStr) {
+                SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
+                String attributeName = col.split("-")[1];
+                String fieldName = col.split("-")[0];
+                if (fieldName.equalsIgnoreCase(kylinTable.getFactTablePrimaryKey())) {
+                    isExist = true;
+                }
+                for (KylinLookup kylinLookup : kylinLookups) {
+                    if (fieldName.equalsIgnoreCase(kylinLookup.getPrimaryKey())) {
+                        isExist = true;
+                    }
+                }
+                schemaDimensionAttribute.setDimensionId(dimensionId);
+                schemaDimensionAttribute.setName(attributeName);
+                schemaDimensionAttribute.setFieldName(fieldName);
+                tag3 = dimensionAttributeServiceI.addDimensionAttribute(schemaDimensionAttribute);
+                schemaDimensionAttributes.add(schemaDimensionAttribute);
+            }
+            // 给当前维度增加，相应表的主键属性
+            SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
+            String attributeName = "";
+            String fieldName = "";
+            if (!isExist) {
+                if(kylinDimension.getTableName().equals(kylinTable.getFactTable())){
+                    attributeName = kylinTable.getFactTablePrimaryKey();
+                    fieldName = kylinTable.getFactTablePrimaryKey();
+                }else {
+                    for (KylinLookup kylinLookup:kylinLookups){
+                        if (kylinDimension.getTableName().equals(kylinLookup.getName())){
+                            attributeName = kylinLookup.getPrimaryKey();
+                            fieldName = kylinLookup.getPrimaryKey();
+                            break;
+                        }
+                    }
+                }
+                schemaDimensionAttribute.setDimensionId(dimensionId);
+                schemaDimensionAttribute.setName(attributeName);
+                schemaDimensionAttribute.setFieldName(fieldName);
+                tag3 = dimensionAttributeServiceI.addDimensionAttribute(schemaDimensionAttribute);
+                schemaDimensionAttributes.add(schemaDimensionAttribute);
+            }
+
+            schemaDimension.setSchemaDimensionAttributes(schemaDimensionAttributes);
+            schemaDimensions.add(schemaDimension);
+        }
+        //存储有关指标的值
+        SchemaMeasureGroup schemaMeasureGroup = new SchemaMeasureGroup();
+        schemaMeasureGroup.setName(kylinTable.getFactTable().split("[.]")[1].toUpperCase());
+        schemaMeasureGroup.setTableName(kylinTable.getFactTable().split("[.]")[1].toUpperCase());
+        schemaMeasureGroup.setSchemaId(schemaLastId);
+        tag4 = measureGroupServiceI.addMeasureGroup(schemaMeasureGroup);
+        int measureGroupId = measureGroupServiceI.getLastMeasureGroupId();
+        schemaMeasureGroup.setId(measureGroupId);
+        for(KylinMeasure kylinMeasure:kylinMeasuresList){
+            if (kylinMeasure.getName().equals("_COUNT_")||kylinMeasure.getParamType().equals("constant")) {
+                continue;
+            }
+            SchemaMeasure schemaMeasure = new SchemaMeasure();
+
+            String measureName = kylinMeasure.getName();
+            String fieldName = kylinMeasure.getParamValue();
+            String aggregator = kylinMeasure.getExpression();
+            if (aggregator.equals("COUNT_DISTINCT")){
+                aggregator = "distinct-count";
+            }
+            // 将计算方法改为 saiku 支持的方法
+            aggregator = aggregator.toLowerCase();
+            String formatStyle = "Standard";
+            schemaMeasure.setName(measureName);
+            schemaMeasure.setFieldName(fieldName);
+            schemaMeasure.setAggregator(aggregator);
+            schemaMeasure.setFormatStyle(formatStyle);
+            schemaMeasure.setMeasureGroupId(measureGroupId);
+            tag5 = measuresServiceI.addMeasures(schemaMeasure);
+            schemaMeasures.add(schemaMeasure);
+        }
+        for (KylinDimension kylinDimension:kylinDimensionList){
+            SchemaDimensionMeasure schemaDimensionMeasure = new SchemaDimensionMeasure();
+            String dimensionName = kylinDimension.getName();
+            String foreignKey = kylinDimension.getKeyAttribute();
+            String isForeign = "";
+            if(kylinDimension.getTableName().equals(kylinTable.getFactTable())){
+                isForeign = "false";
+            }else {
+                isForeign = "true";
+            }
+            schemaDimensionMeasure.setForeignKey(foreignKey);
+            schemaDimensionMeasure.setIsForeign(isForeign);
+            schemaDimensionMeasure.setDimensionName(dimensionName);
+            schemaDimensionMeasure.setMeasureGroupId(measureGroupId);
+            for(SchemaDimension schemaDimension: schemaDimensions){
+                if (schemaDimension.getTableName().equalsIgnoreCase(kylinDimension.getTableName())){
+                    schemaDimensionMeasure.setDimensionId(schemaDimension.getId());
+                    break;
+                }
+            }
+            tag6 = dimensionLinkServiceI.addDimensionLink(schemaDimensionMeasure);
+            schemaDimensionMeasures.add(schemaDimensionMeasure);
+        }
+        schemaMeasureGroup.setSchemaMeasures(schemaMeasures);
+        schemaMeasureGroup.setSchemaDimensionMeasures(schemaDimensionMeasures);
+        schemaMeasureGroups.add(schemaMeasureGroup);
+        if (tag == 1 && tag2 == 1 && tag3 == 1 && tag4 == 1 && tag5 == 1 && tag6 == 1) {
+            cubeSchema.setSchemaDimensions(schemaDimensions);
+            cubeSchema.setSchemaMeasureGroups(schemaMeasureGroups);
+            schema.setSchemaDimensions(schemaDimensions);
+            schema.setSchemaMeasureGroups(schemaMeasureGroups);
+            cubeSchema.setAddress(path + cubeSchema.getName());
+            schema.setAddress(path + cubeSchema.getName());
+            schemaServiceI.updateSchema(schema);
+            returnMap.put("isSuccess",1);
+            returnMap.put("cubeSchema",cubeSchema);
+            returnMap.put("schema",schema);
+            returnMap.put("cubeInfo",cubeInfo);
+            return returnMap;
+        }else {
+            returnMap.put("isSuccess",0);
+            return returnMap;
+        }
+    }
+    private int isSuccessful(String response){
+        int tag = 1;
+        if (response == "" || response == null){
+            tag  = 0;
+        }else {
+            try {
+                JSONObject modelResponseObj = new JSONObject(response);
+                if (!modelResponseObj.getBoolean("successful")) {
+                    tag = 0;
+                }
+            } catch (JSONException e) {
+                tag = 0;
+            }
+
+        }
+        return tag;
     }
     private JSONObject cube2KylinModel(KylinCube kylinCube) {
         JSONObject modelObj = new JSONObject();
@@ -358,6 +691,9 @@ public class KylinController {
         hbase_map_f1_list.add("_COUNT_");
         List<String> hbase_map_f2_list = new ArrayList<String>();
         for (KylinMeasure kylinMeasure : kylinMeasureList) {
+            if (kylinMeasure.getParamType().equalsIgnoreCase("count")){
+                continue;
+            }
             JSONObject measureObj = new JSONObject();
             measureObj.put("name", kylinMeasure.getName());
             JSONObject funcObj = new JSONObject();
@@ -370,7 +706,6 @@ public class KylinController {
             funcObj.put("parameter",paraObj);
 
             measureObj.put("function", funcObj);
-
             measuresArr.put(measureObj);
 
             if (kylinMeasure.getExpression().equals("COUNT_DISTINCT")) {
@@ -398,6 +733,26 @@ public class KylinController {
         List<String> dictionariesTempList = new ArrayList<String>();
         cubeObj.put("dictionaries", dictionariesTempList);
 
+        // 在 rowkey 中增加 事实表中未出现的维表中的主键字段
+        List<KylinLookup> kylinLookupList = kylinTable.getKylinLookups();
+        for (KylinLookup kylinLookup : kylinLookupList) {
+            String column = kylinLookup.getForeignKey();
+            boolean flag = false;
+            for (int i = 0; i < rowColArr.length(); i++) {
+                JSONObject rowKey = rowColArr.getJSONObject(i);
+                if (column.equals(rowKey.getString("column"))) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                continue;
+            }
+            JSONObject rowcolObj = new JSONObject();
+            rowcolObj.put("column", column);
+            rowcolObj.put("encoding", "dict");
+            rowcolObj.put("isShardBy", false);
+            rowColArr.put(rowcolObj);
+        }
         JSONObject rowkeyObj = new JSONObject();
         rowkeyObj.put("rowkey_columns", rowColArr);
 

@@ -1,6 +1,11 @@
 package cn.edu.dbsi.test;
 
+import cn.edu.dbsi.dataetl.util.JobConfig;
+import cn.edu.dbsi.util.HttpConnectDeal;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Skye on 2017/8/6.
@@ -16,6 +21,8 @@ public class KylinTest {
 
 
         JSONObject modelObj = new JSONObject();
+        List list = new ArrayList();
+        modelObj.put("list",list);
         modelObj.put("project","game_inner");
         modelObj.put("modelName","test_model5");
         modelObj.put("modelDescData","{\"name\": \"test_model5\",  \"owner\": \"ADMIN\",  \"description\": \"\",  \"fact_table\": \"DEFAULT.FACT_GAME\",  \"lookups\": [    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"join\": {        \"type\": \"inner\",        \"primary_key\": [          \"LOCATIONID\"        ],        \"foreign_key\": [          \"LOCATIONID\"        ]      }    }  ],  \"dimensions\": [    {      \"table\": \"DEFAULT.FACT_GAME\",      \"columns\": [        \"STARTTIME\",        \"USERID\",        \"GAME\",        \"TYPEID\",        \"DURATION\",        \"LOCATIONID\"      ]    },    {      \"table\": \"DEFAULT.DIM_LOCATION\",      \"columns\": [        \"LOCATIONID\",        \"LOCATION\"      ]    }  ],  \"metrics\": [    \"STARTTIME\",    \"USERID\",    \"GAME\"  ],  \"filter_condition\": \"\",  \"partition_desc\": {   \"partition_date_start\": 0,    \"partition_date_format\": \"yyyy-MM-dd\",    \"partition_time_format\": \"HH:mm:ss\",    \"partition_type\": \"APPEND\",    \"partition_condition_builder\": \"org.apache.kylin.metadata.model.PartitionDesc$DefaultPartitionConditionBuilder\"  },  \"capacity\": \"MEDIUM\"}");
@@ -26,5 +33,34 @@ public class KylinTest {
         JSONObject obj = new JSONObject(response);
         System.out.println(obj);
         System.out.println("response: "+response);*/
+
+        //String content = HttpConnectDeal.postJson2Kylin("http://10.1.18.211:7070/kylin/api/tables/default.sample_07/BI_test", new JSONObject());
+        //System.out.println(content);
+//        System.out.println(modelObj);
+//        int a = 1;
+//        try {
+//
+//
+//        if(modelObj.getJSONArray("li").isNull(0)){
+//            System.out.println("yes");
+//        }
+//        }catch (JSONException e){
+//            a = 0;
+//        }
+//        System.out.println(a);
+//        System.out.println("done");
+        //JSONArray jsonArray = modelObj.getJSONArray("li");
+        //System.out.println(jsonArray.length());
+//        String kylinBuildCubeApi = "http://10.1.18.211:7070/kylin/" + "/api/cubes/" + "test2" + "/rebuild";
+          JobConfig jobConfig = new JobConfig();
+//        JSONObject buildJson = new JSONObject();
+//        buildJson.put("startTime","0");
+//        buildJson.put("endTime","3153600000000");
+//        buildJson.put("buildType","BUILD");
+//        String buildResponse = HttpConnectDeal.putJson2Kylin(jobConfig,kylinBuildCubeApi,buildJson);
+
+        String kylinGetCubeApi = "http://10.1.18.211:7070/kylin/" + "/api/cubes/" + "test2";
+        String buildResponse = HttpConnectDeal.getFromKylin(jobConfig,kylinGetCubeApi);
+
     }
 }

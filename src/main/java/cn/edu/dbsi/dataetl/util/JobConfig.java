@@ -49,6 +49,17 @@ public class JobConfig {
     @Value("${KYLIN_URL}")
     private String KylinUrl;
 
+    @Value("${KYLIN_JDBC_URL}")
+    private String kylinJdbc;
+
+    public String getKylinJdbc() {
+        return kylinJdbc;
+    }
+
+    public void setKylinJdbc(String kylinJdbc) {
+        this.kylinJdbc = kylinJdbc;
+    }
+
     public String getKylinUrl() {
         return KylinUrl;
     }
