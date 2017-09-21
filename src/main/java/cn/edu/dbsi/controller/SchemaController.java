@@ -99,7 +99,8 @@ public class SchemaController {
         cubeInfo.setStatus("1");
         cubeInfo.setIsDelete("0");
         cubeInfoServiceI.addCubeInfo(cubeInfo);
-        schema.setCubeId(cubeInfoServiceI.selectLastCubeInfoPrimaryKey());
+        int cubeLastId = cubeInfoServiceI.selectLastCubeInfoPrimaryKey();
+        schema.setCubeId(cubeLastId);
         JSONArray tableName = obj.getJSONArray("tableName");
         JSONArray dimensions = obj.getJSONArray("dimensions");
         JSONArray measureGroups = obj.getJSONArray("measureGroups");
@@ -121,6 +122,7 @@ public class SchemaController {
         cubeSchema.setId(schemaLastId);
         schema.setId(schemaLastId);
         cubeInfo.setSchemaId(schemaLastId);
+        cubeInfo.setId(cubeLastId);
         //更新是为了将Schema_id插入
         cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
         //解析json数据中的维度和维度属性值
