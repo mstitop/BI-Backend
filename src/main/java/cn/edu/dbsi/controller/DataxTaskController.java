@@ -116,7 +116,7 @@ public class DataxTaskController {
             }
 
 
-            String targetTbName = tableName + "__" + dbName;
+            String targetTbName = tableName + "_t" + lastTaskId;
 
             JSONArray fields = table.getJSONArray("fields");
 

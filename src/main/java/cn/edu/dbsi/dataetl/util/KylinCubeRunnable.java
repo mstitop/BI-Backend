@@ -16,6 +16,7 @@ import org.xml.sax.InputSource;
 
 import java.io.FileOutputStream;
 import java.io.StringReader;
+import java.util.Date;
 
 /**
  * Created by Skye on 2017/9/4.
@@ -27,7 +28,9 @@ public class KylinCubeRunnable implements Runnable{
     private CubeInfo cubeInfo;
     private JobConfig jobConfig;
     private String path;
-    public KylinCubeRunnable(CubeInfo cubeInfo,CubeSchema cubeSchema, SchemaServiceI schemaServiceI, CubeInfoServiceI cubeInfoServiceI, JobConfig jobConfig, String path) {
+    private String uuid;
+    public KylinCubeRunnable(String uuid,CubeInfo cubeInfo,CubeSchema cubeSchema, SchemaServiceI schemaServiceI, CubeInfoServiceI cubeInfoServiceI, JobConfig jobConfig, String path) {
+        this.uuid = uuid;
         this.cubeSchema = cubeSchema;
         this.schemaServiceI = schemaServiceI;
         this.jobConfig = jobConfig;
@@ -37,21 +40,28 @@ public class KylinCubeRunnable implements Runnable{
     }
 
     public void run() {
-        final long timeInterval = 300000;// 十分钟运行一次
+        final long timeInterval = 120000;// 两分钟运行一次
         boolean tag = true;
         while (tag) {
             // ------- code for task to run
             String kylinGetCubeApi = jobConfig.getKylinUrl() + "/api/cubes/" + cubeSchema.getCubeName();
-            String getResponse = HttpConnectDeal.getFromKylin(jobConfig,kylinGetCubeApi);
+            String kylinGetJobApi = jobConfig.getKylinUrl() + "/api/jobs/" + uuid;
+            String getResponse = HttpConnectDeal.getFromKylin(jobConfig,kylinGetJobApi);
             boolean getTag = true;
             boolean isReady = false;
+            double progress;
             if (getResponse == "" || getResponse == null){
                 getTag  = false;
             }else {
                 try {
                     JSONObject buildResponseObj = new JSONObject(getResponse);
-                    if(buildResponseObj.get("status").equals("READY")){
+                    if(buildResponseObj.get("job_status").equals("FINISHED")){
                         isReady = true;
+                        progress = buildResponseObj.getDouble("progress");
+                        cubeInfo.setProgress(progress);
+                    }else if (buildResponseObj.get("job_status").equals("RUNNING")){
+                        progress = buildResponseObj.getDouble("progress");
+                        cubeInfo.setProgress(progress);
                     }
                 } catch (JSONException e) {
                     getTag = false;
@@ -63,11 +73,12 @@ public class KylinCubeRunnable implements Runnable{
                 // 查询失败
                 tag = false;
                 cubeInfo.setStatus("2");
-                cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
-            }else if (isReady){
+                cubeInfo.setFinishTime(new Date());
+            }
+            if (isReady){
                 // 查询成功 ，已构建完成
                 cubeInfo.setStatus("1");
-                cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
+                cubeInfo.setFinishTime(new Date());
                 tag = false;
                 // 生成 schema 文件 ，并向 saiku 传递 xml
                 StringBuilder saiku = new StringBuilder();
@@ -102,7 +113,9 @@ public class KylinCubeRunnable implements Runnable{
                     e.printStackTrace();
                 }
             }
+            // 更新信息
 
+            cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
             try {
                 Thread.sleep(timeInterval);
             } catch (Exception e) {
