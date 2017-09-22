@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -98,6 +99,7 @@ public class SchemaController {
         cubeInfo.setCategory("normal");
         cubeInfo.setStatus("1");
         cubeInfo.setIsDelete("0");
+        cubeInfo.setCreateTime(new Date());
         cubeInfoServiceI.addCubeInfo(cubeInfo);
         int cubeLastId = cubeInfoServiceI.selectLastCubeInfoPrimaryKey();
         schema.setCubeId(cubeLastId);
@@ -123,8 +125,7 @@ public class SchemaController {
         schema.setId(schemaLastId);
         cubeInfo.setSchemaId(schemaLastId);
         cubeInfo.setId(cubeLastId);
-        //更新是为了将Schema_id插入
-        cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
+
         //解析json数据中的维度和维度属性值
         for (int i = 0; i < dimensions.length(); i++) {
             SchemaDimension schemaDimension = new SchemaDimension();
@@ -229,6 +230,10 @@ public class SchemaController {
                 DbconnInfo dbconnInfo = dbConnectionServiceI.getDbconnInfoById(bdid);
                 JSONObject dbconnInfoObj = dbconnInfoToObj(dbconnInfo, cubeSchema);
                 HttpConnectDeal.postJson("http://10.1.18.205:8080/saiku/rest/saiku/admin/datasources", dbconnInfoObj);
+                cubeInfo.setFinishTime(new Date());
+                cubeInfo.setProgress(Double.valueOf(100));
+                //更新是为了将Schema_id插入
+                cubeInfoServiceI.updateCubeInfoByPrimaryKey(cubeInfo);
 
             } catch (Exception e) {
                 e.printStackTrace();
