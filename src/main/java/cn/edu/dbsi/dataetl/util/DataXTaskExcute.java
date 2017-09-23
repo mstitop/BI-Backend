@@ -72,7 +72,7 @@ public class DataXTaskExcute {
                 }
 
                 if (!breakFlag){
-                    dataxTask.setProgress((t1 + 1)/(allTableStatus.size()*1.0));
+                    dataxTask.setProgress((t1 + 1)*100/(allTableStatus.size()*1.0));
                     dataxTaskService.updateDataxTask(dataxTask);
                 }
                 jobInfo.setHasException(hasException);

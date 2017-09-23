@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Skye on 2017/7/31.
@@ -254,6 +251,8 @@ public class KylinController {
             schema = (Schema)saikuMap.get("schema");
             cubeInfo = (CubeInfo)saikuMap.get("cubeInfo");
         }
+
+        String jobUuid = "";
         if(tagSaiku == 0){
             return StatusUtil.error("", "存储 saiku schema 表失败");
         }else {
@@ -269,7 +268,7 @@ public class KylinController {
             }else {
                 try {
                     JSONObject buildResponseObj = new JSONObject(buildResponse);
-                    buildResponseObj.get("uuid");
+                    jobUuid = buildResponseObj.getString("uuid");
                 } catch (JSONException e) {
                     buildTag = 0;
                 }
@@ -281,7 +280,7 @@ public class KylinController {
             return StatusUtil.error("", "构建 cube 失败");
         }else {
             // 开启监控 cube 是否构建完成任务执行线程
-            Runnable excuteRunnable = new KylinCubeRunnable(cubeInfo,cubeSchema,schemaServiceI,cubeInfoServiceI,jobConfig,saikuPath);
+            Runnable excuteRunnable = new KylinCubeRunnable(jobUuid,cubeInfo,cubeSchema,schemaServiceI,cubeInfoServiceI,jobConfig,saikuPath);
             Thread thread = new Thread(excuteRunnable);
             thread.start();
         }
@@ -372,6 +371,8 @@ public class KylinController {
         cubeInfo.setCategory("kylin");
         cubeInfo.setStatus("2");
         cubeInfo.setIsDelete("0");
+        cubeInfo.setCreateTime(new Date());
+        cubeInfo.setProgress(0.0);
         cubeInfoServiceI.addCubeInfo(cubeInfo);
 
         int lastCubeId = cubeInfoServiceI.getLastCubeInfoId();
@@ -422,7 +423,7 @@ public class KylinController {
             schemaDimension.setSchemaId(schemaLastId);
             schemaDimension.setName(dimensionName);
             schemaDimension.setTableName(dimensionTableName);
-            schemaDimension.setKey(key_attribute);
+
             tag2 = dimensionServiceI.addDimension(schemaDimension);
             int dimensionId = dimensionServiceI.getLastDimensionId();
             schemaDimension.setId(dimensionId);
@@ -434,12 +435,15 @@ public class KylinController {
                 SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
                 String attributeName = col.split("-")[1];
                 String fieldName = col.split("-")[0];
+                boolean isKey = false;
                 if (fieldName.equalsIgnoreCase(kylinTable.getFactTablePrimaryKey())) {
                     isExist = true;
+                    isKey = true;
                 }
                 for (KylinLookup kylinLookup : kylinLookups) {
                     if (fieldName.equalsIgnoreCase(kylinLookup.getPrimaryKey())) {
                         isExist = true;
+                        isKey = true;
                     }
                 }
                 schemaDimensionAttribute.setDimensionId(dimensionId);
@@ -447,6 +451,11 @@ public class KylinController {
                 schemaDimensionAttribute.setFieldName(fieldName);
                 tag3 = dimensionAttributeServiceI.addDimensionAttribute(schemaDimensionAttribute);
                 schemaDimensionAttributes.add(schemaDimensionAttribute);
+
+                // saiku 的维度 Key 属性是 字段别名，当传入的 kylin cube 有 主键维的时候 Key = 别名，否则 key = 字段名
+                if (isKey){
+                    schemaDimension.setKey(attributeName);
+                }
             }
             // 给当前维度增加，相应表的主键属性
             SchemaDimensionAttribute schemaDimensionAttribute = new SchemaDimensionAttribute();
@@ -456,11 +465,13 @@ public class KylinController {
                 if(kylinDimension.getTableName().equals(kylinTable.getFactTable())){
                     attributeName = kylinTable.getFactTablePrimaryKey();
                     fieldName = kylinTable.getFactTablePrimaryKey();
+                    schemaDimension.setKey(attributeName);
                 }else {
                     for (KylinLookup kylinLookup:kylinLookups){
                         if (kylinDimension.getTableName().equals(kylinLookup.getName())){
                             attributeName = kylinLookup.getPrimaryKey();
                             fieldName = kylinLookup.getPrimaryKey();
+                            schemaDimension.setKey(attributeName);
                             break;
                         }
                     }
