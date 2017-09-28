@@ -20,7 +20,7 @@ public class DBUtils {
      * @param dbconnInfo
      * @return
      */
-    public  static  int testConn(DbconnInfo dbconnInfo){
+    public static int testConn(DbconnInfo dbconnInfo){
         int tag = 0;
         try {
             Class.forName(dbconnInfo.getJdbcname());
