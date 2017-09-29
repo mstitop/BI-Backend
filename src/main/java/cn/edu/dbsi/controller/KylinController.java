@@ -495,6 +495,7 @@ public class KylinController {
         int measureGroupId = measureGroupServiceI.getLastMeasureGroupId();
         schemaMeasureGroup.setId(measureGroupId);
         for(KylinMeasure kylinMeasure:kylinMeasuresList){
+
             if (kylinMeasure.getName().equals("_COUNT_")||kylinMeasure.getParamType().equals("constant")) {
                 continue;
             }
@@ -702,7 +703,7 @@ public class KylinController {
         hbase_map_f1_list.add("_COUNT_");
         List<String> hbase_map_f2_list = new ArrayList<String>();
         for (KylinMeasure kylinMeasure : kylinMeasureList) {
-            if (kylinMeasure.getParamType().equalsIgnoreCase("count")){
+            if (kylinMeasure.getExpression().equalsIgnoreCase("count")){
                 continue;
             }
             JSONObject measureObj = new JSONObject();

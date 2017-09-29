@@ -273,7 +273,11 @@
       <artifactId>hadoop-common</artifactId>
       <version>2.6.5</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.olap4j</groupId>
+      <artifactId>olap4j</artifactId>
+      <version>1.2.0</version>
+    </dependency>
     <!-- spring security core -->
     <!--<dependency>
       <groupId>org.springframework.security</groupId>

@@ -50,7 +50,11 @@ public class CubeInfoController {
                     cubeMap.put("description",cube.getDescription());
                     cubeMap.put("category",cube.getCategory());
                     cubeMap.put("createTime",cube.getCreateTime());
-                    cubeMap.put("finishTime",cube.getFinishTime());
+                    if (cube.getFinishTime() != null && !"".equals(cube.getFinishTime())) {
+                        cubeMap.put("finishTime",cube.getFinishTime());
+                    }else {
+                        cubeMap.put("finishTime","");
+                    }
                     cubeMap.put("status",cube.getStatus());
                     cubeMap.put("progress",cube.getProgress());
                     list.add(cubeMap);
@@ -73,7 +77,11 @@ public class CubeInfoController {
             Map<String,Object> map = new HashMap<String, Object>();
             map.put("status",cubeInfo.getStatus());
             map.put("progress",cubeInfo.getProgress());
-            map.put("finishTime",cubeInfo.getFinishTime());
+            if (cubeInfo.getFinishTime() != null && !"".equals(cubeInfo.getFinishTime())) {
+                map.put("finishTime",cubeInfo.getFinishTime());
+            }else {
+                map.put("finishTime","");
+            }
             return StatusUtil.querySuccess(map);
         }else {
             return StatusUtil.error("","不存在此Id的cube信息！");
