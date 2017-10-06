@@ -35,6 +35,9 @@
     <select id="selectCubeInfoLastPrimaryKey" resultType="java.lang.Integer">
     select id from cube_info order by id DESC limit 1
     </select>
+    <select id="selectSchemaIdByCubeName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT schema_id from cube_info WHERE name = #{ name,jdbcType=VARCHAR} AND is_delete = '0'
+    </select>
     <select id="selectCubeInfoByPage" resultMap="BaseResultMap" parameterType="Map">
         select
         <include refid="Base_Column_List"/>

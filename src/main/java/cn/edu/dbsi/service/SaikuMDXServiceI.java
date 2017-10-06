@@ -8,4 +8,6 @@ import cn.edu.dbsi.model.SaikuMDX;
 public interface SaikuMDXServiceI {
 
     int addSaikuMax(SaikuMDX saikuMDX);
+    int selectLastPrimaryKey();
+    SaikuMDX selectByPrimaryKey(Integer id);
 }

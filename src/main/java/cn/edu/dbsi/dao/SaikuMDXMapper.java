@@ -16,4 +16,6 @@ public interface SaikuMDXMapper {
     int updateByPrimaryKeySelective(SaikuMDX record);
 
     int updateByPrimaryKey(SaikuMDX record);
+
+    int selectSaikuMdxLastPrimaryKey();
 }

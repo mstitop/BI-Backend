@@ -366,8 +366,8 @@ public class HttpConnectDeal {
 
     /**
      *  对kylin 发起 get 请求
+     * @param jobConfig
      * @param uri
-     * @param json
      * @return
      */
     public static String getFromKylin(JobConfig jobConfig, String uri) {
@@ -411,6 +411,12 @@ public class HttpConnectDeal {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return content;
+    }
+
+    public static String getMdxFromSaiku( String fileName){
+        String content = "";
+
         return content;
     }
     public static String postStream(String urlStr) {

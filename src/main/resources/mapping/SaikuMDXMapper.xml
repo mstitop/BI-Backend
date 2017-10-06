@@ -19,6 +19,9 @@
     delete from saiku_mdx
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <select id="selectSaikuMdxLastPrimaryKey" resultType="java.lang.Integer">
+    select id from saiku_mdx order by id DESC limit 1
+  </select>
   <insert id="insert" parameterType="cn.edu.dbsi.model.SaikuMDX" >
     insert into saiku_mdx (id, mdx, execute_time
       )

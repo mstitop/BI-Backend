@@ -22,4 +22,6 @@ public interface CubeInfoServiceI {
     List<CubeInfo> getCubeInfoByPage(Map<String,Object> map);
 
     int getLastCubeInfoId();
+
+    int getSchemaIdByCubeName(String cubeName);
 }

@@ -18,4 +18,10 @@ public class SaikuMDXServiceImpl implements SaikuMDXServiceI {
     public int addSaikuMax(SaikuMDX saikuMDX) {
         return saikuMDXMapper.insert(saikuMDX);
     }
+
+    public int selectLastPrimaryKey(){
+        return saikuMDXMapper.selectSaikuMdxLastPrimaryKey();
+    }
+
+    public SaikuMDX selectByPrimaryKey(Integer id){return saikuMDXMapper.selectByPrimaryKey(id); }
 }

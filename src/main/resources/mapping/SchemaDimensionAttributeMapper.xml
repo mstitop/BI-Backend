@@ -10,6 +10,12 @@
   <sql id="Base_Column_List" >
     id, name, field_name, dimension_id
   </sql>
+  <select id="selectAllAttributeByDimensionId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from schema_dimension_attribute
+    WHERE dimension_id = #{dimensionId,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
