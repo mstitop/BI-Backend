@@ -39,7 +39,7 @@ public class OlapRecommendController {
     @Autowired
     private SchemaDimensionAttributeServiceI schemaDimensionAttributeServiceI;
 
-    @RequestMapping(value = "/olaprecommend", method = RequestMethod.POST)
+    @RequestMapping(value = "/olap/recommend", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> recommendOlap(@RequestBody Map<String, Object> json) {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -121,7 +121,7 @@ public class OlapRecommendController {
 
         });
         List<Map<String,Object>> tempList = new ArrayList<Map<String,Object>>();
-
+        int count = 0;
         for(Map.Entry<String,Double> mapping:list){
             Map<String,Object> temp = new HashMap<String,Object>();
             System.out.println(mapping.getKey()+" : "+mapping.getValue());
@@ -129,6 +129,9 @@ public class OlapRecommendController {
             temp.put("mdx",candidateMdxMap.get(mapping.getKey()));
             temp.put("similarity",mapping.getValue());
             tempList.add(temp);
+            count++;
+            if(count > 5)
+                break;
         }
         result.put("recommendMdxs",tempList);
         return StatusUtil.querySuccess(result);

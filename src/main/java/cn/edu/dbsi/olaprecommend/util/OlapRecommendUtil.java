@@ -227,7 +227,10 @@ public class OlapRecommendUtil {
                 distance = Math.abs(position_1 - position_2);
             }
             Hierarchy tempHie = cube.findHierarchy(hierarchyName);
-            result += distance / (tempHie.getLevelCount() - 1);
+            if (tempHie.getLevelCount() == 1)
+                result += distance / (tempHie.getLevelCount());
+            else
+                result += distance / (tempHie.getLevelCount() - 1);
         }
         return (1 - result / q1.getGroupBySet().size());
     }
@@ -242,6 +245,8 @@ public class OlapRecommendUtil {
         list1 = query1.getMeasures();
         list2 = query2.getMeasures();
 
+        if (union == 0.0)
+            union = 1.0;
         list1.retainAll(list2);
         return list2.size() / union;
     }
