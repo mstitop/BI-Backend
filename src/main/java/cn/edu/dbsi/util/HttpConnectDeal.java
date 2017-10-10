@@ -73,6 +73,8 @@ public class HttpConnectDeal {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            httpget.releaseConnection();
         }
         return content;
     }
@@ -116,6 +118,8 @@ public class HttpConnectDeal {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            httpPost.releaseConnection();
         }
         return content;
     }
@@ -172,6 +176,8 @@ public class HttpConnectDeal {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            httpPost.releaseConnection();
         }
         return content;
     }
@@ -238,7 +244,8 @@ public class HttpConnectDeal {
     }
 
     /**
-     *  对kylin 发起 post json 请求
+     * 对kylin 发起 post json 请求
+     *
      * @param uri
      * @param json
      * @return
@@ -297,13 +304,16 @@ public class HttpConnectDeal {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            httpPost.releaseConnection();
         }
         return content;
     }
 
 
     /**
-     *  对kylin 发起 put json 请求
+     * 对kylin 发起 put json 请求
+     *
      * @param uri
      * @param json
      * @return
@@ -311,7 +321,6 @@ public class HttpConnectDeal {
     public static String putJson2Kylin(JobConfig jobConfig, String uri, JSONObject json) {
         // 实例化httpClient
         CloseableHttpClient httpclient = HttpClients.createDefault();
-
 
 
         //利用Preemptive authentication认证机制，不同的saiku其hostname是不同的
@@ -360,14 +369,16 @@ public class HttpConnectDeal {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            httpPut.releaseConnection();
         }
         return content;
     }
 
     /**
-     *  对kylin 发起 get 请求
+     * 对kylin 发起 get 请求
+     *
      * @param uri
-     * @param json
      * @return
      */
     public static String getFromKylin(JobConfig jobConfig, String uri) {
@@ -410,9 +421,12 @@ public class HttpConnectDeal {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            httpGet.releaseConnection();
         }
         return content;
     }
+
     public static String postStream(String urlStr) {
         try {
             URL url = new URL(urlStr);

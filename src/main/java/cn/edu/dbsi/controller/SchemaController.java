@@ -93,6 +93,10 @@ public class SchemaController {
         cubeSchema.setCubeName(schemaName);
         cubeSchema.setBusinessPackageId(bpid);
         schema.setName(schemaName);
+        List<String> cubeNames = cubeInfoServiceI.getCubesNames();
+        if (cubeNames.contains(schemaName)) {
+            return StatusUtil.error("","cube名字不能重复！");
+        }
         cubeInfo.setName(schemaName);
         cubeInfo.setBpOrDataxId(bpid);
         cubeInfo.setDescription(description);
