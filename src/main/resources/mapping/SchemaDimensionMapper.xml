@@ -11,6 +11,12 @@
   <sql id="Base_Column_List" >
     id, name, schema_dimension.table_name, schema_dimension.key, schema_id
   </sql>
+  <select id="selectAllDimensionBySchemaId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select
+  <include refid="Base_Column_List"/>
+  from schema_dimension
+  WHERE schema_id = #{schemaId,jdbcType=INTEGER}
+</select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

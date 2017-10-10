@@ -45,7 +45,12 @@ public class CubeInfoServiceImpl implements CubeInfoServiceI {
         return cubeInfoMapper.selectLastPrimaryKey();
     }
 
+<<<<<<< HEAD
     public List<String> getCubesNames() {
         return cubeInfoMapper.selectCubeNames();
+=======
+    public int getSchemaIdByCubeName(String cubeName) {
+        return cubeInfoMapper.selectSchemaIdByCubeName(cubeName);
+>>>>>>> 011bbc2d150ba8fa379178ed26e75a2bf7121015
     }
 }

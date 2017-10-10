@@ -28,5 +28,9 @@ public interface CubeInfoMapper {
 
     int selectLastPrimaryKey();
 
+<<<<<<< HEAD
     List<String> selectCubeNames();
+=======
+    int selectSchemaIdByCubeName(String cubeName);
+>>>>>>> 011bbc2d150ba8fa379178ed26e75a2bf7121015
 }

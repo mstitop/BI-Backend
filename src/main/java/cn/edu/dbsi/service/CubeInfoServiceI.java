@@ -23,5 +23,9 @@ public interface CubeInfoServiceI {
 
     int getLastCubeInfoId();
 
+<<<<<<< HEAD
     List<String> getCubesNames();
+=======
+    int getSchemaIdByCubeName(String cubeName);
+>>>>>>> 011bbc2d150ba8fa379178ed26e75a2bf7121015
 }

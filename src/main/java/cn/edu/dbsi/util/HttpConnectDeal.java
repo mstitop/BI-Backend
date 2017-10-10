@@ -376,8 +376,13 @@ public class HttpConnectDeal {
     }
 
     /**
+<<<<<<< HEAD
      * 对kylin 发起 get 请求
      *
+=======
+     *  对kylin 发起 get 请求
+     * @param jobConfig
+>>>>>>> 011bbc2d150ba8fa379178ed26e75a2bf7121015
      * @param uri
      * @return
      */
@@ -427,6 +432,14 @@ public class HttpConnectDeal {
         return content;
     }
 
+<<<<<<< HEAD
+=======
+    public static String getMdxFromSaiku( String fileName){
+        String content = "";
+
+        return content;
+    }
+>>>>>>> 011bbc2d150ba8fa379178ed26e75a2bf7121015
     public static String postStream(String urlStr) {
         try {
             URL url = new URL(urlStr);
