@@ -103,6 +103,11 @@ public class KylinController {
 
         JSONObject obj = new JSONObject(json);
         String cubeName = obj.getString("name");
+        List<String> cubeNames = cubeInfoServiceI.getCubesNames();
+        if (cubeNames.contains(cubeName)) {
+            return StatusUtil.error("","cube名字不能重复！");
+        }
+
         int taskId = obj.getInt("taskId");
         String hiveDbName = "bi_" + taskId;
         String description = obj.getString("description");
@@ -192,7 +197,9 @@ public class KylinController {
         tables.append(kylinTable1.getFactTable());
         String project = jobConfig.getKylinProject();
 
-        int tagModel = 1,tagCube = 1,tagLoad = 1,tagSaiku = 1, buildTag = 1;
+        int tagLoad = 1,tagSaiku = 1, buildTag = 1;
+        String tagModel = "";
+        String tagCube = "1";
         // 生成 kylin model json
         JSONObject modelObj = cube2KylinModel(kylinCube);
         System.out.println(modelObj);
@@ -229,8 +236,11 @@ public class KylinController {
         }
 
 
-        if (tagModel == 0){
-            return StatusUtil.error("", "生成 model 失败");
+        if (!tagModel.equals("1")){
+            if(tagModel.equals("0"))
+                return StatusUtil.error("", "生成 model 失败");
+            else
+                return StatusUtil.error("", tagModel);
         }else {
             String cubeResponse = HttpConnectDeal.postJson2Kylin(jobConfig,kylinCubeApi,cubeObj);
             tagCube = isSuccessful(cubeResponse);
@@ -240,8 +250,11 @@ public class KylinController {
         CubeInfo cubeInfo;
         String saikuPath = request.getSession().getServletContext().getRealPath("/saiku") + File.separator;
 
-        if (tagCube == 0){
-            return StatusUtil.error("", "生成 cube 失败");
+        if (!tagCube.equals("1")){
+            if(tagCube.equals("0"))
+                return StatusUtil.error("", "生成 cube 失败");
+            else
+                return StatusUtil.error("", tagCube);
         }else {
             // 将 kylinCube 解析成 schema 形式,并存入数据库
 
@@ -562,22 +575,35 @@ public class KylinController {
             return returnMap;
         }
     }
-    private int isSuccessful(String response){
+    private String isSuccessful(String response){
         int tag = 1;
+        boolean hasException = false;
+        String exception = "";
         if (response == "" || response == null){
             tag  = 0;
         }else {
             try {
                 JSONObject modelResponseObj = new JSONObject(response);
-                if (!modelResponseObj.getBoolean("successful")) {
+                if (modelResponseObj.has("exception")){
+                    hasException = true;
+                    tag = 0;
+                    exception = modelResponseObj.getString("exception");
+                }
+                if (modelResponseObj.has("successful") && !modelResponseObj.getBoolean("successful")) {
                     tag = 0;
                 }
+
             } catch (JSONException e) {
                 tag = 0;
             }
 
         }
-        return tag;
+        if (tag == 1)
+            return "1";
+        else if (tag == 0 && hasException)
+            return exception;
+        else
+            return "0";
     }
     private JSONObject cube2KylinModel(KylinCube kylinCube) {
         JSONObject modelObj = new JSONObject();

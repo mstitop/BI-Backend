@@ -50,7 +50,7 @@
         </if>
     </select>
     <select id="selectCubeNames" resultType="java.lang.String">
-        select name from cube_info
+        select name from cube_info WHERE is_delete = '0'
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from cube_info

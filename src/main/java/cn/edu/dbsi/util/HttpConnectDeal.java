@@ -296,7 +296,7 @@ public class HttpConnectDeal {
             // 执行post请求
             response = httpclient.execute(targetHost, httpPost, context);
 //            response = httpclient.execute(httpPost);
-            if (response.getStatusLine().getStatusCode() == 200) {
+            if (response.getStatusLine().getStatusCode() == 200 || response.getStatusLine().getStatusCode() == 500) {
                 content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 System.out.println(content);
             }
